@@ -2,6 +2,7 @@ package io.github.eng12020team24.project1;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,9 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import io.github.eng12020team24.project1.characters.Auber;;
 
-public class ActualGame extends Game{
+public class ActualGame extends Game implements Screen{
     AuberGame game;
-
     private TextureAtlas textureAtlas;
 	public Animation<TextureRegion> auber_walk;
 	public Animation<TextureRegion> star_twinkle;
@@ -42,7 +42,7 @@ public class ActualGame extends Game{
         auber = new Auber(textureAtlas);
     }
     @Override
-	public void render() {
+	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += Gdx.graphics.getDeltaTime();
@@ -55,5 +55,15 @@ public class ActualGame extends Game{
 		game.batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
 		auber.render(game.batch, Gdx.graphics.getDeltaTime());
         game.batch.end();
+    }
+
+    @Override
+    public void show() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void hide() {
+        // TODO Auto-generated method stub
     }
 }
