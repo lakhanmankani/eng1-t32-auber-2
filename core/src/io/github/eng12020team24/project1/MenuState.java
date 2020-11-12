@@ -33,19 +33,19 @@ public class MenuState implements Screen{
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
         if (Gdx.input.getY()>Gdx.graphics.getHeight()-128 && Gdx.input.getX()< 450){ //exit
             if (Gdx.input.isTouched()){
                 System.exit(0);
             }
-        } else if (Gdx.input.getY() > Gdx.graphics.getHeight()-128 &&
-        Gdx.input.getY() < Gdx.graphics.getHeight() -256 &&
+        } else if (Gdx.input.getY() < Gdx.graphics.getHeight()-128 &&
+        Gdx.input.getY() > Gdx.graphics.getHeight() -256 &&
         Gdx.input.getX()< 450){
             if (Gdx.input.isTouched()){
                 this.dispose();
                 game.setScreen(new ActualGame(game));
             }
         }
+        game.batch.begin();
         game.batch.draw(exitButton,0,0);
         game.batch.draw(playButton,0,128);
 		game.batch.end();
