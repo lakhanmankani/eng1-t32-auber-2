@@ -15,8 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import io.github.eng12020team24.project1.characters.Auber;;
 
-public class ActualGame extends Game implements Screen{
-    AuberGame game;
+public class ActualGame implements Screen{
+    final AuberGame game;
     private TextureAtlas textureAtlas;
 	public Animation<TextureRegion> auber_walk;
 	public Animation<TextureRegion> star_twinkle;
@@ -28,10 +28,8 @@ public class ActualGame extends Game implements Screen{
     
     public ActualGame(AuberGame game){
         this.game = game;
-    }
-	@Override
-	public void create () {
-		game.batch = new SpriteBatch();
+        game.batch = new SpriteBatch();
+        
         textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
         auber_walk = new Animation<TextureRegion>(1f/4f, textureAtlas.findRegions("AUBER_WALK"));
         star_twinkle = new Animation<TextureRegion>(1f/8f, textureAtlas.findRegions("SPACE_BG"));
@@ -41,9 +39,10 @@ public class ActualGame extends Game implements Screen{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         auber = new Auber(textureAtlas);
     }
+
     @Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.5f, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += Gdx.graphics.getDeltaTime();
 
@@ -65,5 +64,29 @@ public class ActualGame extends Game implements Screen{
     @Override
     public void hide() {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void resume() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void dispose() {
+    }
+    public static void main(){
     }
 }
