@@ -59,7 +59,7 @@ public class AuberGame extends ApplicationAdapter {
 		//camera.update();
 		//tiledMapRenderer.setView(camera);
 		//tiledMapRenderer.render();
-		gameMap.render(camera);
+		gameMap.render(camera);//All you need to render the map. Use methods in TileGameMap to interact with map.
 
 		//batch.begin();
 		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
