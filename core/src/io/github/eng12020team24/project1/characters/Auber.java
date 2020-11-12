@@ -27,8 +27,39 @@ public class Auber extends Character{
         if (movementElapsedTime == 0) {
             batch.draw(idleTexture, xPos, yPos, 16, 16, 32, 32, 1, 1, rotation);
             // Draws Auber with the specific rotation
+        } else {
+            batch.draw(walkingAnimation.getKeyFrame(movementElapsedTime, true), xPos, yPos, 16, 16, 32, 32, 1, 1, rotation);
         }
     }
 
-
+    public void move(float deltaTime) {
+        if (Gdx.input.isKeyPressed(Keys.W)) {
+            if (Gdx.input.isKeyPressed(Keys.A)) {
+                rotation = 225; //
+            } else if (Gdx.input.isKeyPressed(Keys.D)) {
+                rotation = 135; //
+            } else {
+                rotation = 180; //done
+            }
+        } else if (Gdx.input.isKeyPressed(Keys.S)) {
+            if (Gdx.input.isKeyPressed(Keys.A)) {
+                rotation = 315; //done
+            } else if (Gdx.input.isKeyPressed(Keys.D)) {
+                rotation = 45; //
+            } else {
+                rotation = 0; //done
+            }
+        } else if (Gdx.input.isKeyPressed(Keys.A)) {
+            rotation = 270; //done
+        } else if (Gdx.input.isKeyPressed(Keys.D)) {
+            rotation = 90; //done
+        }
+        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.D)) {
+            xPos += Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 180)));
+            yPos += Math.round(deltaTime * 4 * 32 * -1 * Math.sin(Math.toRadians(rotation - 180)));
+            movementElapsedTime += deltaTime;
+        } else {
+            movementElapsedTime = 0;
+        }
+    }
 }

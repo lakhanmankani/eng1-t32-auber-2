@@ -50,7 +50,8 @@ public class AuberGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += Gdx.graphics.getDeltaTime();
-
+		auber.move(Gdx.graphics.getDeltaTime());
+		camera.position.set(auber.getPositionForCamera());
 		camera.update();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
