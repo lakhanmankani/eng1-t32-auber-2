@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.characters.Auber;
 
 public class AuberGame extends ApplicationAdapter {
@@ -26,9 +28,10 @@ public class AuberGame extends ApplicationAdapter {
 	public Animation<TextureRegion> star_twinkle;
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
-	TiledMap tiledMap;
-	TiledMapRenderer tiledMapRenderer;
+	//TiledMap tiledMap;
+	//TiledMapRenderer tiledMapRenderer;
 	Auber auber;
+	GameMap gameMap;
 	
 	@Override
 	public void create () {
@@ -40,9 +43,11 @@ public class AuberGame extends ApplicationAdapter {
 		star_twinkle = new Animation<TextureRegion>(1f/8f, textureAtlas.findRegions("SPACE_BG"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		camera.update();
+		//tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
+		//tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		auber = new Auber(textureAtlas);
+		gameMap = new TiledGameMap();
 	}
 
 	@Override
@@ -50,16 +55,17 @@ public class AuberGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += Gdx.graphics.getDeltaTime();
-		auber.move(Gdx.graphics.getDeltaTime());
-		camera.position.set(auber.getPositionForCamera());
-		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
-		batch.begin();
+
+		//camera.update();
+		//tiledMapRenderer.setView(camera);
+		//tiledMapRenderer.render();
+		gameMap.render(camera);
+
+		//batch.begin();
 		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
-		batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
-		auber.render(batch, Gdx.graphics.getDeltaTime());
-		batch.end();
+		//batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
+		//auber.render(batch, Gdx.graphics.getDeltaTime());
+		//batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			System.exit(0); // so you dont have to ALT+F4 the program
