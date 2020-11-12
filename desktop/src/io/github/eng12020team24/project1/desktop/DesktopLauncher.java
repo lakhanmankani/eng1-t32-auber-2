@@ -7,7 +7,11 @@ import io.github.eng12020team24.project1.AuberGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new AuberGame(), config);
 		config.foregroundFPS = 60;
+		config.fullscreen = true;
+		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		// this properly sets up fullscreen
+		new LwjglApplication(new AuberGame(), config);
 	}
 }
