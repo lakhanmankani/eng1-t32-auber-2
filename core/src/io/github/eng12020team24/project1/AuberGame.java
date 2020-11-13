@@ -2,11 +2,12 @@ package io.github.eng12020team24.project1;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
 
-public class AuberGame extends Game{
+public class AuberGame extends Game {
 	SpriteBatch batch;
 	Texture img;
 
@@ -15,20 +16,19 @@ public class AuberGame extends Game{
 	public void create () {
 		batch = new SpriteBatch();
 		this.setScreen(new MenuState(this));
-		img = new Texture("badlogic.jpg");
 	}
 
 	@Override
 	public void render () {
-    
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		elapsedTime += Gdx.graphics.getDeltaTime();
+		/*Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);*/
+		super.render();
+		//elapsedTime += Gdx.graphics.getDeltaTime();
 
 		//camera.update();
 		//tiledMapRenderer.setView(camera);
 		//tiledMapRenderer.render();
-		gameMap.render(camera);//All you need to render the map. Use methods in TileGameMap to interact with map.
+		//gameMap.render(camera);//All you need to render the map. Use methods in TileGameMap to interact with map.
 
 		//batch.begin();
 		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
