@@ -4,16 +4,23 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public abstract class GameMap {
 
-    public abstract void render (OrthographicCamera camera);
-    public abstract void update (float delta);
-    public abstract void dispose ();
+    public abstract void render(OrthographicCamera camera);
+
+    public abstract void update(float delta);
+
+    public abstract void dispose();
 
     public abstract int getWidth();
+
     public abstract int getHeight();
+
     public abstract int getLayers();
 
-    public TileType getTileTypeByLocation(int layer, float x, float y){
-        return this.getTileTypeByCoordinate(layer,(int)(x/TileType.TILE_SIZE),(int)(y/TileType.TILE_SIZE));
+    public TileType getTileTypeByLocation(int layer, float x, float y) {
+        return this.getTileTypeByCoordinate(layer, (int) (x / TileType.TILE_SIZE), (int) (y / TileType.TILE_SIZE));
+        // Casting a float to an int is downcasting, i.e. it drops the
+        // decimal/non-integer section.
     };
+
     public abstract TileType getTileTypeByCoordinate(int layer, int col, int row);
 }
