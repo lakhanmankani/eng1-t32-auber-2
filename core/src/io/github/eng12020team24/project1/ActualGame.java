@@ -46,6 +46,9 @@ public class ActualGame implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		elapsedTime += Gdx.graphics.getDeltaTime();
 
+        auber.move(Gdx.graphics.getDeltaTime());
+
+        camera.position.set(auber.getPositionForCamera());
 		camera.update();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
