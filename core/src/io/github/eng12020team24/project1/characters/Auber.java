@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
+import io.github.eng12020team24.mapclasses.GameMap;
 
 public class Auber extends Character{
     private float movementElapsedTime = 0;
@@ -15,13 +16,14 @@ public class Auber extends Character{
     private int renderXPos;
     private int renderYPos;
 
-    public Auber(TextureAtlas textureAtlas) {
+    public Auber(TextureAtlas textureAtlas, GameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f/4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
         xPos = 960;
-        yPos = 540;
+        yPos = 570;
         renderXPos = (Gdx.graphics.getWidth() / 2) - 16;
         renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
+        this.map = map;
         // These are precomputed to save on CPU as it does not need to be recalculated every frame.
     }
 
@@ -59,8 +61,12 @@ public class Auber extends Character{
         }
         // rotation = 180 is true when moving up.  But when moving up, rotation should be 90 (sin 1, cos 0)
         if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.D)) {
-            xPos += Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 90)));
-            yPos += Math.round(deltaTime * 4 * 32 * Math.sin(Math.toRadians(rotation - 90)));
+            float newX = xPos + Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 90)));
+            float newY = yPos + Math.round(deltaTime * 4 * 32 * Math.sin(Math.toRadians(rotation - 90)));
+            if (!map.doesRectCollideWithMap(newX-16,newY-16,30,30)) {
+                xPos = (int) (newX);
+                yPos = (int) (newY);
+            }
             movementElapsedTime += deltaTime;
         } else {
             movementElapsedTime = 0;
