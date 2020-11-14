@@ -1,6 +1,6 @@
 
 myspritesheet.png
-size: 512,64
+size: 1024,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -109,3 +109,59 @@ WALL
   orig: 32, 32
   offset: 0, 0
   index: -1
+Z_INFILTRATOR_WALK
+  rotate: false
+  xy: 512, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Z_INFILTRATOR_WALK
+  rotate: false
+  xy: 546, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+Z_INFILTRATOR_WALK
+  rotate: false
+  xy: 580, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Z_INFILTRATOR_WALK
+  rotate: false
+  xy: 614, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+Z_NPC_WALK
+  rotate: false
+  xy: 648, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Z_NPC_WALK
+  rotate: false
+  xy: 682, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+Z_NPC_WALK
+  rotate: false
+  xy: 716, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Z_NPC_WALK
+  rotate: false
+  xy: 750, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
