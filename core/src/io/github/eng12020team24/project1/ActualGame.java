@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.characters.Auber;;
 
 public class ActualGame implements Screen{
@@ -22,8 +24,7 @@ public class ActualGame implements Screen{
 	public Animation<TextureRegion> star_twinkle;
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
-	TiledMap tiledMap;
-	TiledMapRenderer tiledMapRenderer;
+	GameMap gameMap;
 	Auber auber;
     
     public ActualGame(AuberGame game){
@@ -35,9 +36,8 @@ public class ActualGame implements Screen{
         star_twinkle = new Animation<TextureRegion>(1f/8f, textureAtlas.findRegions("SPACE_BG"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        auber = new Auber(textureAtlas);
+        gameMap = new TiledGameMap();
+        auber = new Auber(textureAtlas, gameMap);
     }
 
     @Override
@@ -50,8 +50,7 @@ public class ActualGame implements Screen{
 
         camera.position.set(auber.getPositionForCamera());
 		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+		gameMap.render(camera);
 		game.batch.begin();
 		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
 		game.batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
