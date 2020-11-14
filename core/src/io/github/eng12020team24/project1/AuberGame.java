@@ -19,23 +19,8 @@ public class AuberGame extends Game {
 
 	@Override
 	public void render() {
-		/*
-		 * Gdx.gl.glClearColor(0, 0, 0, 1); Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		 */
 		super.render();
-		// elapsedTime += Gdx.graphics.getDeltaTime();
 
-		// camera.update();
-		// tiledMapRenderer.setView(camera);
-		// tiledMapRenderer.render();
-		// gameMap.render(camera);//All you need to render the map. Use methods in
-		// TileGameMap to interact with map.
-
-		// batch.begin();
-		// batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
-		// batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
-		// auber.render(batch, Gdx.graphics.getDeltaTime());
-		// batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			System.exit(0); // so you dont have to ALT+F4 the program

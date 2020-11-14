@@ -1,7 +1,6 @@
 package io.github.eng12020team24.mapclasses;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeoutException;
 
 public enum TileType {
 
@@ -16,6 +15,7 @@ public enum TileType {
     FLOOR_LINED(12, false, "STORAGE_FLOOR"), 
     PAD_TP(13, false, "TELEPORT_PAD"), 
     PAD_HEAL(6, false, "HEALING_PAD");
+    // the types of tiles on the map and their id, whether they are collidable and their name
 
     public static final int TILE_SIZE = 32;
 
@@ -49,6 +49,7 @@ public enum TileType {
             tileMap.put(tileType.getId(), tileType);
         }
     }
+    // Creates a hashmap to link tile types to their IDs.
 
     public static TileType getTileTypeById(int id) {
         return tileMap.get(id);

@@ -26,7 +26,11 @@ public class Auber extends Character {
         // every frame.
     }
 
-    public void render(SpriteBatch batch, float elapsedTime) {
+    /**
+     * 
+     * @param batch The SpriteBatch used to draw Auber.
+     */
+    public void render(SpriteBatch batch) {
         if (movementElapsedTime == 0) {
             batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
             // Draws Auber with the specific rotation. RenderXPos and renderYPos ensure
