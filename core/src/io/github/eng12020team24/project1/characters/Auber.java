@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.mapclasses.TileType;
 
 public class Auber extends Character {
+    public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
+                                               // collision to not look odd as Auber collides with gaps between the
+                                               // walls.
+    public static final int AUBER_WIDTH = 30;
     private int renderXPos;
     private int renderYPos;
     private TiledGameMap map;
@@ -17,8 +21,8 @@ public class Auber extends Character {
     public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
-        xPos = 960;
-        yPos = 570;
+        xPos = 26 * TileType.TILE_SIZE;
+        yPos = 6 * TileType.TILE_SIZE;
         renderXPos = (Gdx.graphics.getWidth() / 2) - 16;
         renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
         // These are precomputed to save on CPU as it does not need to be recalculated
@@ -58,7 +62,7 @@ public class Auber extends Character {
                 || Gdx.input.isKeyPressed(Keys.D)) {
             float newX = xPos + Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 90)));
             float newY = yPos + Math.round(deltaTime * 4 * 32 * Math.sin(Math.toRadians(rotation - 90)));
-            if (!map.doesRectCollideWithMap(newX - 16, newY - 16, 30, 30)) {
+            if (!map.doesRectCollideWithMap(newX - 16, newY - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
                 xPos = (int) (newX);
                 yPos = (int) (newY);
             }
@@ -66,5 +70,15 @@ public class Auber extends Character {
         } else {
             movementElapsedTime = 0;
         }
+    }
+
+    public boolean isAuberOnTeleporter() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            if (tile.getId() == 14) {
+                return true;
+            }
+        }
+        return false;
     }
 }

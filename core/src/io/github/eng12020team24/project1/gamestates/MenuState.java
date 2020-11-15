@@ -4,18 +4,27 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import io.github.eng12020team24.project1.gamestates.ActualGame;
+import io.github.eng12020team24.project1.gamestates.AuberGame;
 
 public class MenuState implements Screen {
     // private Stage menu;
     AuberGame game;
-    Texture playButton;
-    Texture exitButton;
+    TextureRegion playButton;
+    TextureRegion exitButton;
+    TextureAtlas uiAtlas;
+    SpriteBatch batch;
 
     public MenuState(AuberGame game) {
-        // menu = new Stage(new ScreenViewport());
         this.game = game;
-        playButton = new Texture("PLAY_BUTTON.png");
-        exitButton = new Texture("EXIT_BUTTON.png");
+        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        playButton = new TextureRegion(uiAtlas.findRegion("PLAY_BUTTON"));
+        exitButton = new TextureRegion(uiAtlas.findRegion("EXIT_BUTTON"));
+        batch = new SpriteBatch();
     }
 
     @Override
@@ -47,10 +56,10 @@ public class MenuState implements Screen {
                 game.setScreen(new ActualGame(game));
             }
         }
-        game.batch.begin();
-        game.batch.draw(exitButton, 0, 0);
-        game.batch.draw(playButton, 0, 128);
-        game.batch.end();
+        batch.begin();
+        batch.draw(exitButton, 0, 0);
+        batch.draw(playButton, 0, 128);
+        batch.end();
     }
 
     @Override

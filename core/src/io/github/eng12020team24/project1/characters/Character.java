@@ -16,9 +16,16 @@ public abstract class Character {
     protected TextureRegion idleTexture;
     protected float movementElapsedTime = 0;
 
+    public int getXPos() {
+        return xPos;
+    }
+
+    public int getYPos() {
+        return yPos;
+    }
 
     public void setX(int newX) {
-        xPos = newX;
+        xPos = newX; 
     }
 
     public void setY(int newY) {
@@ -33,11 +40,7 @@ public abstract class Character {
     public Vector3 getPositionForCamera() {
         return new Vector3(xPos, yPos, 0);
     }
-
-        /**
-     * 
-     * @param batch The SpriteBatch used to draw Auber.
-     */
+    
     public void render(SpriteBatch batch, int renderXPos, int renderYPos) {
         if (movementElapsedTime == 0) {
             batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
