@@ -5,17 +5,17 @@ import java.util.concurrent.TimeoutException;
 
 public enum TileType {
 
-    SPACE1(8,false,"SPACE_BG"),
-    SPACE2(9,false,"SPACE_BG"),
-    SPACE3(10,false,"SPACE_BG"),
-    SPACE4(11,false,"SPACE_BG"),
-    WALL(14,true,"WALL"),
-    FLOOR_GRATE(5,false,"GRATED_FLOOR"),
-    FLOOR_REACTOR(7,false,"REACTOR_FLOOR"),
-    FLOOR_STEAL(4,false,"BASE_FLOOR"),
-    FLOOR_LINED(12,false,"STORAGE_FLOOR"),
-    PAD_TP(13,false,"TELEPORT_PAD"),
-    PAD_HEAL(6,false,"HEALING_PAD");
+    SPACE1(9,false,"SPACE_BG"),
+    SPACE2(10,false,"SPACE_BG"),
+    SPACE3(11,false,"SPACE_BG"),
+    SPACE4(12,false,"SPACE_BG"),
+    WALL(15,true,"WALL"),
+    FLOOR_GRATE(6,false,"GRATED_FLOOR"),
+    FLOOR_REACTOR(8,false,"REACTOR_FLOOR"),
+    FLOOR_STEAL(5,false,"BASE_FLOOR"),
+    FLOOR_LINED(13,false,"STORAGE_FLOOR"),
+    PAD_TP(14,false,"TELEPORT_PAD"),
+    PAD_HEAL(7,false,"HEALING_PAD");
 
     public static final int TILE_SIZE = 32;
 

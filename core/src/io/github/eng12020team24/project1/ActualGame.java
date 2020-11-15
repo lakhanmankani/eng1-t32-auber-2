@@ -14,6 +14,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.characters.Auber;;
 
 public class ActualGame implements Screen{
@@ -25,8 +27,9 @@ public class ActualGame implements Screen{
 	OrthographicCamera camera;
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
-    Auber auber;
     MenuState menu;
+	GameMap gameMap;
+	Auber auber;
     
     public ActualGame(AuberGame game, MenuState menu) {
         this.game = game;
@@ -39,8 +42,9 @@ public class ActualGame implements Screen{
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        auber = new Auber(textureAtlas);
         this.menu = menu;
+        gameMap = new TiledGameMap();
+        auber = new Auber(textureAtlas, gameMap);
     }
 
     @Override
@@ -53,8 +57,7 @@ public class ActualGame implements Screen{
 
         camera.position.set(auber.getPositionForCamera());
 		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+		gameMap.render(camera);
 		game.batch.begin();
 		auber.render(game.batch, Gdx.graphics.getDeltaTime());
         game.batch.end();
