@@ -22,7 +22,6 @@ public class ActualGame implements Screen {
 	OrthographicCamera camera;
 	TiledGameMap gameMap;
     Auber auber;
-    TileGraph graph;
     
     public ActualGame(AuberGame game){
         this.game = game;
@@ -35,7 +34,6 @@ public class ActualGame implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, gameMap);
-        graph = new TileGraph(gameMap);
     }
 
     @Override

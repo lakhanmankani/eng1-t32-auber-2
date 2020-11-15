@@ -9,10 +9,6 @@ import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 
 public class Auber extends Character {
-    private float movementElapsedTime = 0;
-    private Animation<TextureRegion> walkingAnimation;
-    private TextureRegion idleTexture;
-    private float rotation = 0;
     private int renderXPos;
     private int renderYPos;
     private TiledGameMap map;
@@ -29,19 +25,8 @@ public class Auber extends Character {
         this.map = map;
     }
 
-    /**
-     * 
-     * @param batch The SpriteBatch used to draw Auber.
-     */
     public void render(SpriteBatch batch) {
-        if (movementElapsedTime == 0) {
-            batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
-            // Draws Auber with the specific rotation. RenderXPos and renderYPos ensure
-            // Auber renders in the middle of the screen as he does not follow the camera.
-        } else {
-            batch.draw(walkingAnimation.getKeyFrame(movementElapsedTime, true), renderXPos, renderYPos, 16, 16, 32, 32,
-                    1, 1, rotation);
-        }
+        super.render(batch, renderXPos, renderYPos);
     }
 
     public void move(float deltaTime) {
