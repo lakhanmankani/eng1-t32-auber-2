@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.github.eng12020team24.project1.mapclasses.GameMap;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;;
 
 public class ActualGame implements Screen {
@@ -20,7 +21,8 @@ public class ActualGame implements Screen {
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
 	TiledGameMap gameMap;
-	Auber auber;
+    Auber auber;
+    TileGraph graph;
     
     public ActualGame(AuberGame game){
         this.game = game;
@@ -33,6 +35,7 @@ public class ActualGame implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, gameMap);
+        graph = new TileGraph(gameMap);
     }
 
     @Override
