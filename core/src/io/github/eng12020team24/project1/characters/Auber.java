@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
-import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 
 public class Auber extends Character {
     private float movementElapsedTime = 0;
@@ -15,8 +15,9 @@ public class Auber extends Character {
     private float rotation = 0;
     private int renderXPos;
     private int renderYPos;
+    private TiledGameMap map;
 
-    public Auber(TextureAtlas textureAtlas, GameMap map) {
+    public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
         xPos = 960;
@@ -25,6 +26,7 @@ public class Auber extends Character {
         renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
         // These are precomputed to save on CPU as it does not need to be recalculated
         // every frame.
+        this.map = map;
     }
 
     /**

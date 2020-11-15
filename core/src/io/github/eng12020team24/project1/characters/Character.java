@@ -1,7 +1,7 @@
 package io.github.eng12020team24.project1.characters;
 
 import com.badlogic.gdx.math.Vector3;
-import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.project1.mapclasses.GameMap;
 
 public class Character {
     protected int xPos;

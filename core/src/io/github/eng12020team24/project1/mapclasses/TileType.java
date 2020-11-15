@@ -1,4 +1,4 @@
-package io.github.eng12020team24.mapclasses;
+package io.github.eng12020team24.project1.mapclasses;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package io.github.eng12020team24;
+package io.github.eng12020team24.project1.interfaces;
 
 public interface Damageable {
     //boolean isBroken;

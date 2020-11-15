@@ -1,4 +1,4 @@
-package io.github.eng12020team24.project1;
+package io.github.eng12020team24.project1.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

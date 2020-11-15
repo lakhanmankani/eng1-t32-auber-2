@@ -1,6 +1,5 @@
-package io.github.eng12020team24.project1;
+package io.github.eng12020team24.project1.gamestates;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,12 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import io.github.eng12020team24.mapclasses.GameMap;
-import io.github.eng12020team24.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.mapclasses.GameMap;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.characters.Auber;;
 
 public class ActualGame implements Screen {
@@ -24,7 +19,7 @@ public class ActualGame implements Screen {
 	public Animation<TextureRegion> star_twinkle;
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
-	GameMap gameMap;
+	TiledGameMap gameMap;
 	Auber auber;
     
     public ActualGame(AuberGame game){
@@ -52,8 +47,6 @@ public class ActualGame implements Screen {
 		camera.update();
 		gameMap.render(camera);
 		game.batch.begin();
-		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
-		game.batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
 		auber.render(game.batch);
         game.batch.end();
     }
