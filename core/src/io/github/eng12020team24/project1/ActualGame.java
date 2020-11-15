@@ -3,6 +3,7 @@ package io.github.eng12020team24.project1;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -24,10 +25,13 @@ public class ActualGame implements Screen{
 	public Animation<TextureRegion> star_twinkle;
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
+	TiledMap tiledMap;
+	TiledMapRenderer tiledMapRenderer;
+    MenuState menu;
 	GameMap gameMap;
 	Auber auber;
     
-    public ActualGame(AuberGame game){
+    public ActualGame(AuberGame game, MenuState menu) {
         this.game = game;
         game.batch = new SpriteBatch();
         
@@ -36,6 +40,9 @@ public class ActualGame implements Screen{
         star_twinkle = new Animation<TextureRegion>(1f/8f, textureAtlas.findRegions("SPACE_BG"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        this.menu = menu;
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, gameMap);
     }
@@ -52,10 +59,11 @@ public class ActualGame implements Screen{
 		camera.update();
 		gameMap.render(camera);
 		game.batch.begin();
-		//batch.draw(star_twinkle.getKeyFrame(elapsedTime,true),100,100);
-		game.batch.draw(auber_walk.getKeyFrame(elapsedTime,true), 132,100);
 		auber.render(game.batch, Gdx.graphics.getDeltaTime());
         game.batch.end();
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			game.setScreen(menu); // so you dont have to ALT+F4 the program
+		}
     }
 
     @Override

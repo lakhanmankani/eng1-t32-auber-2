@@ -22,6 +22,7 @@ public abstract class GameMap {
     public TileType getTileTypeByLocation(int layer, float x, float y){
         return this.getTileTypeByCoordinate(layer,(int)(x/TileType.TILE_SIZE),(int)(y/TileType.TILE_SIZE));
     };
+    
     public abstract TileType getTileTypeByCoordinate(int layer, int col, int row);
 
     public boolean doesRectCollideWithMap(float x,float y, int width, int height){

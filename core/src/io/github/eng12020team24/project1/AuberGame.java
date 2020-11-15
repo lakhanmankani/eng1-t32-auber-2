@@ -36,9 +36,9 @@ public class AuberGame extends Game {
 		//auber.render(batch, Gdx.graphics.getDeltaTime());
 		//batch.end();
     
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+		/*if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			System.exit(0); // so you dont have to ALT+F4 the program
-		}
+		}*/
 	}
 	
 	@Override
