@@ -8,6 +8,9 @@ public class Character {
     protected int yPos;
     public GameMap map;
 
+    public int getXPos(){return xPos;}
+    public int getYPos(){return yPos;}
+
     public void setX(int newX) {
         xPos = newX;
     }

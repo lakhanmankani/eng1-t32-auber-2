@@ -4,19 +4,23 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class MenuState implements Screen{
     //private Stage menu;
     AuberGame game;
-    Texture playButton;
-    Texture exitButton;
+    TextureRegion playButton;
+    TextureRegion exitButton;
+    TextureAtlas uiAtlas;
 
     public MenuState(AuberGame game){
         //menu = new Stage(new ScreenViewport());
         this.game=game;
-        playButton=new Texture("PLAY_BUTTON.png");
-        exitButton=new Texture("EXIT_BUTTON.png");
+        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        playButton=new TextureRegion(uiAtlas.findRegion("PLAY_BUTTON"));
+        exitButton=new TextureRegion(uiAtlas.findRegion("EXIT_BUTTON"));
     }
     @Override
 	public void show() {

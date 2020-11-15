@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.mapclasses.TileType;
 
 public class Auber extends Character{
+    public static final int AUBER_HEIGHT = 30;
+    public static final int AUBER_WIDTH = 30;
     private float movementElapsedTime = 0;
     private Animation<TextureRegion> walkingAnimation;
     private TextureRegion idleTexture;
@@ -19,8 +22,8 @@ public class Auber extends Character{
     public Auber(TextureAtlas textureAtlas, GameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f/4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
-        xPos = 960;
-        yPos = 570;
+        xPos = 26*TileType.TILE_SIZE;
+        yPos = 6* TileType.TILE_SIZE;
         renderXPos = (Gdx.graphics.getWidth() / 2) - 16;
         renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
         this.map = map;
@@ -63,7 +66,7 @@ public class Auber extends Character{
         if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.D)) {
             float newX = xPos + Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 90)));
             float newY = yPos + Math.round(deltaTime * 4 * 32 * Math.sin(Math.toRadians(rotation - 90)));
-            if (!map.doesRectCollideWithMap(newX-16,newY-16,30,30)) {
+            if (!map.doesRectCollideWithMap(newX-16,newY-16,AUBER_WIDTH,AUBER_HEIGHT)) {
                 xPos = (int) (newX);
                 yPos = (int) (newY);
             }
@@ -71,5 +74,14 @@ public class Auber extends Character{
         } else {
             movementElapsedTime = 0;
         }
+    }
+    public boolean isAuberOnTeleporter() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            if (tile.getId() == 14) {
+                return true;
+            }
+        }
+        return false;
     }
 }
