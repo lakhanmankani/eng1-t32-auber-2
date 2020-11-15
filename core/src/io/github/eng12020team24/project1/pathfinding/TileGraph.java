@@ -39,11 +39,23 @@ public class TileGraph implements IndexedGraph<Tile> {
         connections.add(newConnection);
     }
 
-    public GraphPath<Tile> findPath(Tile startCity, Tile goalCity) {
+    public GraphPath<Tile> findPath(Tile startTile, Tile goalTile) {
         GraphPath<Tile> tilePath = new DefaultGraphPath<>();
-        new IndexedAStarPathFinder<>(this).searchNodePath(startCity, goalCity, heuristic, tilePath);
+        new IndexedAStarPathFinder<>(this).searchNodePath(startTile, goalTile, heuristic, tilePath);
         return tilePath;
     }
+
+    public GraphPath<Tile> findPath(int xPos, int yPos, int goalXPos, int goalYPos) {
+        GraphPath<Tile> tilePath = new DefaultGraphPath<>();
+        new IndexedAStarPathFinder<>(this).searchNodePath(this.getTileFromCoordinates(xPos, yPos), this.getTileFromCoordinates(goalXPos, goalYPos), heuristic, tilePath);
+        return tilePath;
+    }
+
+    public Tile getTileFromCoordinates(int xPos, int yPos) {
+        int tileSize = flatTileMap[0][0].getType().TILE_SIZE;
+        return flatTileMap[Math.floorDiv(xPos, tileSize)][Math.floorDiv(yPos, tileSize)];
+    }
+
 
     @Override
     public int getIndex(Tile node) {

@@ -8,10 +8,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import io.github.eng12020team24.project1.mapclasses.GameMap;
+import com.badlogic.gdx.math.Vector2;
+
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
-import io.github.eng12020team24.project1.pathfinding.TileGraph;
-import io.github.eng12020team24.project1.characters.Auber;;
+import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.characters.character_utils;;
 
 public class ActualGame implements Screen {
     final AuberGame game;

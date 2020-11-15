@@ -2,11 +2,12 @@ package io.github.eng12020team24.project1.characters;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import io.github.eng12020team24.project1.mapclasses.GameMap;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Character {
+public abstract class Character {
     protected int xPos;
     protected int yPos;
     protected float rotation = 0;
@@ -46,5 +47,9 @@ public class Character {
             batch.draw(walkingAnimation.getKeyFrame(movementElapsedTime, true), renderXPos, renderYPos, 16, 16, 32, 32,
                     1, 1, rotation);
         }
+    }
+
+    public void render(SpriteBatch batch, Vector2 location) {
+        this.render(batch, Math.round(location.x), Math.round(location.y));
     }
 }
