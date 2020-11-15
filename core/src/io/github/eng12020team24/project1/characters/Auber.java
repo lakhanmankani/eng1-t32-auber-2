@@ -10,7 +10,7 @@ import io.github.eng12020team24.mapclasses.GameMap;
 import io.github.eng12020team24.mapclasses.TileType;
 
 public class Auber extends Character{
-    public static final int AUBER_HEIGHT = 30;
+    public static final int AUBER_HEIGHT = 30; //Auber size set to 30, auber is visually smaller than 32, and helps collision to not look odd as Auber collides with gaps between the walls.
     public static final int AUBER_WIDTH = 30;
     private float movementElapsedTime = 0;
     private Animation<TextureRegion> walkingAnimation;

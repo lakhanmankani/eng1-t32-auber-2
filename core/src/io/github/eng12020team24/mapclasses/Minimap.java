@@ -26,11 +26,18 @@ public class Minimap {
     }
 
     public void teleportTo(Auber auber){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){ auber.move(tpLocations[0][0]*TileType.TILE_SIZE - 16,tpLocations[0][1]*TileType.TILE_SIZE - 16); }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){ auber.move(tpLocations[1][0]*TileType.TILE_SIZE - 16,tpLocations[1][1]*TileType.TILE_SIZE - 16); }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){ auber.move(tpLocations[2][0]*TileType.TILE_SIZE - 16,tpLocations[2][1]*TileType.TILE_SIZE - 16); }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){ auber.move(tpLocations[3][0]*TileType.TILE_SIZE - 16,tpLocations[3][1]*TileType.TILE_SIZE - 16); }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){ auber.move(tpLocations[4][0]*TileType.TILE_SIZE - 16,tpLocations[4][1]*TileType.TILE_SIZE - 16); }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){ auber.move(tpLocations[5][0]*TileType.TILE_SIZE - 16,tpLocations[5][1]*TileType.TILE_SIZE - 16); }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+            auber.move(tpLocations[0][0]*TileType.TILE_SIZE - 16,tpLocations[0][1]*TileType.TILE_SIZE - 16);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+            auber.move(tpLocations[1][0]*TileType.TILE_SIZE - 16,tpLocations[1][1]*TileType.TILE_SIZE - 16);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+            auber.move(tpLocations[2][0]*TileType.TILE_SIZE - 16,tpLocations[2][1]*TileType.TILE_SIZE - 16);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+            auber.move(tpLocations[3][0]*TileType.TILE_SIZE - 16,tpLocations[3][1]*TileType.TILE_SIZE - 16);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){
+            auber.move(tpLocations[4][0]*TileType.TILE_SIZE - 16,tpLocations[4][1]*TileType.TILE_SIZE - 16);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+            auber.move(tpLocations[5][0]*TileType.TILE_SIZE - 16,tpLocations[5][1]*TileType.TILE_SIZE - 16);
+        }
     }
 }

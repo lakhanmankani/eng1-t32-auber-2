@@ -53,7 +53,10 @@ public class ActualGame implements Screen{
 		camera.update();
 		gameMap.render(camera);
 		game.batch.begin();
-		if (auber.isAuberOnTeleporter()){minimap.render(game.batch, auber.getXPos(), auber.getYPos()); minimap.teleportTo(auber);}
+		if (auber.isAuberOnTeleporter()){
+		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
+		    minimap.teleportTo(auber);
+		}
 		auber.render(game.batch, Gdx.graphics.getDeltaTime());
         game.batch.end();
     }
