@@ -1,5 +1,7 @@
 package io.github.eng12020team24.project1.pathfinding;
 
+import com.badlogic.gdx.math.Vector2;
+
 import io.github.eng12020team24.project1.mapclasses.TileType;
 
 // This code, and all code in this package, is based on code here https://happycoding.io/tutorials/libgdx/pathfinding, which is released under the terms of the CC BY 4.0 license.
@@ -38,5 +40,9 @@ public class Tile {
 
     public TileType getType() {
         return this.tileType;
+    }
+
+    public Vector2 getPosition() {
+        return new Vector2(xPos, yPos);
     }
 }
