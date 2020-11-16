@@ -6,38 +6,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
-import io.github.eng12020team24.mapclasses.GameMap;
-import io.github.eng12020team24.mapclasses.TileType;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.mapclasses.TileType;
 
-public class Auber extends Character{
-    public static final int AUBER_HEIGHT = 30; //Auber size set to 30, auber is visually smaller than 32, and helps collision to not look odd as Auber collides with gaps between the walls.
+public class Auber extends Character {
+    public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
+                                               // collision to not look odd as Auber collides with gaps between the
+                                               // walls.
     public static final int AUBER_WIDTH = 30;
-    private float movementElapsedTime = 0;
-    private Animation<TextureRegion> walkingAnimation;
-    private TextureRegion idleTexture;
-    private float rotation = 0;
     private int renderXPos;
     private int renderYPos;
+    private TiledGameMap map;
 
-    public Auber(TextureAtlas textureAtlas, GameMap map) {
-        walkingAnimation = new Animation<TextureRegion>(1f/4f, textureAtlas.findRegions("AUBER_WALK"));
+    public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
+        walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
-        xPos = 26*TileType.TILE_SIZE;
-        yPos = 6* TileType.TILE_SIZE;
+        xPos = 26 * TileType.TILE_SIZE;
+        yPos = 6 * TileType.TILE_SIZE;
         renderXPos = (Gdx.graphics.getWidth() / 2) - 16;
         renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
+        // These are precomputed to save on CPU as it does not need to be recalculated
+        // every frame.
         this.map = map;
-        // These are precomputed to save on CPU as it does not need to be recalculated every frame.
     }
 
-
-    public void render(SpriteBatch batch, float elapsedTime) {
-        if (movementElapsedTime == 0) {
-            batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
-            // Draws Auber with the specific rotation.  RenderXPos and renderYPos ensure Auber renders in the middle of the screen as he does not follow the camera.
-        } else {
-            batch.draw(walkingAnimation.getKeyFrame(movementElapsedTime, true), renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
-        }
+    public void render(SpriteBatch batch) {
+        super.render(batch, renderXPos, renderYPos);
     }
 
     public void move(float deltaTime) {
@@ -47,26 +41,28 @@ public class Auber extends Character{
             } else if (Gdx.input.isKeyPressed(Keys.D)) {
                 rotation = 135; //
             } else {
-                rotation = 180; //done
+                rotation = 180; // done
             }
         } else if (Gdx.input.isKeyPressed(Keys.S)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
-                rotation = 315; //done
+                rotation = 315; // done
             } else if (Gdx.input.isKeyPressed(Keys.D)) {
                 rotation = 45; //
             } else {
-                rotation = 0; //done
+                rotation = 0; // done
             }
         } else if (Gdx.input.isKeyPressed(Keys.A)) {
-            rotation = 270; //done
+            rotation = 270; // done
         } else if (Gdx.input.isKeyPressed(Keys.D)) {
-            rotation = 90; //done
+            rotation = 90; // done
         }
-        // rotation = 180 is true when moving up.  But when moving up, rotation should be 90 (sin 1, cos 0)
-        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.D)) {
+        // rotation = 180 is true when moving up. But when moving up, rotation should be
+        // 90 (sin 1, cos 0)
+        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S)
+                || Gdx.input.isKeyPressed(Keys.D)) {
             float newX = xPos + Math.round(deltaTime * 4 * 32 * Math.cos(Math.toRadians(rotation - 90)));
             float newY = yPos + Math.round(deltaTime * 4 * 32 * Math.sin(Math.toRadians(rotation - 90)));
-            if (!map.doesRectCollideWithMap(newX-16,newY-16,AUBER_WIDTH,AUBER_HEIGHT)) {
+            if (!map.doesRectCollideWithMap(newX - 16, newY - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
                 xPos = (int) (newX);
                 yPos = (int) (newY);
             }
@@ -75,6 +71,7 @@ public class Auber extends Character{
             movementElapsedTime = 0;
         }
     }
+
     public boolean isAuberOnTeleporter() {
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {

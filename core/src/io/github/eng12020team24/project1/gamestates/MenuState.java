@@ -1,4 +1,4 @@
-package io.github.eng12020team24.project1;
+package io.github.eng12020team24.project1.gamestates;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -19,9 +19,7 @@ public class MenuState implements Screen{
     TextureAtlas uiAtlas;
 
     public MenuState(AuberGame game){
-        //menu = new Stage(new ScreenViewport());
         this.game=game;
-        //resumeButton = new Texture("uiElements/RESUME_BUTTON.png");
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
         playButton=new TextureRegion(uiAtlas.findRegion("PLAY_BUTTON"));
         resumeButton=new TextureRegion(uiAtlas.findRegion("RESUME_BUTTON"));
@@ -29,8 +27,6 @@ public class MenuState implements Screen{
     }
     @Override
 	public void show() {
-        //Table table = new Table();
-        //menu.addActor(table);
     }
     //@Override
     public static void main(){

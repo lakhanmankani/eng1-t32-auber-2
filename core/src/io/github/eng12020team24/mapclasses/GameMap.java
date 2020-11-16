@@ -2,6 +2,8 @@ package io.github.eng12020team24.mapclasses;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import io.github.eng12020team24.project1.mapclasses.TileType;
+
 public abstract class GameMap {
 
     public abstract void render (OrthographicCamera camera);

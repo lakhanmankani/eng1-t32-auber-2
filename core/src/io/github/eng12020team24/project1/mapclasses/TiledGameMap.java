@@ -1,11 +1,10 @@
-package io.github.eng12020team24.mapclasses;
+package io.github.eng12020team24.project1.mapclasses;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class TiledGameMap extends GameMap {
@@ -13,7 +12,7 @@ public class TiledGameMap extends GameMap {
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public TiledGameMap(){
+    public TiledGameMap() {
         tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
@@ -37,12 +36,12 @@ public class TiledGameMap extends GameMap {
 
     @Override
     public int getWidth() {
-        return ((TiledMapTileLayer)tiledMap.getLayers().get(0)).getWidth();
+        return ((TiledMapTileLayer) tiledMap.getLayers().get(0)).getWidth();
     }
 
     @Override
     public int getHeight() {
-        return ((TiledMapTileLayer)tiledMap.getLayers().get(0)).getHeight();
+        return ((TiledMapTileLayer) tiledMap.getLayers().get(0)).getHeight();
     }
 
     @Override
@@ -52,11 +51,11 @@ public class TiledGameMap extends GameMap {
 
     @Override
     public TileType getTileTypeByCoordinate(int layer, int col, int row) {
-        TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) tiledMap.getLayers().get(layer)).getCell(col,row);
+        TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) tiledMap.getLayers().get(layer)).getCell(col, row);
 
-        if (cell != null){
+        if (cell != null) {
             TiledMapTile tile = cell.getTile();
-            if(tile != null){
+            if (tile != null) {
                 int id = tile.getId();
                 return TileType.getTileTypeById(id);
             }

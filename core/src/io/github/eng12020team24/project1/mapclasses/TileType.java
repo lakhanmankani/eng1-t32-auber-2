@@ -1,7 +1,6 @@
-package io.github.eng12020team24.mapclasses;
+package io.github.eng12020team24.project1.mapclasses;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeoutException;
 
 public enum TileType {
 
@@ -23,7 +22,7 @@ public enum TileType {
     private boolean collidable;
     private String name;
 
-    private TileType(int id, boolean collidable, String name){
+    private TileType(int id, boolean collidable, String name) {
         this.id = id;
         this.collidable = collidable;
         this.name = name;
@@ -43,12 +42,13 @@ public enum TileType {
 
     private static HashMap<Integer, TileType> tileMap;
 
-    static{
-        tileMap = new HashMap<Integer,TileType>();
-        for(TileType tileType : TileType.values()){
-            tileMap.put(tileType.getId(),tileType);
+    static {
+        tileMap = new HashMap<Integer, TileType>();
+        for (TileType tileType : TileType.values()) {
+            tileMap.put(tileType.getId(), tileType);
         }
     }
+    // Creates a hashmap to link tile types to their IDs.
 
     public static TileType getTileTypeById(int id) {
         return tileMap.get(id);
