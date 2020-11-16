@@ -52,7 +52,7 @@ public class ActualGame implements Screen{
         auber = new Auber(textureAtlas, gameMap);
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
-        npc = new NeutralNPC(graph, 100, 100, textureAtlas);
+        npc = new NeutralNPC(graph, 200, 150, textureAtlas);
         sr = new ShapeRenderer();
     }
 
@@ -73,12 +73,15 @@ public class ActualGame implements Screen{
 		}
         auber.render(game.batch);
         sr.begin(ShapeType.Filled);
-        npc.render(game.batch, camera, sr, false);
+        npc.render(game.batch, camera, sr, true);
         sr.end();
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(menu); // so you dont have to ALT+F4 the program
-		}
+		} else if (Gdx.input.isKeyJustPressed(Keys.L)) {
+            Vector2 worldClickedPos = character_utils.cameraPositionToWorldPosition(camera, new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
+            npc.findPath((int) worldClickedPos.x, (int) worldClickedPos.y);
+        } 
 
     }
 

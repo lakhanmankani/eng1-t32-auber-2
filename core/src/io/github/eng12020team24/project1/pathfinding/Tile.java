@@ -45,4 +45,8 @@ public class Tile {
     public Vector2 getPosition() {
         return new Vector2(xPos, yPos);
     }
+
+    public Vector2 getCenterPosition() {
+        return new Vector2((float) (xPos + 0.5) * 32, (float) (yPos + 0.5) * 32);
+    }
 }

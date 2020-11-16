@@ -16,13 +16,16 @@ public abstract class NPCCharacter extends Character {
 
     public void render(SpriteBatch batch, OrthographicCamera camera, ShapeRenderer sr, boolean drawPath) {
         Vector2 cameraRelativeLocation = character_utils.worldPositionToCameraPosition(camera, new Vector2(xPos, yPos));
-        super.render(batch, cameraRelativeLocation.sub(new Vector2(16,16)));
+        super.render(batch, cameraRelativeLocation.sub(new Vector2(16, 16)));
+        batch.end();
         if (currentPath != null && drawPath) {
             sr.setColor(Color.LIME);
             for (int i = 1; i < currentPath.getCount(); i++) {
-                sr.rectLine(currentPath.get(i-1).getPosition(), currentPath.get(i).getPosition(), 2);
+                sr.rectLine(character_utils.worldPositionToCameraPosition(camera, currentPath.get(i - 1).getCenterPosition()),
+                        character_utils.worldPositionToCameraPosition(camera, currentPath.get(i).getCenterPosition()), 2);
             }
         }
+        batch.begin();
     }
 
     public NPCCharacter(TileGraph tileGraph, int x, int y) {
