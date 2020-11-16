@@ -2,6 +2,7 @@ package io.github.eng12020team24.project1;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,14 +16,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import io.github.eng12020team24.mapclasses.GameMap;
+import io.github.eng12020team24.mapclasses.Minimap;
 import io.github.eng12020team24.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.characters.Auber;;
 
 public class ActualGame implements Screen{
     final AuberGame game;
     private TextureAtlas textureAtlas;
-	public Animation<TextureRegion> auber_walk;
-	public Animation<TextureRegion> star_twinkle;
 	private float elapsedTime = 0f;
 	OrthographicCamera camera;
 	TiledMap tiledMap;
@@ -30,14 +30,15 @@ public class ActualGame implements Screen{
     MenuState menu;
 	GameMap gameMap;
 	Auber auber;
+    TextureAtlas uiAtlas;
+    Minimap minimap;
     
     public ActualGame(AuberGame game, MenuState menu) {
         this.game = game;
         game.batch = new SpriteBatch();
-        
+
         textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
-        auber_walk = new Animation<TextureRegion>(1f/4f, textureAtlas.findRegions("AUBER_WALK"));
-        star_twinkle = new Animation<TextureRegion>(1f/8f, textureAtlas.findRegions("SPACE_BG"));
+        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
@@ -45,6 +46,7 @@ public class ActualGame implements Screen{
         this.menu = menu;
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, gameMap);
+        minimap = new Minimap(uiAtlas);
     }
 
     @Override
@@ -54,11 +56,14 @@ public class ActualGame implements Screen{
 		elapsedTime += Gdx.graphics.getDeltaTime();
 
         auber.move(Gdx.graphics.getDeltaTime());
-
         camera.position.set(auber.getPositionForCamera());
 		camera.update();
 		gameMap.render(camera);
 		game.batch.begin();
+		if (auber.isAuberOnTeleporter()){
+		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
+		    minimap.teleportTo(auber);
+		}
 		auber.render(game.batch, Gdx.graphics.getDeltaTime());
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {

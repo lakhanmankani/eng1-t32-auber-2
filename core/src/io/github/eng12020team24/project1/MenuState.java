@@ -5,22 +5,27 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class MenuState implements Screen{
     //private Stage menu;
     AuberGame game;
-    Texture playButton;
-    Texture exitButton;
-    Texture resumeButton;
+    TextureRegion resumeButton;
     ActualGame actualGame = null;
+    TextureRegion playButton;
+    TextureRegion exitButton;
+    TextureAtlas uiAtlas;
 
     public MenuState(AuberGame game){
         //menu = new Stage(new ScreenViewport());
         this.game=game;
-        playButton=new Texture("PLAY_BUTTON.png");
-        exitButton=new Texture("EXIT_BUTTON.png");
-        resumeButton = new Texture("RESUME_BUTTON.png");
+        //resumeButton = new Texture("uiElements/RESUME_BUTTON.png");
+        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        playButton=new TextureRegion(uiAtlas.findRegion("PLAY_BUTTON"));
+        resumeButton=new TextureRegion(uiAtlas.findRegion("RESUME_BUTTON"));
+        exitButton=new TextureRegion(uiAtlas.findRegion("EXIT_BUTTON"));
     }
     @Override
 	public void show() {

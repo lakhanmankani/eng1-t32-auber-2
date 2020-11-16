@@ -1,0 +1,48 @@
+
+uispritesheet.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+EXIT_BUTTON
+  rotate: false
+  xy: 2, 650
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+MAIN_MENU_BUTTON
+  rotate: false
+  xy: 2, 520
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+MINIMAP_OFF
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+MINIMAP_ON
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+PLAY_BUTTON
+  rotate: false
+  xy: 2, 390
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+RESUME_BUTTON
+  rotate: false
+  xy: 2, 260
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
