@@ -72,6 +72,10 @@ public class Auber extends Character {
         }
     }
 
+    /**
+     * a boolean method that checks the tile the auber is on, with the parameters of auber's coordinates when calling getTileTypeByLocation.
+     * @return if the tile the auber is on is equal to that of a teleporter's tiletype ID then return true, else false.
+     */
     public boolean isAuberOnTeleporter() {
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {

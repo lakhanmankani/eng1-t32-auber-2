@@ -1,15 +1,12 @@
 package io.github.eng12020team24.project1.gamestates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -18,12 +15,7 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import io.github.eng12020team24.mapclasses.GameMap;
-import io.github.eng12020team24.mapclasses.Minimap;
+import io.github.eng12020team24.project1.mapclasses.Minimap;
 
 public class ActualGame implements Screen{
     final AuberGame game;
