@@ -52,7 +52,7 @@ public class ActualGame implements Screen{
         auber = new Auber(textureAtlas, gameMap);
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
-        npc = new NeutralNPC(graph, 200, 150, textureAtlas);
+        npc = new NeutralNPC(graph, 208, 144, textureAtlas);
         sr = new ShapeRenderer();
     }
 
@@ -73,6 +73,7 @@ public class ActualGame implements Screen{
 		}
         auber.render(game.batch);
         sr.begin(ShapeType.Filled);
+        npc.move();
         npc.render(game.batch, camera, sr, true);
         sr.end();
         game.batch.end();

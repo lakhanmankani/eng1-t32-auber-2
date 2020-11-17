@@ -1,5 +1,7 @@
 package io.github.eng12020team24.project1.pathfinding;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -17,7 +19,9 @@ public class TileGraph implements IndexedGraph<Tile> {
     TileHeuristic heuristic = new TileHeuristic();
     Array<Tile> tiles = new Array<>();
     Array<TileConnection> connections = new Array<>();
-    Tile[][] flatTileMap;
+    private Tile[][] flatTileMap;
+    private ArrayList<MapRegion> regions;
+
 
     ObjectMap<Tile, Array<Connection<Tile>>> connectionMap = new ObjectMap<>();
 
@@ -77,6 +81,15 @@ public class TileGraph implements IndexedGraph<Tile> {
         }
 
         return new Array<>(0);
+    }
+
+    public MapRegion getRegionForTile(Tile tile) {
+        for (MapRegion r : regions) {
+            if (r.contains(tile)) {
+                return r;
+            }
+        }
+        return null;
     }
 
     public TileGraph(TiledGameMap map) {
@@ -141,6 +154,32 @@ public class TileGraph implements IndexedGraph<Tile> {
                             }
                         }
                     }
+                }
+            }
+        }
+        this.regions = new ArrayList<MapRegion>();
+        for (int y = 0; y < map.getHeight(); y++) {
+            for (int x = 0; x < map.getWidth(); x++) {
+                Tile currentTile = flatTileMap[x][y];
+                if (currentTile.getType().isCollidable()) {
+                    continue;
+                    // A collidable tile is a wall and shouldn't be in a region
+                }
+                boolean addedToRegion = false;
+                for (MapRegion r : regions) {
+                    Tile regionTile = r.getRandomTile();
+                    if (findPath(currentTile, regionTile) != null && findPath(regionTile, currentTile) != null) {
+                        // Makes sure there is a valid path in both directions to account for 1-way paths
+                        // If the path is invalid in the first direction, it short-circuits
+                        r.add(currentTile);
+                        addedToRegion = true;
+                        break;
+                    }
+                }
+                if (!addedToRegion) {
+                    MapRegion new_r = new MapRegion();
+                    new_r.add(currentTile);
+                    regions.add(new_r);
                 }
             }
         }
