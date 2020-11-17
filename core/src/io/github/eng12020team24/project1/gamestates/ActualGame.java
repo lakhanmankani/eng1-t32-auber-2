@@ -15,7 +15,8 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
-import io.github.eng12020team24.project1.mapclasses.Minimap;
+import io.github.eng12020team24.project1.ui.Healthbar;
+import io.github.eng12020team24.project1.ui.Minimap;
 
 public class ActualGame implements Screen{
     final AuberGame game;
@@ -30,6 +31,7 @@ public class ActualGame implements Screen{
     TileGraph graph;
     ShapeRenderer sr;
     MenuState menu;
+    Healthbar healthbar;
     
     public ActualGame(AuberGame game, MenuState menu){
         this.game = game;
@@ -46,6 +48,7 @@ public class ActualGame implements Screen{
         graph = new TileGraph(gameMap);
         npc = new NeutralNPC(graph, 200, 150, textureAtlas);
         sr = new ShapeRenderer();
+        healthbar = new Healthbar(uiAtlas);
     }
 
     @Override
@@ -58,7 +61,10 @@ public class ActualGame implements Screen{
         camera.position.set(auber.getPositionForCamera());
 		camera.update();
 		gameMap.render(camera);
+
 		game.batch.begin();
+
+
 		if (auber.isAuberOnTeleporter()){
 		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
 		    minimap.teleportTo(auber);
@@ -67,6 +73,9 @@ public class ActualGame implements Screen{
         sr.begin(ShapeType.Filled);
         npc.render(game.batch, camera, sr, true);
         sr.end();
+
+        healthbar.render(game.batch,elapsedTime,auber);
+
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(menu); // so you dont have to ALT+F4 the program

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
+import net.java.games.input.Component;
 
 public class Auber extends Character {
     public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
@@ -17,6 +18,7 @@ public class Auber extends Character {
     private int renderXPos;
     private int renderYPos;
     private TiledGameMap map;
+    private int health;
 
     public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
@@ -28,6 +30,7 @@ public class Auber extends Character {
         // These are precomputed to save on CPU as it does not need to be recalculated
         // every frame.
         this.map = map;
+        health = 10;
     }
 
     public void render(SpriteBatch batch) {
@@ -70,8 +73,31 @@ public class Auber extends Character {
         } else {
             movementElapsedTime = 0;
         }
+        if(Gdx.input.isKeyJustPressed(Keys.K)){
+            auberTakeDamage();
+        }
+    }
+    public void auberTakeDamage(){
+        health -= 1;
     }
 
+    float timer = 0f;
+    public void auberHeal(){
+        timer += Gdx.graphics.getDeltaTime();
+        if (health < 10){
+            if (timer >= 1f) {
+                timer = 0f;
+                health += 1;
+
+            }
+        } else if (health > 10){
+            health = 10;
+        }
+    }
+
+    public int getHealth(){
+        return health;
+    }
     /**
      * a boolean method that checks the tile the auber is on, with the parameters of auber's coordinates when calling getTileTypeByLocation.
      * @return if the tile the auber is on is equal to that of a teleporter's tiletype ID then return true, else false.
@@ -80,6 +106,16 @@ public class Auber extends Character {
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {
             if (tile.getId() == 14) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAuberOnHealer() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            if (tile.getId() == 7) {
                 return true;
             }
         }

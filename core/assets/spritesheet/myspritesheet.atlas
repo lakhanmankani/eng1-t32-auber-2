@@ -165,3 +165,17 @@ Z_NPC_WALK
   orig: 32, 32
   offset: 0, 0
   index: 4
+Z_SYSTEM_OFF
+  rotate: false
+  xy: 784, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Z_SYSTEM_OK
+  rotate: false
+  xy: 818, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

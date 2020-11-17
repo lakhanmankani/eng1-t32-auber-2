@@ -1,4 +1,4 @@
-package io.github.eng12020team24.project1.mapclasses;
+package io.github.eng12020team24.project1.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
