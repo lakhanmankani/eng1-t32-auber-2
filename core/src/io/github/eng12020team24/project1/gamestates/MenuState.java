@@ -5,75 +5,83 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-
-public class MenuState implements Screen{
-    //private Stage menu;
+public class MenuState implements Screen {
     AuberGame game;
-    TextureRegion resumeButton;
     ActualGame actualGame = null;
-    TextureRegion playButton;
-    TextureRegion exitButton;
     TextureAtlas uiAtlas;
+    Button playButton;
+    Button exitButton;
+    Button resumeButton;
 
+    /**
+     * Initialises the Menu state
+     * @param game the overall {@link #AuberGame AuberGame} that this MenuState is a part of
+     */
     public MenuState(AuberGame game){
         this.game=game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        playButton=new TextureRegion(uiAtlas.findRegion("PLAY_BUTTON"));
-        resumeButton=new TextureRegion(uiAtlas.findRegion("RESUME_BUTTON"));
-        exitButton=new TextureRegion(uiAtlas.findRegion("EXIT_BUTTON"));
+        playButton = new Button(0, 128, uiAtlas.findRegion("PLAY_BUTTON"));
+        resumeButton = new Button(0, 128, uiAtlas.findRegion("RESUME_BUTTON"));
+        exitButton = new Button(0, 0, uiAtlas.findRegion("EXIT_BUTTON"));
     }
+
     @Override
 	public void show() {
     }
+
     //@Override
     public static void main(){
     }
+
     @Override
     public void pause(){
     }
+
+    /**
+     * Renders the menu screen - displays play/resume buttons depending on if the game has begun or not
+     * @param delta - necessary for render method however is unused
+     */
     @Override
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (Gdx.input.getY()>Gdx.graphics.getHeight()-128 && Gdx.input.getX()< 450){ //exit
-            if (Gdx.input.isTouched()){
-                System.exit(0);
-            }
-        } else if (Gdx.input.getY() < Gdx.graphics.getHeight()-128 &&
-        Gdx.input.getY() > Gdx.graphics.getHeight() -256 &&
-        Gdx.input.getX() < 450){
-            if (Gdx.input.isTouched()){
-                if (this.actualGame == null) {
-                    this.actualGame = new ActualGame(game, this);
-                }
-                game.setScreen(actualGame);
-            }
+        if (exitButton.isClicked()){ //exits
+            Gdx.app.exit();
+        } else if (playButton.isClicked()){ // starts new game
+            this.actualGame = new ActualGame(game, this);
+            game.setScreen(actualGame);
+        } else if (resumeButton.isClicked()){ // resumes old game
+            game.setScreen(actualGame);
         }
+
         game.batch.begin();
-        game.batch.draw(exitButton,0,0);
-        if (this.actualGame == null) {
-            game.batch.draw(playButton,0,128);
+        game.batch.draw(exitButton.getTextureRegion(),exitButton.getX(),exitButton.getY());
+        if (this.actualGame == null) { // draws either the play or resume button depending on if game already exsists
+            game.batch.draw(playButton.getTextureRegion(),playButton.getX(),playButton.getY());
         } else {
-            game.batch.draw(resumeButton,0,128);
+            game.batch.draw(resumeButton.getTextureRegion(),resumeButton.getX(), resumeButton.getY());
         }
         game.batch.end();
+
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			System.exit(0); // so you dont have to ALT+F4 the program
+			Gdx.app.exit(); // so you dont have to ALT+F4 the program
 		}
     }
+
     @Override
     public void hide(){
     }
+
     @Override
     public void dispose(){
     }
+
     @Override
     public void resume(){
     }
+
     @Override
     public void resize(int a, int b){
-        //aaaa
     }
 }
