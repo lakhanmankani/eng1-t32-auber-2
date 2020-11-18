@@ -14,7 +14,7 @@ public class StationSystem {
     private int xPos;
     private int yPos;
     private int health;
-    public boolean functioning;
+    private boolean functioning;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
 
@@ -59,6 +59,13 @@ public class StationSystem {
         }
         return true;
     }
+    public boolean getFunctioning(){
+        return functioning;
+    }
+    public void setFunctioning(boolean functioning){
+        this.functioning = functioning;
+    }
+
     public int getX(){
         return xPos;
     }

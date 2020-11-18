@@ -23,13 +23,13 @@ import io.github.eng12020team24.project1.ui.Minimap;
 
 import java.util.ArrayList;
 
-public class ActualGame implements Screen{
+public class ActualGame implements Screen {
     final AuberGame game;
     private TextureAtlas textureAtlas;
-	private float elapsedTime = 0f;
-	OrthographicCamera camera;
-	TiledGameMap gameMap;
-	Auber auber;
+    private float elapsedTime = 0f;
+    OrthographicCamera camera;
+    TiledGameMap gameMap;
+    Auber auber;
     TextureAtlas uiAtlas;
     Minimap minimap;
     ArrayList<NeutralNPC> neutralNpcs;
@@ -39,8 +39,8 @@ public class ActualGame implements Screen{
     ArrayList<StationSystem> stationSystems;
     ArrayList<Infiltrator> infiltrators;
     ArrayList<Beam> beamgun;
-    
-    public ActualGame(AuberGame game, MenuState menu){
+
+    public ActualGame(AuberGame game, MenuState menu) {
         this.game = game;
         game.batch = new SpriteBatch();
 
@@ -57,22 +57,22 @@ public class ActualGame implements Screen{
         beamgun = new ArrayList<Beam>();
 
         stationSystems = new ArrayList<StationSystem>();
-        stationSystems.add(new StationSystem(textureAtlas,6,26));//1
-        stationSystems.add(new StationSystem(textureAtlas,6,17));//2
-        stationSystems.add(new StationSystem(textureAtlas,20,24));//3
-        stationSystems.add(new StationSystem(textureAtlas,7,8));//4
-        stationSystems.add(new StationSystem(textureAtlas,8,37));//5
-        stationSystems.add(new StationSystem(textureAtlas,16,33));//6
-        stationSystems.add(new StationSystem(textureAtlas,29,25));//7
-        stationSystems.add(new StationSystem(textureAtlas,20,14));//8
-        stationSystems.add(new StationSystem(textureAtlas,42,10));//9
-        stationSystems.add(new StationSystem(textureAtlas,37,19));//10
-        stationSystems.add(new StationSystem(textureAtlas,42,19));//11
-        stationSystems.add(new StationSystem(textureAtlas,33,25));//12
-        stationSystems.add(new StationSystem(textureAtlas,41,38));//13
-        stationSystems.add(new StationSystem(textureAtlas,44,35));//14
-        stationSystems.add(new StationSystem(textureAtlas,45,46));//15
-        stationSystems.add(new StationSystem(textureAtlas,40,46));//16
+        stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
+        stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
+        stationSystems.add(new StationSystem(textureAtlas, 20, 24));// 3
+        stationSystems.add(new StationSystem(textureAtlas, 7, 8));// 4
+        stationSystems.add(new StationSystem(textureAtlas, 8, 37));// 5
+        stationSystems.add(new StationSystem(textureAtlas, 16, 33));// 6
+        stationSystems.add(new StationSystem(textureAtlas, 29, 25));// 7
+        stationSystems.add(new StationSystem(textureAtlas, 20, 14));// 8
+        stationSystems.add(new StationSystem(textureAtlas, 42, 10));// 9
+        stationSystems.add(new StationSystem(textureAtlas, 37, 19));// 10
+        stationSystems.add(new StationSystem(textureAtlas, 42, 19));// 11
+        stationSystems.add(new StationSystem(textureAtlas, 33, 25));// 12
+        stationSystems.add(new StationSystem(textureAtlas, 41, 38));// 13
+        stationSystems.add(new StationSystem(textureAtlas, 44, 35));// 14
+        stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
+        stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
         neutralNpcs = new ArrayList<NeutralNPC>();
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
@@ -90,18 +90,17 @@ public class ActualGame implements Screen{
 
         auber.move(Gdx.graphics.getDeltaTime());
         camera.position.set(auber.getPositionForCamera());
-		camera.update();
-		gameMap.render(camera);
+        camera.update();
+        gameMap.render(camera);
 
-		game.batch.begin();
+        game.batch.begin();
 
+        if (auber.isAuberOnTeleporter()) {
+            minimap.render(game.batch, auber.getXPos(), auber.getYPos());
+            minimap.teleportTo(auber);
+        }
 
-		if (auber.isAuberOnTeleporter()){
-		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
-		    minimap.teleportTo(auber);
-		}
-
-        healthbar.render(game.batch,elapsedTime,auber);
+        healthbar.render(game.batch, elapsedTime, auber);
 
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
         for(StationSystem sys : stationSystems){
@@ -125,24 +124,30 @@ public class ActualGame implements Screen{
         }
 
         auber.render(game.batch);
-      
-        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1){
-            beamgun.add(new Beam(auber.getRotation(),textureAtlas));
+
+        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
+            beamgun.add(new Beam(auber, textureAtlas));
         }
 
-        for(Beam beam : beamgun){
-            beam.render(game.batch);
-            beam.move(elapsedTime);
+        ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
+        for (Beam beam : beamgun) {
+            beam.render(game.batch, camera);
+            beam.move();
 
-            if(gameMap.doesRectCollideWithMap(beam.getX(),beam.getY(),32,32)){
-                beamgun.remove(beam);
+            if (gameMap.doesRectCollideWithMap(beam.getX() + 8, beam.getY() + 8, 16, 16)) {
+                // +8 as the beam orb sprite is 16x16 surrounded by an 8-wide border
+                beamsToRemove.add(beam);
             }
+        }
+
+        for (Beam b : beamsToRemove) {
+            beamgun.remove(b);
         }
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			game.setScreen(menu); // so you dont have to ALT+F4 the program
-		}
+            game.setScreen(menu); // so you dont have to ALT+F4 the program
+        }
 
     }
 
