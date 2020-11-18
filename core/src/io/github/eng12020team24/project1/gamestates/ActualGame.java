@@ -102,12 +102,17 @@ public class ActualGame implements Screen {
 
         healthbar.render(game.batch, elapsedTime, auber);
 
-        for (StationSystem sys : stationSystems) {
+        ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
+        for(StationSystem sys : stationSystems){
             sys.render(game.batch, camera);
-            if (sys.getHealth() <= 0) {
-                stationSystems.remove(sys);
+            if (sys.getHealth() <= 0){
+                systemsToRemove.add(sys);
             }
         }
+        for(StationSystem sys: systemsToRemove){
+            stationSystems.remove(sys);
+        }
+
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);

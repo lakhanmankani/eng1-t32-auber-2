@@ -37,7 +37,10 @@ public class Infiltrator extends NPCCharacter {
         for (StationSystem stationSystem : systems) {
             if (stationSystem.doesRectCollideWithSystem(xPos - 4, yPos - 4, 8, 8)) {
                 onSystem = true;
+                stationSystem.setFunctioning(false);
                 break;
+            } else {
+                stationSystem.setFunctioning(true);
             }
         }
 
