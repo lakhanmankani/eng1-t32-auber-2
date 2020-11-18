@@ -14,6 +14,7 @@ import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
 import io.github.eng12020team24.project1.system.StationSystem;
@@ -36,6 +37,7 @@ public class ActualGame implements Screen{
     MenuState menu;
     HealthBar healthbar;
     ArrayList<StationSystem> stationSystems;
+    ArrayList<Infiltrator> infiltrators;
     ArrayList<Beam> beamgun;
     
     public ActualGame(AuberGame game, MenuState menu){
@@ -76,6 +78,8 @@ public class ActualGame implements Screen{
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
+        infiltrators = new ArrayList<Infiltrator>();
+        infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(1228, 304), textureAtlas));
     }
 
     @Override
@@ -105,12 +109,18 @@ public class ActualGame implements Screen{
                 stationSystems.remove(sys);
             }
         }
-        auber.render(game.batch);
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);
         }
 
+        for (Infiltrator infiltrator : infiltrators) {
+            infiltrator.runAI(auber, stationSystems);
+            infiltrator.render(game.batch, camera);
+        }
+
+        auber.render(game.batch);
+      
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1){
             beamgun.add(new Beam(auber.getRotation(),textureAtlas));
         }
