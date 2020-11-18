@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 
-// This code, and all code in this package, is based on code here https://happycoding.io/tutorials/libgdx/pathfinding, which is released under the terms of the CC BY 4.0 license.
+// This code is based on code here https://happycoding.io/tutorials/libgdx/pathfinding, which is released under the terms of the CC BY 4.0 license, available at https://creativecommons.org/licenses/by/4.0/.
 public class TileGraph implements IndexedGraph<Tile> {
 
     TileHeuristic heuristic = new TileHeuristic();
@@ -22,18 +22,25 @@ public class TileGraph implements IndexedGraph<Tile> {
     private Tile[][] flatTileMap;
     private ArrayList<MapRegion> regions;
 
-
     ObjectMap<Tile, Array<Connection<Tile>>> connectionMap = new ObjectMap<>();
 
     private int lastNodeIndex = 0;
 
+    /**
+     * Adds a new Tile to this graph
+     * @param tile The tile to add to the graph
+     */
     public void addTile(Tile tile) {
         tile.setIndex(lastNodeIndex);
         lastNodeIndex++;
-
         tiles.add(tile);
     }
 
+    /**
+     * Creates a new connection between two Tiles
+     * @param fromTile The origin of this connection
+     * @param toTile The destination of this connection
+     */
     public void connectTiles(Tile fromTile, Tile toTile) {
         TileConnection newConnection = new TileConnection(fromTile, toTile);
         if (!connectionMap.containsKey(fromTile)) {
@@ -43,46 +50,81 @@ public class TileGraph implements IndexedGraph<Tile> {
         connections.add(newConnection);
     }
 
+    /**
+     * Finds a path between two Tiles
+     * @param startTile The origin Tile of the path
+     * @param goalTile The destination Tile of the path
+     * @return a GraphPath<Tile> containing the path
+     */
     public GraphPath<Tile> findPath(Tile startTile, Tile goalTile) {
         GraphPath<Tile> tilePath = new DefaultGraphPath<>();
         new IndexedAStarPathFinder<>(this).searchNodePath(startTile, goalTile, heuristic, tilePath);
         return tilePath;
     }
 
+    /**
+     * Finds a path between two Tiles
+     * @param xPos the xPos in the game world of the origin
+     * @param yPos the yPos in the game world of the origin
+     * @param goalXPos the xPos in the game world of the destination
+     * @param goalYPos the yPos in the game world of the desination
+     * @return a GraphPath<Tile> containing the path
+     */
     public GraphPath<Tile> findPath(int xPos, int yPos, int goalXPos, int goalYPos) {
-        GraphPath<Tile> tilePath = new DefaultGraphPath<>();
-        new IndexedAStarPathFinder<>(this).searchNodePath(this.getTileFromCoordinates(xPos, yPos), this.getTileFromCoordinates(goalXPos, goalYPos), heuristic, tilePath);
-        return tilePath;
+        return this.findPath(this.getTileFromCoordinates(xPos, yPos), this.getTileFromCoordinates(goalXPos, goalYPos));
     }
 
+    /**
+     * Gets the specific tile under a given set of coordinates in the game world
+     * @param xPos the xPos in the game world of the tile
+     * @param yPos the yPos in the game world of the tile
+     * @return a Tile indicated by the given coordinates in the game world
+     */
     public Tile getTileFromCoordinates(int xPos, int yPos) {
         int tileSize = flatTileMap[0][0].getType().TILE_SIZE;
         return flatTileMap[Math.floorDiv(xPos, tileSize)][Math.floorDiv(yPos, tileSize)];
     }
 
-
+    /**
+     * Gets the index for a specific tile
+     * @param tile the Tile to get the index for
+     * @return the tile's index
+     */
     @Override
-    public int getIndex(Tile node) {
+    public int getIndex(Tile tile) {
         // TODO Auto-generated method stub
-        return node.getIndex();
+        return tile.getIndex();
     }
 
+    /**
+     * Gets the number of nodes in this graph
+     * @return the number of nodes in this graph
+     */
     @Override
     public int getNodeCount() {
         // TODO Auto-generated method stub
         return lastNodeIndex;
     }
 
+    /**
+     * Gets the connections originating at a given tile
+     * @param fromNode the tile that is the origin of these connections
+     * @return an Array that contains all the connections originating at a given tile
+     */
     @Override
     public Array<Connection<Tile>> getConnections(Tile fromNode) {
         // TODO Auto-generated method stub
         if (connectionMap.containsKey(fromNode)) {
             return connectionMap.get(fromNode);
         }
-
         return new Array<>(0);
     }
 
+    /**
+     * Returns the region containing a specific tile
+     * @param tile 
+     * @return The map region containing a specific tile, or null if no region contains it (e.g. it is collidable)
+     */
     public MapRegion getRegionForTile(Tile tile) {
         for (MapRegion r : regions) {
             if (r.contains(tile)) {
@@ -92,8 +134,13 @@ public class TileGraph implements IndexedGraph<Tile> {
         return null;
     }
 
+    /**
+     * Creates a new TileGraph from the given map
+     * @param map the TiledGameMap used to create the TileGraph
+     */
     public TileGraph(TiledGameMap map) {
         boolean allowCornerCutting = false;
+        // This is used to determine if the path should have to go around corners or directly across them
         flatTileMap = new Tile[map.getWidth()][map.getHeight()];
 
         for (int y = 0; y < map.getHeight(); y++) {
@@ -147,7 +194,8 @@ public class TileGraph implements IndexedGraph<Tile> {
                                 if (allowCornerCutting) {
                                     this.connectTiles(currentTile, toTile);
                                 } else {
-                                    if (!flatTileMap[x + xDiff][y].getType().isCollidable() && !flatTileMap[x][y + yDiff].getType().isCollidable()) {
+                                    if (!flatTileMap[x + xDiff][y].getType().isCollidable()
+                                            && !flatTileMap[x][y + yDiff].getType().isCollidable()) {
                                         this.connectTiles(currentTile, toTile);
                                     }
                                 }
@@ -169,7 +217,8 @@ public class TileGraph implements IndexedGraph<Tile> {
                 for (MapRegion r : regions) {
                     Tile regionTile = r.getRandomTile();
                     if (findPath(currentTile, regionTile) != null && findPath(regionTile, currentTile) != null) {
-                        // Makes sure there is a valid path in both directions to account for 1-way paths
+                        // Makes sure there is a valid path in both directions to account for 1-way
+                        // paths
                         // If the path is invalid in the first direction, it short-circuits
                         r.add(currentTile);
                         addedToRegion = true;
@@ -183,6 +232,7 @@ public class TileGraph implements IndexedGraph<Tile> {
                 }
             }
         }
+        //TODO This isn't exactly efficient-a flood fill or similar would be more efficient.
     }
 
 }
