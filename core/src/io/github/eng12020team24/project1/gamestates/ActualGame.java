@@ -1,5 +1,7 @@
 package io.github.eng12020team24.project1.gamestates;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -7,8 +9,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
@@ -26,9 +26,8 @@ public class ActualGame implements Screen{
 	Auber auber;
     TextureAtlas uiAtlas;
     Minimap minimap;
-    NeutralNPC npc;
+    ArrayList<NeutralNPC> neutralNpcs;
     TileGraph graph;
-    ShapeRenderer sr;
     MenuState menu;
     
     public ActualGame(AuberGame game, MenuState menu){
@@ -44,8 +43,11 @@ public class ActualGame implements Screen{
         auber = new Auber(textureAtlas, gameMap);
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
-        npc = new NeutralNPC(graph, 200, 150, textureAtlas);
-        sr = new ShapeRenderer();
+        neutralNpcs = new ArrayList<NeutralNPC>();
+        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
+        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
+        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
+        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
     }
 
     @Override
@@ -64,16 +66,14 @@ public class ActualGame implements Screen{
 		    minimap.teleportTo(auber);
 		}
         auber.render(game.batch);
-        sr.begin(ShapeType.Filled);
-        npc.render(game.batch, camera, sr, true);
-        sr.end();
+        for (NeutralNPC npc : neutralNpcs) {
+            npc.move();
+            npc.render(game.batch, camera);
+        }
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(menu); // so you dont have to ALT+F4 the program
-		} else if (Gdx.input.isKeyJustPressed(Keys.L)) {
-            Vector2 worldClickedPos = character_utils.cameraPositionToWorldPosition(camera, new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()));
-            npc.findPath((int) worldClickedPos.x, (int) worldClickedPos.y);
-        } 
+		}
 
     }
 
