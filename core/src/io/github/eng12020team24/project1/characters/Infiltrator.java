@@ -26,7 +26,7 @@ public class Infiltrator extends NPCCharacter {
     }
     
     public void runAI(Auber auber, ArrayList<StationSystem> systems) {
-        if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2) + Math.pow(auber.getYPos() - yPos, 2)) <= 128 && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
+        if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2) + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32) && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
             this.findPath(this.currentRegion.getRandomTile());
             fleeingFromAuber = true;
         } else if (currentPath == null && fleeingFromAuber) {
