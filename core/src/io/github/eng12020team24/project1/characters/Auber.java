@@ -95,6 +95,10 @@ public class Auber extends Character {
         }
     }
 
+    public int getRotation(){
+        return (int)(rotation);
+    }
+
     public int getHealth(){
         return health;
     }

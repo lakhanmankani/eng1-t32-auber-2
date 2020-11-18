@@ -46,7 +46,15 @@ public class StationSystem {
             batch.draw(systemOff,cameraRelativeLocation.x,cameraRelativeLocation.y);
         }
     }
-
+    public boolean doesRectCollideWithSystem(int x, int y, int width, int height){
+        if (x >= (xPos+TileType.TILE_SIZE) || x+width <= xPos){
+            return false;
+        }
+        if (y >= (yPos+TileType.TILE_SIZE) || y+height <= yPos){
+            return false;
+        }
+        return true;
+    }
     public int getX(){
         return xPos;
     }
