@@ -14,7 +14,7 @@ public class StationSystem {
     private int xPos;
     private int yPos;
     private int health;
-    private boolean functioning;
+    public boolean functioning;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
 
@@ -31,10 +31,13 @@ public class StationSystem {
         return health;
     }
 
+    float timer = 0;
     public void takeDamage(){
-       if (health > 0){
+       timer += Gdx.graphics.getDeltaTime();
+
+       if (health > 0 && timer > 1){
            health -= 1;
-           functioning = false;
+           timer = 0;
        }
     }
 
@@ -44,6 +47,7 @@ public class StationSystem {
             batch.draw(systemOn,cameraRelativeLocation.x,cameraRelativeLocation.y);
         } else {
             batch.draw(systemOff,cameraRelativeLocation.x,cameraRelativeLocation.y);
+            takeDamage();
         }
     }
     public boolean doesRectCollideWithSystem(int x, int y, int width, int height){
