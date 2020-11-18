@@ -93,10 +93,6 @@ public class ActualGame implements Screen{
 		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
 		    minimap.teleportTo(auber);
 		}
-        sr.begin(ShapeType.Filled);
-        npc.render(game.batch, camera, sr, true);
-        sr.end();
-
         healthbar.render(game.batch,elapsedTime,auber);
 
         for(StationSystem sys : stationSystems){
