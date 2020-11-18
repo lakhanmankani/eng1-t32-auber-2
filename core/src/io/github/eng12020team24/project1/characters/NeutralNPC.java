@@ -1,7 +1,10 @@
 package io.github.eng12020team24.project1.characters;
 
+import io.github.eng12020team24.project1.pathfinding.MapRegion;
 import io.github.eng12020team24.project1.pathfinding.Tile;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
+
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -22,7 +25,17 @@ public class NeutralNPC extends NPCCharacter {
 
     public void move() {
         if (this.currentPath != null) {
+            currentWaitTime = 0;
+            elapsedWaitTime = 0;
             this.followPath();
+        } else {
+            this.movementElapsedTime = 0;
+            if (elapsedWaitTime == 0) {
+                currentWaitTime = (new Random().nextFloat() * (character_utils.NEUTRAL_MAXIMUM_WAIT_TIME - character_utils.NEUTRAL_MINIMUM_WAIT_TIME)) + character_utils.NEUTRAL_MINIMUM_WAIT_TIME;
+            } else if (elapsedWaitTime >= currentWaitTime) {
+                this.findPath(currentRegion.getRandomTile());
+            }
+            elapsedWaitTime += Gdx.graphics.getDeltaTime();
         }
     }
 }
