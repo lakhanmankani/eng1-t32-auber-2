@@ -15,7 +15,7 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
-import io.github.eng12020team24.mapclasses.Minimap;
+import io.github.eng12020team24.project1.mapclasses.Minimap;
 
 public class ActualGame implements Screen{
     final AuberGame game;
