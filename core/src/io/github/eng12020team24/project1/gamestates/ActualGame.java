@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
@@ -35,6 +36,7 @@ public class ActualGame implements Screen{
     MenuState menu;
     HealthBar healthbar;
     ArrayList<StationSystem> stationSystems;
+    ArrayList<Beam> beamgun;
     
     public ActualGame(AuberGame game, MenuState menu){
         this.game = game;
@@ -50,6 +52,7 @@ public class ActualGame implements Screen{
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
         healthbar = new HealthBar(uiAtlas);
+        beamgun = new ArrayList<Beam>();
 
         stationSystems = new ArrayList<StationSystem>();
         stationSystems.add(new StationSystem(textureAtlas,6,26));//1
@@ -93,6 +96,7 @@ public class ActualGame implements Screen{
 		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
 		    minimap.teleportTo(auber);
 		}
+
         healthbar.render(game.batch,elapsedTime,auber);
 
         for(StationSystem sys : stationSystems){
@@ -106,6 +110,18 @@ public class ActualGame implements Screen{
             npc.move();
             npc.render(game.batch, camera);
         }
+        if (Gdx.input.isKeyPressed(Keys.Q)){
+            beamgun.add(new Beam(auber.getRotation(),textureAtlas));
+        }
+
+        for(Beam beam : beamgun){
+            beam.render(game.batch);
+            beam.move(elapsedTime);
+            if(gameMap.doesRectCollideWithMap(beam.getX(),beam.getY(),16,16)){
+                beamgun.remove(beam);
+            }
+        }
+
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(menu); // so you dont have to ALT+F4 the program

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 
-
 public class Minimap {
     /**Constant: Mapsize as 256, image sprite is 256x256px **/
     public static final int MINIMAP_SIZE = 256;
