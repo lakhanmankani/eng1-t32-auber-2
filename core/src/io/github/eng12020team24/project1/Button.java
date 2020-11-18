@@ -33,10 +33,10 @@ public class Button{
      * @return if mouse currently positioned over this button
      */
     public boolean isMouseOver(){
-        if (Gdx.input.getY()>Gdx.graphics.getHeight()-y-height 
-        && Gdx.input.getY()<Gdx.graphics.getHeight()-y 
-        && Gdx.input.getX()>x 
-        && Gdx.input.getX()<width + x){
+        if (Gdx.graphics.getHeight() - Gdx.input.getY() - 1 < y + height // checks that mouse y below max y of button
+        && Gdx.graphics.getHeight() - Gdx.input.getY() -1 > y // checks that mouse y above min y of button
+        && Gdx.input.getX() > x  //checks that mouse x above min x of button
+        && Gdx.input.getX() < width + x) { //checks that mouse x below below max x of button
             return true;
         } else{
             return false;
