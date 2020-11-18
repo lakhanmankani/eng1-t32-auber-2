@@ -28,6 +28,7 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Adds a new Tile to this graph
+     * 
      * @param tile The tile to add to the graph
      */
     public void addTile(Tile tile) {
@@ -38,8 +39,9 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Creates a new connection between two Tiles
+     * 
      * @param fromTile The origin of this connection
-     * @param toTile The destination of this connection
+     * @param toTile   The destination of this connection
      */
     public void connectTiles(Tile fromTile, Tile toTile) {
         TileConnection newConnection = new TileConnection(fromTile, toTile);
@@ -52,8 +54,9 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Finds a path between two Tiles
+     * 
      * @param startTile The origin Tile of the path
-     * @param goalTile The destination Tile of the path
+     * @param goalTile  The destination Tile of the path
      * @return a GraphPath<Tile> containing the path
      */
     public GraphPath<Tile> findPath(Tile startTile, Tile goalTile) {
@@ -64,8 +67,9 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Finds a path between two Tiles
-     * @param xPos the xPos in the game world of the origin
-     * @param yPos the yPos in the game world of the origin
+     * 
+     * @param xPos     the xPos in the game world of the origin
+     * @param yPos     the yPos in the game world of the origin
      * @param goalXPos the xPos in the game world of the destination
      * @param goalYPos the yPos in the game world of the desination
      * @return a GraphPath<Tile> containing the path
@@ -76,6 +80,7 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Gets the specific tile under a given set of coordinates in the game world
+     * 
      * @param xPos the xPos in the game world of the tile
      * @param yPos the yPos in the game world of the tile
      * @return a Tile indicated by the given coordinates in the game world
@@ -87,6 +92,7 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Gets the index for a specific tile
+     * 
      * @param tile the Tile to get the index for
      * @return the tile's index
      */
@@ -98,6 +104,7 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Gets the number of nodes in this graph
+     * 
      * @return the number of nodes in this graph
      */
     @Override
@@ -108,8 +115,10 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Gets the connections originating at a given tile
+     * 
      * @param fromNode the tile that is the origin of these connections
-     * @return an Array that contains all the connections originating at a given tile
+     * @return an Array that contains all the connections originating at a given
+     *         tile
      */
     @Override
     public Array<Connection<Tile>> getConnections(Tile fromNode) {
@@ -122,8 +131,10 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Returns the region containing a specific tile
-     * @param tile 
-     * @return The map region containing a specific tile, or null if no region contains it (e.g. it is collidable)
+     * 
+     * @param tile
+     * @return The map region containing a specific tile, or null if no region
+     *         contains it (e.g. it is collidable)
      */
     public MapRegion getRegionForTile(Tile tile) {
         for (MapRegion r : regions) {
@@ -136,11 +147,13 @@ public class TileGraph implements IndexedGraph<Tile> {
 
     /**
      * Creates a new TileGraph from the given map
+     * 
      * @param map the TiledGameMap used to create the TileGraph
      */
     public TileGraph(TiledGameMap map) {
         boolean allowCornerCutting = false;
-        // This is used to determine if the path should have to go around corners or directly across them
+        // This is used to determine if the path should have to go around corners or
+        // directly across them
         flatTileMap = new Tile[map.getWidth()][map.getHeight()];
 
         for (int y = 0; y < map.getHeight(); y++) {
@@ -232,7 +245,8 @@ public class TileGraph implements IndexedGraph<Tile> {
                 }
             }
         }
-        //TODO This isn't exactly efficient-a flood fill or similar would be more efficient.
+        // TODO This isn't exactly efficient-a flood fill or similar would be more
+        // efficient.
     }
 
 }

@@ -14,54 +14,99 @@ public class StationSystem {
     private int xPos;
     private int yPos;
     private int health;
-    private boolean functioning;
+    private boolean isNotDamaged;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
 
-    public StationSystem(TextureAtlas atlas, int x, int y){
+    /**
+     * Creates and sets the values for a new StationSystem
+     * 
+     * @param atlas The TextureAtlas containing the StationSystem sprite.
+     * @param x     The x position of the StationSystem on the map
+     * @param y     The y position of the StationSystem on the map
+     */
+    public StationSystem(TextureAtlas atlas, int x, int y) {
         systemOn = new TextureRegion(atlas.findRegion("Z_SYSTEM_OK"));
         systemOff = new TextureRegion(atlas.findRegion("Z_SYSTEM_OFF"));
-        functioning = true;
+        isNotDamaged = true;
         xPos = x * TileType.TILE_SIZE;
         yPos = y * TileType.TILE_SIZE;
         health = 10;
     }
 
-    public int getHealth(){
+    /**
+     * Gets the health of this StationSystem.
+     * 
+     * @return An int containing the StationSystem's health
+     */
+    public int getHealth() {
         return health;
     }
 
-    public void takeDamage(){
-       if (health > 0){
-           health -= 1;
-           functioning = false;
-       }
+    /**
+     * Deals 1 point of damage to the StationSystem.
+     */
+    public void takeDamage() {
+        if (health > 0) {
+            health -= 1;
+            isNotDamaged = false;
+        }
     }
 
-    public void render(SpriteBatch batch, OrthographicCamera camera){
-        Vector2 cameraRelativeLocation = character_utils.worldPositionToCameraPosition(camera, new Vector2(xPos,yPos));
-        if (functioning){
-            batch.draw(systemOn,cameraRelativeLocation.x,cameraRelativeLocation.y);
+    /**
+     * Draws the StationSystem to the screen
+     * 
+     * @param batch  the SpriteBatch used to draw the StationSystem
+     * @param camera The OrthographicCamera used to draw the map, used for
+     *               position-related maths
+     */
+    public void render(SpriteBatch batch, OrthographicCamera camera) {
+        Vector2 cameraRelativeLocation = character_utils.worldPositionToCameraPosition(camera, new Vector2(xPos, yPos));
+        if (isNotDamaged) {
+            batch.draw(systemOn, cameraRelativeLocation.x, cameraRelativeLocation.y);
         } else {
-            batch.draw(systemOff,cameraRelativeLocation.x,cameraRelativeLocation.y);
+            batch.draw(systemOff, cameraRelativeLocation.x, cameraRelativeLocation.y);
         }
     }
-    public boolean doesRectCollideWithSystem(int x, int y, int width, int height){
-        if (x >= (xPos+TileType.TILE_SIZE) || x+width <= xPos){
+
+    /**
+     * Determines if a given rectangle collides with this system
+     * 
+     * @param x      The x position of the bottom left of the rectangle in the game
+     *               world
+     * @param y      The y position of the bottom left of the rectangle in the game
+     *               world
+     * @param width  The width of the rectangle
+     * @param height The height of the rectangle
+     * @return a boolean containing true if the rectangle collides with this
+     *         StationSystem, false otherwise
+     */
+    public boolean doesRectCollideWithSystem(int x, int y, int width, int height) {
+        if (x >= (xPos + TileType.TILE_SIZE) || x + width <= xPos) {
             return false;
         }
-        if (y >= (yPos+TileType.TILE_SIZE) || y+height <= yPos){
+        if (y >= (yPos + TileType.TILE_SIZE) || y + height <= yPos) {
             return false;
         }
         return true;
     }
-    public int getX(){
+
+    /**
+     * Gets the x position of this tile in the game world
+     * 
+     * @return An int containing the x position of this tile in the game world
+     */
+    public int getX() {
         return xPos;
     }
 
-    public int getY(){
+    /**
+     * Gets the y position of this tile in the game world
+     * 
+     * @return An int containing the y position of this tile in the game world
+     */
+    public int getY() {
         return yPos;
     }
-
 
 }

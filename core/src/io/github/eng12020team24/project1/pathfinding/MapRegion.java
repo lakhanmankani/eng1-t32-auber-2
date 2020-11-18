@@ -3,7 +3,6 @@ package io.github.eng12020team24.project1.pathfinding;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class MapRegion {
     private ArrayList<Tile> tiles;
 
@@ -16,6 +15,7 @@ public class MapRegion {
 
     /**
      * Determines if this region contains a specific Tile
+     * 
      * @param tile
      * @return true if this region contains the specific Tile, false otherwise
      */
@@ -25,6 +25,7 @@ public class MapRegion {
 
     /**
      * Adds a tile to the region
+     * 
      * @param tile the tile to add to the region
      */
     public void add(Tile tile) {
@@ -33,6 +34,7 @@ public class MapRegion {
 
     /**
      * Returns the number of tiles in this region
+     * 
      * @return An int containing the number of tiles in this region
      */
     public int size() {
@@ -41,6 +43,7 @@ public class MapRegion {
 
     /**
      * Gets a random tile from the region
+     * 
      * @return A Tile randomly selected from the region
      */
     public Tile getRandomTile() {
