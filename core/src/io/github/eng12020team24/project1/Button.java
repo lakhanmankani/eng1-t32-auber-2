@@ -25,12 +25,7 @@ public class Button{
      * @return if this button has been clicked
      */
     public boolean isClicked(){
-        if (Gdx.input.isTouched()){
-            if(isMouseOver()){
-                return true;
-            }
-        }
-        return false;
+        return Gdx.input.isTouched() && isMouseOver();
     }
 
     /**
