@@ -113,20 +113,23 @@ public class ActualGame implements Screen{
             npc.move();
             npc.render(game.batch, camera);
         }
+
         for (Infiltrator infiltrator : infiltrators) {
             infiltrator.runAI(auber, stationSystems);
             infiltrator.render(game.batch, camera);
         }
 
         auber.render(game.batch);
-        if (Gdx.input.isKeyPressed(Keys.Q)){
+      
+        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1){
             beamgun.add(new Beam(auber.getRotation(),textureAtlas));
         }
 
         for(Beam beam : beamgun){
             beam.render(game.batch);
             beam.move(elapsedTime);
-            if(gameMap.doesRectCollideWithMap(beam.getX(),beam.getY(),16,16)){
+
+            if(gameMap.doesRectCollideWithMap(beam.getX(),beam.getY(),32,32)){
                 beamgun.remove(beam);
             }
         }
