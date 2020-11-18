@@ -7,29 +7,28 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Beam{
-    public static final int SPEED = 8;
+    public static final int SPEED = 2;
     private static TextureRegion texture;
-    float xDir;
-    float yDir;
-    int xPos;
-    int yPos;
-    public boolean remove = false;
+    private float xDir;
+    private float yDir;
+    private int xPos;
+    private int yPos;
 
     public Beam(int rotation, TextureAtlas atlas){
-        int xPos = Gdx.graphics.getHeight()/2;
-        int yPos = Gdx.graphics.getHeight()/2;
+        xPos = Gdx.graphics.getWidth()/2 - 16;
+        yPos = Gdx.graphics.getHeight()/2 - 16;
         xDir = Math.round(SPEED*32*Math.cos(Math.toRadians(rotation-90)));
         yDir = Math.round(SPEED*32*Math.sin(Math.toRadians(rotation-90)));
         texture = new TextureRegion(atlas.findRegion("Z_BEAM_ORB"));
     }
 
     public void move(float deltaTime){
-        xPos += xDir*deltaTime;
-        yPos += yPos*deltaTime;
+        xPos += (xDir*deltaTime);
+        yPos += (yDir*deltaTime);
     }
 
     public void render(SpriteBatch batch){
-        batch.draw(texture, xPos,yPos);
+        batch.draw(texture, xPos, yPos);
     }
 
     public int getX(){
