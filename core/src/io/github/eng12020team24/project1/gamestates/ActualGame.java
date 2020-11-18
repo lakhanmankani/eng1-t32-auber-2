@@ -15,7 +15,8 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
-import io.github.eng12020team24.project1.mapclasses.Minimap;
+import io.github.eng12020team24.project1.ui.Healthbar;
+import io.github.eng12020team24.project1.ui.Minimap;
 
 public class ActualGame implements Screen{
     final AuberGame game;
@@ -29,6 +30,7 @@ public class ActualGame implements Screen{
     ArrayList<NeutralNPC> neutralNpcs;
     TileGraph graph;
     MenuState menu;
+    Healthbar healthbar;
     
     public ActualGame(AuberGame game, MenuState menu){
         this.game = game;
@@ -43,6 +45,7 @@ public class ActualGame implements Screen{
         auber = new Auber(textureAtlas, gameMap);
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
+        healthbar = new Healthbar(uiAtlas);
         neutralNpcs = new ArrayList<NeutralNPC>();
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
@@ -60,12 +63,16 @@ public class ActualGame implements Screen{
         camera.position.set(auber.getPositionForCamera());
 		camera.update();
 		gameMap.render(camera);
+
 		game.batch.begin();
+
+
 		if (auber.isAuberOnTeleporter()){
 		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
 		    minimap.teleportTo(auber);
 		}
         auber.render(game.batch);
+        healthbar.render(game.batch,elapsedTime,auber);
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);
