@@ -109,72 +109,79 @@ WALL
   orig: 32, 32
   offset: 0, 0
   index: -1
-Z_INFILTRATOR_WALK
+Z_BEAM_ORB
   rotate: false
   xy: 512, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: -1
 Z_INFILTRATOR_WALK
   rotate: false
   xy: 546, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 2
+  index: 1
 Z_INFILTRATOR_WALK
   rotate: false
   xy: 580, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 3
+  index: 2
 Z_INFILTRATOR_WALK
   rotate: false
   xy: 614, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 4
-Z_NPC_WALK
+  index: 3
+Z_INFILTRATOR_WALK
   rotate: false
   xy: 648, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: 4
 Z_NPC_WALK
   rotate: false
   xy: 682, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 2
+  index: 1
 Z_NPC_WALK
   rotate: false
   xy: 716, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 3
+  index: 2
 Z_NPC_WALK
   rotate: false
   xy: 750, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
+  index: 3
+Z_NPC_WALK
+  rotate: false
+  xy: 784, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
   index: 4
 Z_SYSTEM_OFF
   rotate: false
-  xy: 784, 2
+  xy: 818, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Z_SYSTEM_OK
   rotate: false
-  xy: 818, 2
+  xy: 852, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
