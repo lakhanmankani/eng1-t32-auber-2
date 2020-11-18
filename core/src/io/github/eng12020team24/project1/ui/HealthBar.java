@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.*;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 
-public class Healthbar {
+public class HealthBar {
     private Animation<TextureRegion> hearts;
     private Animation<TextureRegion> healingParticles;
 
-    public Healthbar(TextureAtlas uiAtlas){
+    public HealthBar(TextureAtlas uiAtlas){
         hearts = new Animation<TextureRegion>(1f/2f,uiAtlas.findRegions("Z_LIFE_HEART"));
         healingParticles = new Animation<TextureRegion>(1f/5f,uiAtlas.findRegions("Z_HEALING PARTICLE"));
     }

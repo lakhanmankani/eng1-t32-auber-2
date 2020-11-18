@@ -15,8 +15,11 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.character_utils;
-import io.github.eng12020team24.project1.ui.Healthbar;
+import io.github.eng12020team24.project1.system.StationSystem;
+import io.github.eng12020team24.project1.ui.HealthBar;
 import io.github.eng12020team24.project1.ui.Minimap;
+
+import java.util.ArrayList;
 
 public class ActualGame implements Screen{
     final AuberGame game;
@@ -31,7 +34,8 @@ public class ActualGame implements Screen{
     TileGraph graph;
     ShapeRenderer sr;
     MenuState menu;
-    Healthbar healthbar;
+    HealthBar healthbar;
+    ArrayList<StationSystem> stationSystems;
     
     public ActualGame(AuberGame game, MenuState menu){
         this.game = game;
@@ -48,7 +52,25 @@ public class ActualGame implements Screen{
         graph = new TileGraph(gameMap);
         npc = new NeutralNPC(graph, 200, 150, textureAtlas);
         sr = new ShapeRenderer();
-        healthbar = new Healthbar(uiAtlas);
+        healthbar = new HealthBar(uiAtlas);
+
+        stationSystems = new ArrayList<StationSystem>();
+        stationSystems.add(new StationSystem(textureAtlas,6,26));//1
+        stationSystems.add(new StationSystem(textureAtlas,6,17));//2
+        stationSystems.add(new StationSystem(textureAtlas,20,24));//3
+        stationSystems.add(new StationSystem(textureAtlas,7,8));//4
+        stationSystems.add(new StationSystem(textureAtlas,8,37));//5
+        stationSystems.add(new StationSystem(textureAtlas,16,33));//6
+        stationSystems.add(new StationSystem(textureAtlas,29,25));//7
+        stationSystems.add(new StationSystem(textureAtlas,20,14));//8
+        stationSystems.add(new StationSystem(textureAtlas,42,10));//9
+        stationSystems.add(new StationSystem(textureAtlas,37,19));//10
+        stationSystems.add(new StationSystem(textureAtlas,42,19));//11
+        stationSystems.add(new StationSystem(textureAtlas,33,25));//12
+        stationSystems.add(new StationSystem(textureAtlas,41,38));//13
+        stationSystems.add(new StationSystem(textureAtlas,44,35));//14
+        stationSystems.add(new StationSystem(textureAtlas,45,46));//15
+        stationSystems.add(new StationSystem(textureAtlas,40,46));//16
     }
 
     @Override
@@ -69,13 +91,19 @@ public class ActualGame implements Screen{
 		    minimap.render(game.batch, auber.getXPos(), auber.getYPos());
 		    minimap.teleportTo(auber);
 		}
-        auber.render(game.batch);
         sr.begin(ShapeType.Filled);
         npc.render(game.batch, camera, sr, true);
         sr.end();
 
         healthbar.render(game.batch,elapsedTime,auber);
 
+        for(StationSystem sys : stationSystems){
+            sys.render(game.batch, camera);
+            if (sys.getHealth() <= 0){
+                stationSystems.remove(sys);
+            }
+        }
+        auber.render(game.batch);
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(menu); // so you dont have to ALT+F4 the program
