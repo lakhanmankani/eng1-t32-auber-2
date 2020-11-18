@@ -9,18 +9,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
-import io.github.eng12020team24.project1.characters.character_utils;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.HealthBar;
 import io.github.eng12020team24.project1.ui.Minimap;
 
-import java.util.ArrayList;
 
 public class ActualGame implements Screen {
     final AuberGame game;
