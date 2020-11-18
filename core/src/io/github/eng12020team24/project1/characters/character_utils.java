@@ -8,6 +8,8 @@ public class character_utils {
     public static final int NEUTRAL_MINIMUM_WAIT_TIME = 3;
     public static final int NEUTRAL_MAXIMUM_WAIT_TIME = 5;
 
+    public static final int INFILTRATOR_FLEE_DISTANCE = 4;
+
     public static Vector2 cameraPositionToWorldPosition(OrthographicCamera camera, Vector2 cameraPosition) {
         Vector2 cameraPos = new Vector2(camera.position.x, camera.position.y);
         return new Vector2(cameraPosition).add(new Vector2(cameraPos).sub(new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2)));
