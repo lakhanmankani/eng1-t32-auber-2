@@ -7,6 +7,7 @@ import io.github.eng12020team24.project1.system.StationSystem;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,6 +33,12 @@ public abstract class Infiltrator extends NPCCharacter {
     }
 
     public void runAI(Auber auber, ArrayList<StationSystem> systems, int speed) {
+        if (usingAbility) {
+            abilityTime -= Gdx.graphics.getDeltaTime();
+        }
+        if (abilityTime <= 0) {
+            usingAbility = false;
+        }
         if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
                 + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32)
                 && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
@@ -39,6 +46,10 @@ public abstract class Infiltrator extends NPCCharacter {
             fleeingFromAuber = true;
         } else if (currentPath == null && fleeingFromAuber) {
             fleeingFromAuber = false;
+        }
+        if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
+        + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_ABILITY_DISTANCE * 32)) {
+            this.useAbility();
         }
 
         boolean onSystem = false;
@@ -75,6 +86,8 @@ public abstract class Infiltrator extends NPCCharacter {
     public void useAbility() {
         if (remainingAbilities > 0 && !usingAbility) {
             usingAbility = true;
+            remainingAbilities -= 1;
+            abilityTime = character_utils.INFILTRATOR_ABILITY_DURATION;
         }
     }
 }
