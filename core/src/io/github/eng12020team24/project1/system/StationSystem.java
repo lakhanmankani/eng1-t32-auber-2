@@ -2,7 +2,6 @@ package io.github.eng12020team24.project1.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,8 +16,9 @@ public class StationSystem {
     private boolean functioning;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
+    private float healthTimer = 0;
 
-    public StationSystem(TextureAtlas atlas, int x, int y){
+    public StationSystem(TextureAtlas atlas, int x, int y) {
         systemOn = new TextureRegion(atlas.findRegion("Z_SYSTEM_OK"));
         systemOff = new TextureRegion(atlas.findRegion("Z_SYSTEM_OFF"));
         functioning = true;
@@ -27,52 +27,53 @@ public class StationSystem {
         health = 10;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
 
-    float timer = 0;
-    public void takeDamage(){
-       timer += Gdx.graphics.getDeltaTime();
+    public void takeDamage() {
+        healthTimer += Gdx.graphics.getDeltaTime();
 
-       if (health > 0 && timer > 1){
-           health -= 1;
-           timer = 0;
-       }
+        if (health > 0 && healthTimer > 1) {
+            health -= 1;
+            healthTimer = 0;
+        }
     }
 
-    public void render(SpriteBatch batch, OrthographicCamera camera){
-        Vector2 cameraRelativeLocation = character_utils.worldPositionToCameraPosition(camera, new Vector2(xPos,yPos));
-        if (functioning){
-            batch.draw(systemOn,cameraRelativeLocation.x,cameraRelativeLocation.y);
+    public void render(SpriteBatch batch, OrthographicCamera camera) {
+        Vector2 cameraRelativeLocation = character_utils.worldPositionToCameraPosition(camera, new Vector2(xPos, yPos));
+        if (functioning) {
+            batch.draw(systemOn, cameraRelativeLocation.x, cameraRelativeLocation.y);
         } else {
-            batch.draw(systemOff,cameraRelativeLocation.x,cameraRelativeLocation.y);
+            batch.draw(systemOff, cameraRelativeLocation.x, cameraRelativeLocation.y);
             takeDamage();
         }
     }
-    public boolean doesRectCollideWithSystem(int x, int y, int width, int height){
-        if (x >= (xPos+TileType.TILE_SIZE) || x+width <= xPos){
+
+    public boolean doesRectCollideWithSystem(int x, int y, int width, int height) {
+        if (x >= (xPos + TileType.TILE_SIZE) || x + width <= xPos) {
             return false;
         }
-        if (y >= (yPos+TileType.TILE_SIZE) || y+height <= yPos){
+        if (y >= (yPos + TileType.TILE_SIZE) || y + height <= yPos) {
             return false;
         }
         return true;
     }
-    public boolean getFunctioning(){
+
+    public boolean getFunctioning() {
         return functioning;
     }
-    public void setFunctioning(boolean functioning){
+
+    public void setFunctioning(boolean functioning) {
         this.functioning = functioning;
     }
 
-    public int getX(){
+    public int getX() {
         return xPos;
     }
 
-    public int getY(){
+    public int getY() {
         return yPos;
     }
-
 
 }
