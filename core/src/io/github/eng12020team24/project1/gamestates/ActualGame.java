@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import io.github.eng12020team24.project1.characters.Beam;
+import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
@@ -79,7 +80,7 @@ public class ActualGame implements Screen {
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
         infiltrators = new ArrayList<Infiltrator>();
-        infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(1228, 304), textureAtlas));
+
     }
 
     @Override
@@ -122,7 +123,10 @@ public class ActualGame implements Screen {
             infiltrator.runAI(auber, stationSystems);
             infiltrator.render(game.batch, camera);
         }
-
+        if(infiltrators.size() == 0){
+            infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+            infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        }
         auber.render(game.batch);
 
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
@@ -143,6 +147,8 @@ public class ActualGame implements Screen {
         for (Beam b : beamsToRemove) {
             beamgun.remove(b);
         }
+
+
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
