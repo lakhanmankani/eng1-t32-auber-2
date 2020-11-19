@@ -16,10 +16,12 @@ import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
+import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
+import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
+import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.HealthBar;
 import io.github.eng12020team24.project1.ui.Minimap;
-
 
 public class ActualGame implements Screen {
     final AuberGame game;
@@ -81,14 +83,19 @@ public class ActualGame implements Screen {
         infiltrators = new ArrayList<Infiltrator>();
 
         infiltratorsToAdd = new ArrayList<Infiltrator>();
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new InvisibileInfiltrator(graph, graph.getTileFromCoordinates(23 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new DisguisedInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,38 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new InvisibleInfiltrator(graph,
+                graph.getTileFromCoordinates(23 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
+                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 38 * TileType.TILE_SIZE), textureAtlas));
         infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(34*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new InvisibileInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new DisguisedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new InvisibleInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new DisguiseInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
     }
 
     @Override

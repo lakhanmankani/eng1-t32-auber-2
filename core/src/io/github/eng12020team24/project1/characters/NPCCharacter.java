@@ -49,7 +49,7 @@ public abstract class NPCCharacter extends Character {
         this.findPath((int) worldPos.x, (int) worldPos.y);
     }
 
-    public void followPath() {
+    public void followPath(int speed) {
         this.movementElapsedTime += Gdx.graphics.getDeltaTime();
         Tile closestTile = currentPath.get(pathIndex);
         if (Vector2.dst(xPos, yPos, closestTile.getCenterPosition().x, closestTile.getCenterPosition().y) <= 5) {
@@ -62,7 +62,7 @@ public abstract class NPCCharacter extends Character {
             }
         }
         this.rotation = (float) Math.toDegrees(Math.atan2(closestTile.getCenterPosition().y - yPos, closestTile.getCenterPosition().x - xPos)) + 90;
-        xPos += Math.round(Gdx.graphics.getDeltaTime() * 4 * 32 * Math.cos(Math.toRadians(this.rotation - 90)));
-        yPos += Math.round(Gdx.graphics.getDeltaTime() * 4 * 32 * Math.sin(Math.toRadians(this.rotation - 90)));
+        xPos += Math.round(Gdx.graphics.getDeltaTime() * speed * 32 * Math.cos(Math.toRadians(this.rotation - 90)));
+        yPos += Math.round(Gdx.graphics.getDeltaTime() * speed * 32 * Math.sin(Math.toRadians(this.rotation - 90)));
     }
 }
