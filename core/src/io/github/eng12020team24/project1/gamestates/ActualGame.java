@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import io.github.eng12020team24.project1.characters.Beam;
+import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
@@ -35,6 +36,7 @@ public class ActualGame implements Screen {
     HealthBar healthbar;
     ArrayList<StationSystem> stationSystems;
     ArrayList<Infiltrator> infiltrators;
+    ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
 
     public ActualGame(AuberGame game, MenuState menu) {
@@ -76,7 +78,15 @@ public class ActualGame implements Screen {
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
         infiltrators = new ArrayList<Infiltrator>();
-        infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(1228, 304), textureAtlas));
+        infiltratorsToAdd = new ArrayList<Infiltrator>();
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(23 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,38 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(40*TileType.TILE_SIZE,29*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
     }
 
     @Override
@@ -119,7 +129,10 @@ public class ActualGame implements Screen {
             infiltrator.runAI(auber, stationSystems);
             infiltrator.render(game.batch, camera);
         }
-
+        if(infiltrators.size() < 2 && infiltratorsToAdd.size() > 0){
+            infiltrators.add(infiltratorsToAdd.get(0));
+            infiltratorsToAdd.remove(0);
+        }
         auber.render(game.batch);
 
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
@@ -148,9 +161,11 @@ public class ActualGame implements Screen {
             beamgun.remove(b);
         }
 
+
         for (Infiltrator i : infiltratorsToRemove) {
             infiltrators.remove(i);
         }
+
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
