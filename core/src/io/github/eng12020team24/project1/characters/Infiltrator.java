@@ -13,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class Infiltrator extends NPCCharacter {
     protected boolean fleeingFromAuber = false;
+    protected float abilityTime = character_utils.INFILTRATOR_ABILITY_DURATION;
+    protected boolean usingAbility = false;
+    protected int remainingAbilities = character_utils.INFILTRATOR_ABILITY_CHARGES;
 
     public Infiltrator(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
         super(tileGraph, x, y);
@@ -25,6 +28,10 @@ public abstract class Infiltrator extends NPCCharacter {
     }
 
     public void runAI(Auber auber, ArrayList<StationSystem> systems) {
+        this.runAI(auber, systems, character_utils.INFILTRATOR_SPEED);
+    }
+
+    public void runAI(Auber auber, ArrayList<StationSystem> systems, int speed) {
         if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
                 + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32)
                 && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
@@ -51,7 +58,7 @@ public abstract class Infiltrator extends NPCCharacter {
         }
 
         if (currentPath != null) {
-            this.followPath();
+            this.followPath(speed);
         }
     }
 
@@ -65,5 +72,9 @@ public abstract class Infiltrator extends NPCCharacter {
         return true;
     }
 
-    public abstract void useAbility();
+    public void useAbility() {
+        if (remainingAbilities > 0 && !usingAbility) {
+            usingAbility = true;
+        }
+    }
 }
