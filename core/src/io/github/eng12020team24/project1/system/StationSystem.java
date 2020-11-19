@@ -15,6 +15,7 @@ public class StationSystem {
     private boolean isNotDamaged;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
+    private float healthTimer = 0;
 
     /**
      * Creates and sets the values for a new StationSystem
@@ -87,6 +88,14 @@ public class StationSystem {
             return false;
         }
         return true;
+    }
+
+    public boolean getFunctioning() {
+        return isNotDamaged;
+    }
+
+    public void setFunctioning(boolean functioning) {
+        this.isNotDamaged = functioning;
     }
 
     /**

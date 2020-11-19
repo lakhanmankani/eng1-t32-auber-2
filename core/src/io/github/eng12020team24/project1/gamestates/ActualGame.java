@@ -13,6 +13,7 @@ import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.HealthBar;
@@ -33,6 +34,7 @@ public class ActualGame implements Screen {
     MenuState menu;
     HealthBar healthbar;
     ArrayList<StationSystem> stationSystems;
+    ArrayList<Infiltrator> infiltrators;
     ArrayList<Beam> beamgun;
 
     public ActualGame(AuberGame game, MenuState menu) {
@@ -73,6 +75,8 @@ public class ActualGame implements Screen {
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
+        infiltrators = new ArrayList<Infiltrator>();
+        infiltrators.add(new Infiltrator(graph, graph.getTileFromCoordinates(1228, 304), textureAtlas));
     }
 
     @Override
@@ -81,7 +85,7 @@ public class ActualGame implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-        auber.move(Gdx.graphics.getDeltaTime());
+        auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
         camera.position.set(auber.getPositionForCamera());
         camera.update();
         gameMap.render(camera);
@@ -95,27 +99,57 @@ public class ActualGame implements Screen {
 
         healthbar.render(game.batch, elapsedTime, auber);
 
-        for (StationSystem sys : stationSystems) {
+        ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
+        for(StationSystem sys : stationSystems){
             sys.render(game.batch, camera);
-            if (sys.getHealth() <= 0) {
-                stationSystems.remove(sys);
+            if (sys.getHealth() <= 0){
+                systemsToRemove.add(sys);
             }
         }
-        auber.render(game.batch);
+        for(StationSystem sys: systemsToRemove){
+            stationSystems.remove(sys);
+        }
+
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);
         }
-        if (Gdx.input.isKeyPressed(Keys.Q)) {
-            beamgun.add(new Beam(auber.getRotation(), textureAtlas));
+
+        for (Infiltrator infiltrator : infiltrators) {
+            infiltrator.runAI(auber, stationSystems);
+            infiltrator.render(game.batch, camera);
         }
 
+        auber.render(game.batch);
+
+        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
+            beamgun.add(new Beam(auber, textureAtlas));
+        }
+
+        ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
+        ArrayList<Infiltrator> infiltratorsToRemove = new ArrayList<Infiltrator>();
         for (Beam beam : beamgun) {
-            beam.render(game.batch);
-            beam.move(elapsedTime);
-            if (gameMap.doesRectCollideWithMap(beam.getX(), beam.getY(), 16, 16)) {
-                beamgun.remove(beam);
+            beam.render(game.batch, camera);
+            beam.move();
+
+            if (gameMap.doesRectCollideWithMap(beam.getX() + 8, beam.getY() + 8, 16, 16)) {
+                // +8 as the beam orb sprite is 16x16 surrounded by an 8-wide border
+                beamsToRemove.add(beam);
+            } else {
+                for (Infiltrator infiltrator : infiltrators) {
+                    if (infiltrator.doesRectCollideWithInfiltrator(beam.getX() + 8, beam.getY() + 8, 16, 16)) {
+                        infiltratorsToRemove.add(infiltrator);
+                    }
+                }
             }
+        }
+
+        for (Beam b : beamsToRemove) {
+            beamgun.remove(b);
+        }
+
+        for (Infiltrator i : infiltratorsToRemove) {
+            infiltrators.remove(i);
         }
 
         game.batch.end();

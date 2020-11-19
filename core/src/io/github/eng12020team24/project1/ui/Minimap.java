@@ -9,19 +9,24 @@ import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 
 public class Minimap {
-    /**Constant: Mapsize as 256, image sprite is 256x256px **/
+    /** Constant: Mapsize as 256, image sprite is 256x256px **/
     public static final int MINIMAP_SIZE = 256;
-    /**Teleporter pad locations relative to the tiled grid map as a 2D array as a constant**/
+    /**
+     * Teleporter pad locations relative to the tiled grid map as a 2D array as a
+     * constant
+     **/
     private final int[][] tpLocations = { { 28, 6 }, { 26, 47 }, { 17, 32 }, { 35, 30 }, { 30, 15 }, { 38, 11 } };
-    /**Texture of where the minimap sprite is located from the uiAtlas **/
+    /** Texture of where the minimap sprite is located from the uiAtlas **/
     private TextureRegion minimapTextureOn;
-    /**The horizontal and vertical position of where the map is to be drawn **/
+    /** The horizontal and vertical position of where the map is to be drawn **/
     private int xRenderPos;
     private int yRenderPos;
 
     /**
-     * Initialise Minimap Class, passing Texture Atlas for UI. With default minimap being the center
-     * of the screen. Atlas is used to retrieve the minimap image from uispritesheet.
+     * Initialise Minimap Class, passing Texture Atlas for UI. With default minimap
+     * being the center of the screen. Atlas is used to retrieve the minimap image
+     * from uispritesheet.
+     * 
      * @param atlas UI atlas that stores the location of the minimap sprite.
      */
     public Minimap(TextureAtlas atlas) {
@@ -31,11 +36,13 @@ public class Minimap {
     }
 
     /**
-     * The render method, only called when player is on a teleporter pad. This draws a minimap
-     * against the relative position of the player.
-     * the number 6.25 is the calculation of 50(The no. tiles on the map)*32(Tile size)/256(Minimap size)
-     * this makes the minimap position show where the player currently is on the map.
-     * @param batch batch class object to allow screen rendering
+     * The render method, only called when player is on a teleporter pad. This draws
+     * a minimap against the relative position of the player. the number 6.25 is the
+     * calculation of 50(The no. tiles on the map)*32(Tile size)/256(Minimap size)
+     * this makes the minimap position show where the player currently is on the
+     * map.
+     * 
+     * @param batch   batch class object to allow screen rendering
      * @param playerx retrieve auber's x co-ordinate
      * @param playery retrieve auber's y co-ordinate
      */
@@ -46,11 +53,12 @@ public class Minimap {
     }
 
     /**
-     * The teleport method calls gets the auber object and calls auber's move method to "teleport" auber
-     * to a seperate location of the map.
-     * It calls using the 2D array of teleporter locations, co-ordinates retrieved from tiled on
-     * where they are in the tile grid of 50x50. This is then multiplied by the tilesize and offset
-     * to match Auber's render offset.
+     * The teleport method calls gets the auber object and calls auber's move method
+     * to "teleport" auber to a seperate location of the map. It calls using the 2D
+     * array of teleporter locations, co-ordinates retrieved from tiled on where
+     * they are in the tile grid of 50x50. This is then multiplied by the tilesize
+     * and offset to match Auber's render offset.
+     * 
      * @param auber retrieve auber object to get access to move auber's position.
      */
     public void teleportTo(Auber auber) {
