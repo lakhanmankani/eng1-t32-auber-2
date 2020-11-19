@@ -4,94 +4,127 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-EXIT_BUTTON
-  rotate: false
-  xy: 2, 718
-  size: 980, 128
-  orig: 980, 128
-  offset: 0, 0
-  index: -1
-MAIN_MENU_BUTTON
-  rotate: false
-  xy: 2, 588
-  size: 980, 128
-  orig: 980, 128
-  offset: 0, 0
-  index: -1
-MINIMAP_OFF
-  rotate: false
-  xy: 2, 70
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-MINIMAP_ON
-  rotate: false
-  xy: 260, 70
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-PLAY_BUTTON
-  rotate: false
-  xy: 2, 458
-  size: 980, 128
-  orig: 980, 128
-  offset: 0, 0
-  index: -1
-RESUME_BUTTON
-  rotate: false
-  xy: 2, 328
-  size: 980, 128
-  orig: 980, 128
-  offset: 0, 0
-  index: -1
-Z_HEALING PARTICLE
-  rotate: false
-  xy: 984, 814
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-Z_HEALING PARTICLE
+GAME_OVER_IMAGE
   rotate: false
   xy: 2, 36
-  size: 32, 32
-  orig: 32, 32
+  size: 980, 980
+  orig: 980, 980
   offset: 0, 0
-  index: 2
-Z_HEALING PARTICLE
-  rotate: false
-  xy: 518, 294
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 3
-Z_HEALING PARTICLE
-  rotate: false
-  xy: 984, 780
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 4
+  index: -1
 Z_HEALING PARTICLE
   rotate: false
   xy: 2, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
+  index: 1
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 984
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 950
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
   index: 5
 Z_LIFE_HEART
   rotate: false
-  xy: 36, 36
+  xy: 984, 916
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 Z_LIFE_HEART
   rotate: false
-  xy: 518, 260
+  xy: 104, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
+
+uispritesheet2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+YOU_WIN_IMAGE
+  rotate: false
+  xy: 2, 2
+  size: 980, 980
+  orig: 980, 980
+  offset: 0, 0
+  index: -1
+
+uispritesheet3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+EXIT_BUTTON
+  rotate: false
+  xy: 2, 780
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+MAIN_MENU_BUTTON
+  rotate: false
+  xy: 2, 650
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+MINIMAP_OFF
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+MINIMAP_ON
+  rotate: false
+  xy: 260, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+PLAY_AGAIN_BUTTON
+  rotate: false
+  xy: 2, 520
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+PLAY_BUTTON
+  rotate: false
+  xy: 2, 390
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+RESUME_BUTTON
+  rotate: false
+  xy: 2, 260
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
