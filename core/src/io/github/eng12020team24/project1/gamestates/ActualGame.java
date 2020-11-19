@@ -72,21 +72,23 @@ public class ActualGame implements Screen {
         stationSystems.add(new StationSystem(textureAtlas, 44, 35));// 14
         stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
         stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
+
         neutralNpcs = new ArrayList<NeutralNPC>();
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
         infiltrators = new ArrayList<Infiltrator>();
+
         infiltratorsToAdd = new ArrayList<Infiltrator>();
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(23 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,38 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(40*TileType.TILE_SIZE,29*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new Infiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new InvisibileInfiltrator(graph, graph.getTileFromCoordinates(23 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new DisguisedInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,38 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(34*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new InvisibileInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new DisguisedInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
     }
 
     @Override
@@ -161,13 +163,11 @@ public class ActualGame implements Screen {
             beamgun.remove(b);
         }
 
-<<<<<<< HEAD
 
-=======
         for (Infiltrator i : infiltratorsToRemove) {
             infiltrators.remove(i);
         }
->>>>>>> a98c4faeacaa18830ec3924f1d33199829da5de1
+
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
