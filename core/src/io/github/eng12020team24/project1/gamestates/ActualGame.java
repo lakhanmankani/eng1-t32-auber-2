@@ -102,6 +102,12 @@ public class ActualGame implements Screen {
         camera.update();
         gameMap.render(camera);
 
+        if (stationSystems.size() <= 1){
+            game.setScreen(new LoseState(game));
+        } else if(infiltratorsToAdd.size()==0 && infiltrators.size()==0){
+            game.setScreen(new WinState(game));
+        }
+
         game.batch.begin();
 
         if (auber.isAuberOnTeleporter()) {

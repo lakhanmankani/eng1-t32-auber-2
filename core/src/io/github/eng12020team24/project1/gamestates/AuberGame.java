@@ -11,7 +11,9 @@ public class AuberGame extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		this.setScreen(new MenuState(this));
+		//this.setScreen(new MenuState(this));
+		//this.setScreen(new LoseState(this));
+		this.setScreen(new WinState(this));
 	}
 
 	@Override
