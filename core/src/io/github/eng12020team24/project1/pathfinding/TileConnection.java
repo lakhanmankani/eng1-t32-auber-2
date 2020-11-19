@@ -11,8 +11,9 @@ public class TileConnection implements Connection<Tile> {
 
     /**
      * Creates and sets the values for a new TileConnection
+     * 
      * @param fromTile The origin of this TileConnection
-     * @param toTile The destination of this TileConnection
+     * @param toTile   The destination of this TileConnection
      */
     TileConnection(Tile fromTile, Tile toTile) {
         this.fromTile = fromTile;
@@ -22,7 +23,9 @@ public class TileConnection implements Connection<Tile> {
 
     /**
      * Gets the cost of this connection
-     * @return A float containing the cost of this connection, i.e. the distance between its two nodes 
+     * 
+     * @return A float containing the cost of this connection, i.e. the distance
+     *         between its two nodes
      */
     @Override
     public float getCost() {
@@ -32,6 +35,7 @@ public class TileConnection implements Connection<Tile> {
 
     /**
      * Gets the origin of this connection
+     * 
      * @return the Tile that is the origin of this connection
      */
     @Override
@@ -42,6 +46,7 @@ public class TileConnection implements Connection<Tile> {
 
     /**
      * Gets the destination of this connection
+     * 
      * @return the Tile that is the destination of this connection
      */
     @Override

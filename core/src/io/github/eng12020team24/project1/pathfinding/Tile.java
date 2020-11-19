@@ -13,8 +13,9 @@ public class Tile {
 
     /**
      * Creates and sets the values for a new Tile
-     * @param xPos The x position in the map, not the game world
-     * @param yPos The y position in the map, not the game world
+     * 
+     * @param xPos     The x position in the map, not the game world
+     * @param yPos     The y position in the map, not the game world
      * @param tileType The type of the tile
      */
     Tile(int xPos, int yPos, TileType tileType) {
@@ -25,10 +26,11 @@ public class Tile {
 
     /**
      * Creates and sets the values for a new Tile
-     * @param xPos The x position in the map, not the game world
-     * @param yPos The y position in the map, not the game world
+     * 
+     * @param xPos     The x position in the map, not the game world
+     * @param yPos     The y position in the map, not the game world
      * @param tileType The type of the tile
-     * @param index The index of the tile for pathfinding
+     * @param index    The index of the tile for pathfinding
      */
     Tile(int xPos, int yPos, TileType tileType, int index) {
         this(xPos, yPos, tileType);
@@ -37,6 +39,7 @@ public class Tile {
 
     /**
      * Gets the x position of the tile in the map, not the game world
+     * 
      * @return the x position of the tile
      */
     public int getXPos() {
@@ -45,6 +48,7 @@ public class Tile {
 
     /**
      * Gets the y position of the tile in the map, not the game world
+     * 
      * @return the y position of the tile
      */
     public int getYPos() {
@@ -53,6 +57,7 @@ public class Tile {
 
     /**
      * Sets the index of the tile for pathfinding
+     * 
      * @param index An int containing the new index of the tile
      */
     public void setIndex(int index) {
@@ -61,6 +66,7 @@ public class Tile {
 
     /**
      * Gets the index of the tile for pathfinding
+     * 
      * @return An int containing the index of the tile for pathfinding
      */
     public int getIndex() {
@@ -69,6 +75,7 @@ public class Tile {
 
     /**
      * Gets the type of the tile
+     * 
      * @return The type of the tile
      */
     public TileType getType() {
@@ -77,7 +84,9 @@ public class Tile {
 
     /**
      * Gets the position of the tile in the map
-     * @return A Vector2 containing the x and y position of the tile in the map, not the game world
+     * 
+     * @return A Vector2 containing the x and y position of the tile in the map, not
+     *         the game world
      */
     public Vector2 getPosition() {
         return new Vector2(xPos, yPos);
@@ -85,6 +94,7 @@ public class Tile {
 
     /**
      * Gets the center of the tile in the game world
+     * 
      * @return a Vector2 containing the center of the tile in the game world
      */
     public Vector2 getCenterPosition() {
