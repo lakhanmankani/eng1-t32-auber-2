@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-
 public class Infiltrator extends NPCCharacter {
     protected boolean fleeingFromAuber = false;
 
@@ -24,9 +23,11 @@ public class Infiltrator extends NPCCharacter {
     public Infiltrator(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
         this(tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
     }
-    
+
     public void runAI(Auber auber, ArrayList<StationSystem> systems) {
-        if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2) + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32) && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
+        if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
+                + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32)
+                && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
             this.findPath(this.currentRegion.getRandomTile());
             fleeingFromAuber = true;
         } else if (currentPath == null && fleeingFromAuber) {
@@ -52,5 +53,15 @@ public class Infiltrator extends NPCCharacter {
         if (currentPath != null) {
             this.followPath();
         }
+    }
+
+    public boolean doesRectCollideWithInfiltrator(int inputX, int inputY, int width, int height) {
+        if (inputX >= (xPos + 30) || inputX + width <= xPos) {
+            return false;
+        }
+        if (inputY >= (yPos + 30) || inputY + height <= yPos) {
+            return false;
+        }
+        return true;
     }
 }
