@@ -1,5 +1,6 @@
 package io.github.eng12020team24.project1.system;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -45,10 +46,13 @@ public class StationSystem {
     /**
      * Deals 1 point of damage to the StationSystem.
      */
+    float timer = 0;
     public void takeDamage() {
-        if (health > 0) {
+        timer += Gdx.graphics.getDeltaTime();
+
+        if (health > 0 && timer > 1) {
             health -= 1;
-            isNotDamaged = false;
+            timer = 0;
         }
     }
 
@@ -65,6 +69,7 @@ public class StationSystem {
             batch.draw(systemOn, cameraRelativeLocation.x, cameraRelativeLocation.y);
         } else {
             batch.draw(systemOff, cameraRelativeLocation.x, cameraRelativeLocation.y);
+            takeDamage();
         }
     }
 
