@@ -1,5 +1,7 @@
 package io.github.eng12020team24.project1.characters;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
-import net.java.games.input.Component;
 
 public class Auber extends Character {
     public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
@@ -19,6 +20,8 @@ public class Auber extends Character {
     private int renderYPos;
     private TiledGameMap map;
     private int health;
+    private float damageTimer = 0;
+    private float healTimer = 0;
 
     public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
@@ -37,7 +40,7 @@ public class Auber extends Character {
         super.render(batch, renderXPos, renderYPos);
     }
 
-    public void move(float deltaTime) {
+    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
         if (Gdx.input.isKeyPressed(Keys.W)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
                 rotation = 225; //
@@ -73,20 +76,25 @@ public class Auber extends Character {
         } else {
             movementElapsedTime = 0;
         }
-        if(Gdx.input.isKeyJustPressed(Keys.K)){
-            auberTakeDamage();
+        damageTimer -= Gdx.graphics.getDeltaTime();
+        for (Infiltrator infiltrator : infiltrators) {
+            if (infiltrator.doesRectCollideWithInfiltrator(xPos - 16, yPos - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
+                if (health > 0 && damageTimer < 0){
+                    health -= 1;
+                    damageTimer = 1;
+                }
+            }
         }
     }
     public void auberTakeDamage(){
         health -= 1;
     }
 
-    float timer = 0f;
     public void auberHeal(){
-        timer += Gdx.graphics.getDeltaTime();
+        healTimer += Gdx.graphics.getDeltaTime();
         if (health < 10){
-            if (timer >= 1f) {
-                timer = 0f;
+            if (healTimer >= 1f) {
+                healTimer = 0f;
                 health += 1;
 
             }

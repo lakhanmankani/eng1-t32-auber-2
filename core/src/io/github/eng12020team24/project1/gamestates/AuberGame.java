@@ -27,6 +27,5 @@ public class AuberGame extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		img.dispose();
 	}
 }
