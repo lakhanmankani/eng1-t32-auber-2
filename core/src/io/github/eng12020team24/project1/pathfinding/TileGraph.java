@@ -57,7 +57,7 @@ public class TileGraph implements IndexedGraph<Tile> {
      * 
      * @param startTile The origin Tile of the path
      * @param goalTile  The destination Tile of the path
-     * @return a GraphPath<Tile> containing the path
+     * @return a GraphPath of {@link Tile}s containing the path
      */
     public GraphPath<Tile> findPath(Tile startTile, Tile goalTile) {
         GraphPath<Tile> tilePath = new DefaultGraphPath<>();
@@ -72,7 +72,7 @@ public class TileGraph implements IndexedGraph<Tile> {
      * @param yPos     the yPos in the game world of the origin
      * @param goalXPos the xPos in the game world of the destination
      * @param goalYPos the yPos in the game world of the desination
-     * @return a GraphPath<Tile> containing the path
+     * @return a GraphPath of {@link Tile}s containing the path
      */
     public GraphPath<Tile> findPath(int xPos, int yPos, int goalXPos, int goalYPos) {
         return this.findPath(this.getTileFromCoordinates(xPos, yPos), this.getTileFromCoordinates(goalXPos, goalYPos));
@@ -132,7 +132,7 @@ public class TileGraph implements IndexedGraph<Tile> {
     /**
      * Returns the region containing a specific tile
      * 
-     * @param tile
+     * @param tile The tile to find the region for
      * @return The map region containing a specific tile, or null if no region
      *         contains it (e.g. it is collidable)
      */

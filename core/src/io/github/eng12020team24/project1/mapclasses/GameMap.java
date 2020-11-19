@@ -18,7 +18,7 @@ public abstract class GameMap {
 
     /**
      * getter to get the pixel width of the game map, this is done by returning the tiledmap multiplied by tile size.
-     * @return
+     * @return An int containing the width of the map in pixels
      */
     public int getPixelWidth() {
         return this.getWidth() * TileType.TILE_SIZE;
@@ -26,7 +26,7 @@ public abstract class GameMap {
 
     /**
      * getter get the pixel height of the game map, this is done by returnign the tilemap multiplied by the tile size.
-     * @return
+     * @return An int containing the height of the map in pixels
      */
     public int getPixelHeight() {
         return this.getHeight() * TileType.TILE_SIZE;

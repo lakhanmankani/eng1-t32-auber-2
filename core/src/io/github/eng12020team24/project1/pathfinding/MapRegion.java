@@ -16,7 +16,7 @@ public class MapRegion {
     /**
      * Determines if this region contains a specific Tile
      * 
-     * @param tile
+     * @param tile the tile to check if this region contains
      * @return true if this region contains the specific Tile, false otherwise
      */
     public boolean contains(Tile tile) {
