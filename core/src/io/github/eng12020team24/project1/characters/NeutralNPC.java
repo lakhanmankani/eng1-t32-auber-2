@@ -27,7 +27,7 @@ public class NeutralNPC extends NPCCharacter {
         if (this.currentPath != null) {
             currentWaitTime = 0;
             elapsedWaitTime = 0;
-            this.followPath();
+            this.followPath(character_utils.NEUTRAL_SPEED);
         } else {
             this.movementElapsedTime = 0;
             if (elapsedWaitTime == 0) {

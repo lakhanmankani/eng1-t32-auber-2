@@ -12,6 +12,15 @@ public class character_utils {
 
     public static final int BEAM_SPEED = 8;
 
+    public static final int INFILTRATOR_SPEED = 4;
+    public static final int SPEED_INFILTRATOR_SPEED = 8;
+    public static final int NEUTRAL_SPEED = 4;
+    public static final int AUBER_SPEED = 4;
+
+    public static final int INFILTRATOR_ABILITY_CHARGES = 1;
+    public static final int INFILTRATOR_ABILITY_DURATION = 10;
+
+
     public static Vector2 cameraPositionToWorldPosition(OrthographicCamera camera, Vector2 cameraPosition) {
         Vector2 cameraPos = new Vector2(camera.position.x, camera.position.y);
         return new Vector2(cameraPosition).add(new Vector2(cameraPos).sub(new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2)));
