@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Infiltrator extends NPCCharacter {
+public abstract class Infiltrator extends NPCCharacter {
     protected boolean fleeingFromAuber = false;
 
     public Infiltrator(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
@@ -64,4 +64,6 @@ public class Infiltrator extends NPCCharacter {
         }
         return true;
     }
+
+    public abstract void useAbility();
 }
