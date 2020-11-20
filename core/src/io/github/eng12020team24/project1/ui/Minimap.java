@@ -11,14 +11,8 @@ import io.github.eng12020team24.project1.mapclasses.TileType;
 public class Minimap {
     /** Constant: Mapsize as 256, image sprite is 256x256px **/
     public static final int MINIMAP_SIZE = 256;
-    /**
-     * Teleporter pad locations relative to the tiled grid map as a 2D array as a
-     * constant
-     **/
     private final int[][] tpLocations = { { 28, 6 }, { 26, 47 }, { 17, 32 }, { 35, 30 }, { 30, 15 }, { 38, 11 } };
-    /** Texture of where the minimap sprite is located from the uiAtlas **/
     private TextureRegion minimapTextureOn;
-    /** The horizontal and vertical position of where the map is to be drawn **/
     private int xRenderPos;
     private int yRenderPos;
 

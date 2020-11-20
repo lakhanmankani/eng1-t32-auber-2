@@ -95,10 +95,18 @@ public class StationSystem {
         return true;
     }
 
+    /**
+     * A getter to retrieve the status of a System.
+     * @return returns a boolean value of whether or not the system is currently being attacked.
+     */
     public boolean getFunctioning() {
         return isNotDamaged;
     }
 
+    /**
+     * a setter to set the boolean statement of whether the system is being attacked or not by an infiltrator.
+     * @param functioning true or false variable of the status.
+     */
     public void setFunctioning(boolean functioning) {
         this.isNotDamaged = functioning;
     }

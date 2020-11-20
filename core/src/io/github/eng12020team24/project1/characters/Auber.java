@@ -12,9 +12,17 @@ import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 
 public class Auber extends Character {
+    /**
+     * Public CONSTANT for auber's height.
+     * 30 pixels instead of 32 due to auber's sprite being less than that.
+     */
     public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
                                                // collision to not look odd as Auber collides with gaps between the
                                                // walls.
+    /**
+     * Public CONSTANT for auber's width.
+     * 30 pixels instead of 32 due to auber's sprite being less than that.
+     */
     public static final int AUBER_WIDTH = 30;
     private int renderXPos;
     private int renderYPos;
@@ -90,6 +98,9 @@ public class Auber extends Character {
         health -= 1;
     }
 
+    /**
+     * method to heal auber 1 heart per second
+     */
     public void auberHeal(){
         healTimer += Gdx.graphics.getDeltaTime();
         if (health < 10){
@@ -103,10 +114,18 @@ public class Auber extends Character {
         }
     }
 
+    /**
+     * getter to get the direction of where the auber is facing.
+     * @return returns integer of the angle of auber's facing
+     */
     public int getRotation(){
         return (int)(rotation);
     }
 
+    /**
+     * getter for auber's current health value.
+     * @return returns the integer value of the number of hearts auber has
+     */
     public int getHealth(){
         return health;
     }
@@ -124,6 +143,10 @@ public class Auber extends Character {
         return false;
     }
 
+    /**
+     * a boolean method to check if auber is on the healing pad.
+     * @return returns a boolean whether or not auber is on the healing pad.
+     */
     public boolean isAuberOnHealer() {
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {
