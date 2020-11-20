@@ -30,16 +30,12 @@ public class MenuState implements Screen {
 	public void show() {
     }
 
-    //@Override
-    public static void main(){
-    }
-
     @Override
     public void pause(){
     }
 
     /**
-     * Renders the menu screen - displays play/resume buttons depending on if the game has begun or not
+     * Renders this menu screen - displays play/resume buttons depending on if the game has begun or not
      * @param delta - necessary for render method however is unused
      */
     @Override
@@ -49,11 +45,11 @@ public class MenuState implements Screen {
         
 
         game.batch.begin();
-        game.batch.draw(exitButton.getTextureRegion(),exitButton.getX(),exitButton.getY());
+        exitButton.draw(game.batch);
         if (this.actualGame == null) { // draws either the play or resume button depending on if game already exsists
-            game.batch.draw(playButton.getTextureRegion(),playButton.getX(),playButton.getY());
+            playButton.draw(game.batch);
         } else {
-            game.batch.draw(resumeButton.getTextureRegion(),resumeButton.getX(), resumeButton.getY());
+            resumeButton.draw(game.batch);
         }
         game.batch.end();
 

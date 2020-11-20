@@ -17,6 +17,10 @@ public class WinState implements Screen{
     private ActualGame newGame;
     private MenuState menu;
 
+    /**
+     * Initialises the Win state
+     * @param game the overall {@link #AuberGame AuberGame} that this WinState is a part of
+     */
     public WinState(AuberGame game){
         this.game = game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
@@ -25,22 +29,21 @@ public class WinState implements Screen{
         youWon = new TextureRegion(uiAtlas.findRegion("YOU_WIN_IMAGE"));
         youWonX = Gdx.graphics.getWidth()/2 - 490;
     }
-
-    @Override
-    public void show() {
-        // TODO Auto-generated method stub
-
-    }
-
+    /**
+     * Renders screen for this win state. Displays a congratulatory message, renders a button for playing again and a button for exiting
+     * @param delta 
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.5f, 0.6f, 1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
         game.batch.begin();
         game.batch.draw(youWon, youWonX, 25);
-        game.batch.draw(playAgainButton.getTextureRegion(),playAgainButton.getX(), playAgainButton.getY());
-        game.batch.draw(exitButton.getTextureRegion(),exitButton.getX(), exitButton.getY());
+        playAgainButton.draw(game.batch);
+        exitButton.draw(game.batch);
         game.batch.end();
+
         if (exitButton.isClicked()){ //exits
             Gdx.app.exit();
         } else if (playAgainButton.isClicked()){ // starts new game
@@ -52,6 +55,12 @@ public class WinState implements Screen{
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.app.exit(); // so you can leave from all menus
 		}
+    }
+
+    @Override
+    public void show() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
@@ -80,6 +89,5 @@ public class WinState implements Screen{
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
-
     }
 }
