@@ -1,6 +1,7 @@
 package io.github.eng12020team24.project1.gamestates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -66,4 +67,9 @@ public class Button{
     public int getY(){
         return y;
     }
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(image, x, y);
+    }
+
 }

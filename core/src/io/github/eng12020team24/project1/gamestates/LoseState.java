@@ -19,6 +19,10 @@ public class LoseState implements Screen{
     private ActualGame newGame;
     private MenuState menu;
 
+    /**
+     * Initialises the Lose State
+     * @param game the overall {@link #AuberGame AuberGame} that this LoseState is a part of
+     */
     public LoseState(AuberGame game){
         this.game=game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
@@ -28,21 +32,21 @@ public class LoseState implements Screen{
         gameOverX = Gdx.graphics.getWidth()/2 - 490;
     }
 
-    @Override
-    public void show() {
-        // TODO Auto-generated method stub
-
-    }
-
+    /**
+     * Renders screen for this lose state. Displays a loss message, a button for playing again and a button for exiting
+     * @param delta 
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         game.batch.begin();
         game.batch.draw(gameOver, gameOverX, 25);
-        game.batch.draw(playAgainButton.getTextureRegion(),playAgainButton.getX(), playAgainButton.getY());
-        game.batch.draw(exitButton.getTextureRegion(),exitButton.getX(), exitButton.getY());
+        playAgainButton.draw(game.batch);
+        exitButton.draw(game.batch);
         game.batch.end();
+        
         if (exitButton.isClicked()){ //exits
             Gdx.app.exit();
         } else if (playAgainButton.isClicked()){ // starts new game
@@ -54,6 +58,11 @@ public class LoseState implements Screen{
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.app.exit(); // so you can leave from all menus
 		}
+    }
+
+    @Override
+    public void show() {
+        // TODO Auto-generated method stub
     }
 
     @Override

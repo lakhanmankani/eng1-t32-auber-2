@@ -8,6 +8,9 @@ public class AuberGame extends Game {
 	SpriteBatch batch;
 	Texture img;
 
+	/**
+	 * Creates game and drawing batch and then calls {@link #MenuState MenuState}
+	 */
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -17,11 +20,6 @@ public class AuberGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-
-
-		/*if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			System.exit(0); // so you dont have to ALT+F4 the program
-		}*/
 	}
 
 	@Override
