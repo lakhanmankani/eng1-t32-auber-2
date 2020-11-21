@@ -44,8 +44,7 @@ public abstract class Character {
     public void render(SpriteBatch batch, int renderXPos, int renderYPos) {
         if (movementElapsedTime == 0) {
             batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);
-            // Draws Auber with the specific rotation. RenderXPos and renderYPos ensure
-            // Auber renders in the middle of the screen as he does not follow the camera.
+            // Draws the character with the specific rotation at the specified position.
         } else {
             batch.draw(walkingAnimation.getKeyFrame(movementElapsedTime, true), renderXPos, renderYPos, 16, 16, 32, 32,
                     1, 1, rotation);

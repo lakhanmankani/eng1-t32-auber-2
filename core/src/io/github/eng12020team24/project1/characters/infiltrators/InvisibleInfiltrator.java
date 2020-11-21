@@ -1,5 +1,7 @@
 package io.github.eng12020team24.project1.characters.infiltrators;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import io.github.eng12020team24.project1.characters.Infiltrator;
@@ -16,5 +18,12 @@ public class InvisibleInfiltrator extends Infiltrator {
         super(tileGraph, tilePos, textureAtlas);
     }
 
-    
+    @Override
+    public void render(SpriteBatch batch, OrthographicCamera camera) {
+        if (!usingAbility) {
+            super.render(batch, camera);
+        } else {
+            // Empty as invisible Infiltrators aren't rendered
+        }
+    }
 }

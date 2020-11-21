@@ -9,6 +9,7 @@ public class character_utils {
     public static final int NEUTRAL_MAXIMUM_WAIT_TIME = 5;
 
     public static final int INFILTRATOR_FLEE_DISTANCE = 4;
+    public static final int INFILTRATOR_ABILITY_DISTANCE = 4;
 
     public static final int BEAM_SPEED = 8;
 
