@@ -14,6 +14,12 @@ public class Beam {
     private int xPos;
     private int yPos;
 
+    /**
+     * The initialisation method for Beam. Creates a Beam object on auber's position and move's in
+     * auber's direction of which it's facing.
+     * @param auber insert auber to retrieve attributes from auber.
+     * @param atlas insert atlas to get texture regions for the beam.
+     */
     public Beam(Auber auber, TextureAtlas atlas) {
         float rotation = auber.getRotation();
         xPos = auber.getXPos() - 16;
@@ -23,20 +29,36 @@ public class Beam {
         texture = new TextureRegion(atlas.findRegion("Z_BEAM_ORB"));
     }
 
+    /**
+     * Method to update the beam to move.
+     */
     public void move() {
         xPos += Math.round(xDir * Gdx.graphics.getDeltaTime());
         yPos += Math.round(yDir * Gdx.graphics.getDeltaTime());
     }
 
+    /**
+     * method to draw the beam.
+     * @param batch insert game's batch to render on screen.
+     * @param camera insert camera to draw within relative location of the camera.
+     */
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         Vector2 cameraRelativePosition = character_utils.worldPositionToCameraPosition(camera, xPos, yPos);
         batch.draw(texture, cameraRelativePosition.x, cameraRelativePosition.y);
     }
 
+    /**
+     * getter for the x-coordinate of beam.
+     * @return returns the integer value of the x position.
+     */
     public int getX() {
         return xPos;
     }
 
+    /**
+     * getter for the y-coordinate of beam.
+     * @return returns the integer value of the y position
+     */
     public int getY() {
         return yPos;
     }
