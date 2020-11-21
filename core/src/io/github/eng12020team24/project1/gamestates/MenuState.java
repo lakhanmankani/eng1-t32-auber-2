@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class MenuState implements Screen {
-    AuberGame game;
-    ActualGame actualGame = null;
-    TextureAtlas uiAtlas;
-    Button playButton;
-    Button exitButton;
-    Button resumeButton;
+    private AuberGame game;
+    private ActualGame actualGame = null;
+    private TextureAtlas uiAtlas;
+    private Button playButton;
+    private Button exitButton;
+    private Button resumeButton;
 
     /**
      * Initialises the Menu state
@@ -45,15 +45,8 @@ public class MenuState implements Screen {
     @Override
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (exitButton.isClicked()){ //exits
-            Gdx.app.exit();
-        } else if (playButton.isClicked()){ // starts new game
-            this.actualGame = new ActualGame(game, this);
-            game.setScreen(actualGame);
-        } else if (resumeButton.isClicked()){ // resumes old game
-            game.setScreen(actualGame);
-        }
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
 
         game.batch.begin();
         game.batch.draw(exitButton.getTextureRegion(),exitButton.getX(),exitButton.getY());
@@ -63,6 +56,15 @@ public class MenuState implements Screen {
             game.batch.draw(resumeButton.getTextureRegion(),resumeButton.getX(), resumeButton.getY());
         }
         game.batch.end();
+
+        if (exitButton.isClicked()){ //exits
+            Gdx.app.exit();
+        } else if (playButton.isClicked()){ // starts new game
+            this.actualGame = new ActualGame(game, this);
+            game.setScreen(actualGame);
+        } else if (resumeButton.isClicked()){ // resumes old game
+            game.setScreen(actualGame);
+        }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.app.exit(); // so you dont have to ALT+F4 the program
