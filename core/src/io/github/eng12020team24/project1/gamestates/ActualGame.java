@@ -20,8 +20,7 @@ import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltr
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
 import io.github.eng12020team24.project1.system.StationSystem;
-import io.github.eng12020team24.project1.ui.HealthBar;
-import io.github.eng12020team24.project1.ui.Minimap;
+import io.github.eng12020team24.project1.ui.*;
 
 public class ActualGame implements Screen {
     final AuberGame game;
@@ -36,6 +35,8 @@ public class ActualGame implements Screen {
     TileGraph graph;
     MenuState menu;
     HealthBar healthbar;
+    SystemBar systemBar;
+    EnemyBar enemyBar;
     ArrayList<StationSystem> stationSystems;
     ArrayList<Infiltrator> infiltrators;
     ArrayList<Infiltrator> infiltratorsToAdd;
@@ -55,6 +56,8 @@ public class ActualGame implements Screen {
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
         healthbar = new HealthBar(uiAtlas);
+        systemBar = new SystemBar(textureAtlas, 1);
+        enemyBar = new EnemyBar(textureAtlas, 2);
         beamgun = new ArrayList<Beam>();
 
         stationSystems = new ArrayList<StationSystem>();
@@ -123,6 +126,8 @@ public class ActualGame implements Screen {
         }
 
         healthbar.render(game.batch, elapsedTime, auber);
+        systemBar.render(game.batch, stationSystems.size());
+        enemyBar.render(game.batch, infiltratorsToAdd.size()+infiltrators.size());
 
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
         for(StationSystem sys : stationSystems){
