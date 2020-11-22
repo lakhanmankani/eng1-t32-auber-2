@@ -25,11 +25,12 @@ public class LoseState implements Screen{
      */
     public LoseState(AuberGame game){
         this.game=game;
+        // all buttons and images are centered.
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON"));
-        exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
-        gameOver = new TextureRegion(uiAtlas.findRegion("GAME_OVER_IMAGE"));
-        gameOverX = Gdx.graphics.getWidth()/2 - 490;
+        playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON")); //440 is half of the play again button width
+        exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON")); //200 is half of the visible width of the exit button
+        gameOver = new TextureRegion(uiAtlas.findRegion("GAME_OVER_IMAGE")); 
+        gameOverX = Gdx.graphics.getWidth()/2 - 490; //440 is half of the game over image width
     }
 
     /**
