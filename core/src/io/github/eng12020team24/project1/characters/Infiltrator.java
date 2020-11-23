@@ -58,8 +58,6 @@ public abstract class Infiltrator extends NPCCharacter {
                 onSystem = true;
                 stationSystem.setFunctioning(false);
                 break;
-            } else {
-                stationSystem.setFunctioning(true);
             }
         }
 
