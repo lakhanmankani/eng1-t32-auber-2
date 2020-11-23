@@ -16,7 +16,7 @@ public class MenuState implements Screen {
 
     /**
      * Initialises the Menu state
-     * @param game the overall {@link #AuberGame AuberGame} that this MenuState is a part of
+     * @param game the overall {@link AuberGame} that this MenuState is a part of
      */
     public MenuState(AuberGame game){
         this.game=game;

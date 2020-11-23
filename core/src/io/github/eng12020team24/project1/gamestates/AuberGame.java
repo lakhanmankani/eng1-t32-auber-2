@@ -9,7 +9,7 @@ public class AuberGame extends Game {
 	Texture img;
 
 	/**
-	 * Creates game and drawing batch and then calls {@link #MenuState MenuState}
+	 * Creates game and drawing batch and then calls {@link MenuState}
 	 */
 	@Override
 	public void create() {
