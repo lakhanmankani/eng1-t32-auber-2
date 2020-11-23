@@ -46,5 +46,6 @@ public class DisguiseInfiltrator extends Infiltrator {
                             1, 1, rotation);
                 }
         }
+        // Reimplemented render method as the super method assumes that the normal idle and disguised animations are used
     }
 }

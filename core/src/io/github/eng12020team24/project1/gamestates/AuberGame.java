@@ -1,12 +1,10 @@
 package io.github.eng12020team24.project1.gamestates;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
 
 public class AuberGame extends Game {
 	SpriteBatch batch;
-	Texture img;
 
 	/**
 	 * Creates game and drawing batch and then calls {@link MenuState}

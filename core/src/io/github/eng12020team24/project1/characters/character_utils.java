@@ -22,6 +22,13 @@ public class character_utils {
     public static final int INFILTRATOR_ABILITY_DURATION = 10;
 
 
+    /**
+     * There are two kinds of position used-"world position" and "camera position" - world position is relative to the game map, e.g.
+     * the bottom left of the map is (0,0).  Camera position is relative to the camera, e.g. the bottom left of the screen is (0,0). 
+     * As the camera follows Auber, these methods are required to convert between the two for rendering purposes.
+     * @param cameraPosition the camera-relative position to convert
+     */
+
     public static Vector2 cameraPositionToWorldPosition(OrthographicCamera camera, Vector2 cameraPosition) {
         Vector2 cameraPos = new Vector2(camera.position.x, camera.position.y);
         return new Vector2(cameraPosition).add(new Vector2(cameraPos).sub(new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2)));
