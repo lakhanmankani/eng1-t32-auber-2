@@ -135,6 +135,7 @@ public class ActualGame implements Screen {
             if (sys.getHealth() <= 0){
                 systemsToRemove.add(sys);
             }
+            sys.setFunctioning(true);
         }
         for(StationSystem sys: systemsToRemove){
             stationSystems.remove(sys);
