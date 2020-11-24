@@ -16,7 +16,7 @@ public class StationSystem {
     private boolean isNotDamaged;
     private TextureRegion systemOn;
     private TextureRegion systemOff;
-    private float healthTimer = 0;
+    private float timer = 0;
 
     /**
      * Creates and sets the values for a new StationSystem
@@ -46,7 +46,6 @@ public class StationSystem {
     /**
      * Deals 1 point of damage to the StationSystem.
      */
-    float timer = 0;
     public void takeDamage() {
         timer += Gdx.graphics.getDeltaTime();
 

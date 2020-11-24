@@ -19,7 +19,7 @@ public class WinState implements Screen{
 
     /**
      * Initialises the Win state
-     * @param game the overall {@link #AuberGame AuberGame} that this WinState is a part of
+     * @param game the overall {@link AuberGame} that this WinState is a part of
      */
     public WinState(AuberGame game){
         this.game = game;
@@ -31,7 +31,7 @@ public class WinState implements Screen{
     }
     /**
      * Renders screen for this win state. Displays a congratulatory message, renders a button for playing again and a button for exiting
-     * @param delta 
+     * @param delta Does not need to be called by the user; is required as screen is implemented and this method override's Screen's render(float delta)
      */
     @Override
     public void render(float delta) {
