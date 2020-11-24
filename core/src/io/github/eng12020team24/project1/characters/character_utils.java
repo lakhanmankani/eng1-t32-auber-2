@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class character_utils {
 
+    /**
+     * A collection of configuration options for tweaking how the characters work to change difficulty
+     */
+
     public static final int NEUTRAL_MINIMUM_WAIT_TIME = 3;
     public static final int NEUTRAL_MAXIMUM_WAIT_TIME = 5;
 
