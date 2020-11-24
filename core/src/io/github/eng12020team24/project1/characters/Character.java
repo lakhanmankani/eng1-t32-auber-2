@@ -25,7 +25,7 @@ public abstract class Character {
     }
 
     public void setX(int newX) {
-        xPos = newX; 
+        xPos = newX;
     }
 
     public void setY(int newY) {
@@ -38,9 +38,10 @@ public abstract class Character {
     }
 
     public Vector3 getPositionForCamera() {
-        return new Vector3(xPos, yPos, 0);
+        return new Vector3(xPos, yPos, 0); // Included so the camera can follow a specific character by setting its
+                                           // position to the character's position
     }
-    
+
     public void render(SpriteBatch batch, int renderXPos, int renderYPos) {
         if (movementElapsedTime == 0) {
             batch.draw(idleTexture, renderXPos, renderYPos, 16, 16, 32, 32, 1, 1, rotation);

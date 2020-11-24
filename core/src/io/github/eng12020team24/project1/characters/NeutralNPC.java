@@ -19,6 +19,7 @@ public class NeutralNPC extends NPCCharacter {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("Z_NPC_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("Z_NPC_WALK"));
     }
+
     public NeutralNPC(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
         this(tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
     }
@@ -31,7 +32,9 @@ public class NeutralNPC extends NPCCharacter {
         } else {
             this.movementElapsedTime = 0;
             if (elapsedWaitTime == 0) {
-                currentWaitTime = (new Random().nextFloat() * (character_utils.NEUTRAL_MAXIMUM_WAIT_TIME - character_utils.NEUTRAL_MINIMUM_WAIT_TIME)) + character_utils.NEUTRAL_MINIMUM_WAIT_TIME;
+                currentWaitTime = (new Random().nextFloat()
+                        * (character_utils.NEUTRAL_MAXIMUM_WAIT_TIME - character_utils.NEUTRAL_MINIMUM_WAIT_TIME))
+                        + character_utils.NEUTRAL_MINIMUM_WAIT_TIME;
             } else if (elapsedWaitTime >= currentWaitTime) {
                 this.findPath(currentRegion.getRandomTile());
             }

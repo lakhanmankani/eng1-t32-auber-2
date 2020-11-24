@@ -49,6 +49,10 @@ public abstract class NPCCharacter extends Character {
         this.findPath((int) worldPos.x, (int) worldPos.y);
     }
 
+    /**
+     * Makes the NPCCharacter move towards the next node, and if they are close enough to the next node after that
+     * @param speed How fast the character should move in tiles/second
+     */
     public void followPath(int speed) {
         this.movementElapsedTime += Gdx.graphics.getDeltaTime();
         Tile closestTile = currentPath.get(pathIndex);
@@ -64,5 +68,6 @@ public abstract class NPCCharacter extends Character {
         this.rotation = (float) Math.toDegrees(Math.atan2(closestTile.getCenterPosition().y - yPos, closestTile.getCenterPosition().x - xPos)) + 90;
         xPos += Math.round(Gdx.graphics.getDeltaTime() * speed * 32 * Math.cos(Math.toRadians(this.rotation - 90)));
         yPos += Math.round(Gdx.graphics.getDeltaTime() * speed * 32 * Math.sin(Math.toRadians(this.rotation - 90)));
+        // This is used so the character always maintains a constant speed, even when moving diagonally.
     }
 }

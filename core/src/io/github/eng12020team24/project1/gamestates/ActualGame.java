@@ -96,9 +96,12 @@ public class ActualGame implements Screen {
                 graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
         infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 38 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph, graph.getTileFromCoordinates(34*TileType.TILE_SIZE,25*TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new InvisibleInfiltrator(graph, graph.getTileFromCoordinates(43 * TileType.TILE_SIZE,47 *TileType.TILE_SIZE),textureAtlas));
-        infiltratorsToAdd.add(new DisguiseInfiltrator(graph, graph.getTileFromCoordinates(9*TileType.TILE_SIZE,39*TileType.TILE_SIZE),textureAtlas));
+        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+                graph.getTileFromCoordinates(34 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new InvisibleInfiltrator(graph,
+                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+        infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
+                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
     }
 
     @Override
@@ -112,9 +115,9 @@ public class ActualGame implements Screen {
         camera.update();
         gameMap.render(camera);
 
-        if (stationSystems.size() <= 1){
+        if (stationSystems.size() <= 1) {
             game.setScreen(new LoseState(game));
-        } else if(infiltratorsToAdd.size()==0 && infiltrators.size()==0){
+        } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
             game.setScreen(new WinState(game));
         }
 
@@ -127,17 +130,17 @@ public class ActualGame implements Screen {
 
         healthbar.render(game.batch, elapsedTime, auber);
         systemBar.render(game.batch, stationSystems.size());
-        enemyBar.render(game.batch, infiltratorsToAdd.size()+infiltrators.size());
+        enemyBar.render(game.batch, infiltratorsToAdd.size() + infiltrators.size());
 
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
-        for(StationSystem sys : stationSystems){
+        for (StationSystem sys : stationSystems) {
             sys.render(game.batch, camera);
-            if (sys.getHealth() <= 0){
+            if (sys.getHealth() <= 0) {
                 systemsToRemove.add(sys);
             }
             sys.setFunctioning(true);
         }
-        for(StationSystem sys: systemsToRemove){
+        for (StationSystem sys : systemsToRemove) {
             stationSystems.remove(sys);
         }
 
@@ -150,7 +153,7 @@ public class ActualGame implements Screen {
             infiltrator.runAI(auber, stationSystems);
             infiltrator.render(game.batch, camera);
         }
-        if(infiltrators.size() < 2 && infiltratorsToAdd.size() > 0){
+        if (infiltrators.size() < 2 && infiltratorsToAdd.size() > 0) {
             infiltrators.add(infiltratorsToAdd.get(0));
             infiltratorsToAdd.remove(0);
         }
@@ -182,11 +185,9 @@ public class ActualGame implements Screen {
             beamgun.remove(b);
         }
 
-
         for (Infiltrator i : infiltratorsToRemove) {
             infiltrators.remove(i);
         }
-
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {

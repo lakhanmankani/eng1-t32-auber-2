@@ -48,9 +48,9 @@ public class LoseState implements Screen{
         exitButton.draw(game.batch);
         game.batch.end();
         
-        if (exitButton.isClicked()){ //exits
+        if (exitButton.isClicked()) { //exits
             Gdx.app.exit();
-        } else if (playAgainButton.isClicked()){ // starts new game
+        } else if (playAgainButton.isClicked()) { // starts new game
             menu = new MenuState(game);
             this.newGame = new ActualGame(game, menu);
             game.setScreen(newGame);
