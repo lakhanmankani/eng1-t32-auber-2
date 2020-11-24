@@ -51,24 +51,24 @@ public class Auber extends Character {
     public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
         if (Gdx.input.isKeyPressed(Keys.W)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
-                rotation = 225; //
+                rotation = 225;
             } else if (Gdx.input.isKeyPressed(Keys.D)) {
-                rotation = 135; //
+                rotation = 135;
             } else {
-                rotation = 180; // done
+                rotation = 180;
             }
         } else if (Gdx.input.isKeyPressed(Keys.S)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
-                rotation = 315; // done
+                rotation = 315;
             } else if (Gdx.input.isKeyPressed(Keys.D)) {
-                rotation = 45; //
+                rotation = 45;
             } else {
-                rotation = 0; // done
+                rotation = 0;
             }
         } else if (Gdx.input.isKeyPressed(Keys.A)) {
-            rotation = 270; // done
+            rotation = 270;
         } else if (Gdx.input.isKeyPressed(Keys.D)) {
-            rotation = 90; // done
+            rotation = 90;
         }
         // rotation = 180 is true when moving up. But when moving up, rotation should be
         // 90 (sin 1, cos 0)
@@ -109,7 +109,7 @@ public class Auber extends Character {
                 health += 1;
 
             }
-        } else if (health > 10){
+        } else if (health > 10) {
             health = 10;
         }
     }
@@ -118,7 +118,7 @@ public class Auber extends Character {
      * getter to get the direction of where the auber is facing.
      * @return returns integer of the angle of auber's facing
      */
-    public int getRotation(){
+    public int getRotation() {
         return (int)(rotation);
     }
 
@@ -126,7 +126,7 @@ public class Auber extends Character {
      * getter for auber's current health value.
      * @return returns the integer value of the number of hearts auber has
      */
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
     /**

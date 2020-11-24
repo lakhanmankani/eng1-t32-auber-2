@@ -191,7 +191,7 @@ public class ActualGame implements Screen {
 
         game.batch.end();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-            game.setScreen(menu); // so you dont have to ALT+F4 the program
+            game.setScreen(menu);
         }
 
     }

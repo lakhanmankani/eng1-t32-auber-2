@@ -2,7 +2,6 @@ package io.github.eng12020team24.project1.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Button {
@@ -12,14 +11,12 @@ public class Button {
     Integer height;
     private TextureRegion image;
 
-    // Game game;
     public Button(Integer x, Integer y, TextureRegion image) {
         this.x = x;
         this.y = y;
         this.width = image.getRegionWidth();
         this.height = image.getRegionHeight();
         this.image = image;
-        // this.game=game;
     }
 
     /**
