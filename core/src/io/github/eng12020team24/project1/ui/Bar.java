@@ -11,11 +11,11 @@ public abstract class Bar {
     /**
      * texture sprite for the bar elements.
      */
-    public TextureRegion texture;
+    protected TextureRegion texture;
     /**
      * the row at which the bar is drawn.
      */
-    public int row;
+    protected int row;
 
     /**
      * the render method that draws the bar on the the top-left of the screen. In it's designated row.
