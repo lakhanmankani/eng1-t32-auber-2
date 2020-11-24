@@ -119,7 +119,7 @@ public class Auber extends Character {
      * @return returns integer of the angle of auber's facing
      */
     public int getRotation() {
-        return (int)(rotation);
+        return (int) (rotation);
     }
 
     /**

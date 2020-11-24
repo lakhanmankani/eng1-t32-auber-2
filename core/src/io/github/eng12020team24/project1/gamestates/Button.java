@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Button {
     private Integer x;
     private Integer y;
-    Integer width;
-    Integer height;
+    private Integer width;
+    private Integer height;
     private TextureRegion image;
 
     public Button(Integer x, Integer y, TextureRegion image) {
