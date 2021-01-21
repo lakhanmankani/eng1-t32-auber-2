@@ -9,7 +9,7 @@ public class DesktopLauncher {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
-		config.fullscreen = true;
+		config.fullscreen = false;
 		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 		// this properly sets up fullscreen
