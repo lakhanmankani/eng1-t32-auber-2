@@ -10,7 +10,7 @@ import com.badlogic.gdx.Input.Keys;
 public class WinState implements Screen{
     private AuberGame game;
     private TextureAtlas uiAtlas;
-    private Button playAgainButton;
+    // private Button playAgainButton;
     private TextureRegion youWon;
     private int youWonX;
     private Button exitButton;
@@ -24,7 +24,7 @@ public class WinState implements Screen{
     public WinState(AuberGame game){
         this.game = game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON"));
+        // playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON"));
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
         youWon = new TextureRegion(uiAtlas.findRegion("YOU_WIN_IMAGE"));
         youWonX = Gdx.graphics.getWidth()/2 - 490;
@@ -40,21 +40,20 @@ public class WinState implements Screen{
         
         game.batch.begin();
         game.batch.draw(youWon, youWonX, 25);
-        playAgainButton.draw(game.batch);
+        // playAgainButton.draw(game.batch);
         exitButton.draw(game.batch);
         game.batch.end();
 
-        if (exitButton.isClicked()){ //exits
+        if (exitButton.isClicked() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)){ //exits
             Gdx.app.exit();
-        } else if (playAgainButton.isClicked()){ // starts new game
+        }
+        /*
+        else if (playAgainButton.isClicked()){ // starts new game
             menu = new MenuState(game);
             this.newGame = new ActualGame(game, menu);
             game.setScreen(newGame);
         }
-
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Gdx.app.exit(); // so you can leave from all menus
-		}
+        */
     }
 
     @Override

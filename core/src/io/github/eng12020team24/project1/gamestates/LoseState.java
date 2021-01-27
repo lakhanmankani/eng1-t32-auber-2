@@ -12,7 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 public class LoseState implements Screen{
     private AuberGame game;
     private TextureAtlas uiAtlas;
-    private Button playAgainButton;
+    //private Button playAgainButton;
     private TextureRegion gameOver;
     private int gameOverX;
     private Button exitButton;
@@ -27,7 +27,7 @@ public class LoseState implements Screen{
         this.game=game;
         // all buttons and images are centered.
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON")); //440 is half of the play again button width
+        // playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON")); //440 is half of the play again button width
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON")); // 200 is half of the visible width of the exit button
         gameOver = new TextureRegion(uiAtlas.findRegion("GAME_OVER_IMAGE")); 
         gameOverX = Gdx.graphics.getWidth()/2 - 490; // 490 is half of the game over image width
@@ -44,21 +44,20 @@ public class LoseState implements Screen{
 
         game.batch.begin();
         game.batch.draw(gameOver, gameOverX, 25);
-        playAgainButton.draw(game.batch);
+        // playAgainButton.draw(game.batch);
         exitButton.draw(game.batch);
         game.batch.end();
         
-        if (exitButton.isClicked()) { //exits
+        if (exitButton.isClicked() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { //exits
             Gdx.app.exit();
-        } else if (playAgainButton.isClicked()) { // starts new game
+        }
+        /*
+        else if (playAgainButton.isClicked()) { // starts new game
             menu = new MenuState(game);
             this.newGame = new ActualGame(game, menu);
             game.setScreen(newGame);
         }
-
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Gdx.app.exit(); // so you can leave from all menus
-		}
+        */
     }
 
     @Override
