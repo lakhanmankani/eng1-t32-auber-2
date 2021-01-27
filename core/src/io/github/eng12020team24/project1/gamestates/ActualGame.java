@@ -1,14 +1,18 @@
 package io.github.eng12020team24.project1.gamestates;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Json;
+import io.github.eng12020team24.project1.SaveSystem;
 import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
@@ -194,6 +198,11 @@ public class ActualGame implements Screen {
             game.setScreen(menu);
         }
 
+    }
+
+    public void saveGame() {
+        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, 1, auber);
+        return;
     }
 
     @Override
