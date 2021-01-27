@@ -108,7 +108,6 @@ public class Auber extends Character {
     public void auberHeal(){
         healTimer += Gdx.graphics.getDeltaTime();
         if (health < 10){
-            // TODO: Heal slower based on difficulty
             // Heal 1 heart every second (easy)
             float secondsPerHeal = 1f;
 
