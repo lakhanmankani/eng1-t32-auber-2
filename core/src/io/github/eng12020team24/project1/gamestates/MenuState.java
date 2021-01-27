@@ -10,9 +10,11 @@ public class MenuState implements Screen {
     private AuberGame game;
     private ActualGame actualGame = null;
     private TextureAtlas uiAtlas;
+    private Button saveButton;
     private Button playButton;
     private Button exitButton;
     private Button resumeButton;
+    private Boolean clicked = false;
 
     /**
      * Initialises the Menu state
@@ -22,6 +24,7 @@ public class MenuState implements Screen {
         this.game=game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
         playButton = new Button(0, 128, uiAtlas.findRegion("PLAY_BUTTON"));
+        saveButton = new Button(0, 256, uiAtlas.findRegion("PLAY_BUTTON"));
         resumeButton = new Button(0, 128, uiAtlas.findRegion("RESUME_BUTTON"));
         exitButton = new Button(0, 0, uiAtlas.findRegion("EXIT_BUTTON"));
     }
@@ -46,10 +49,11 @@ public class MenuState implements Screen {
 
         game.batch.begin();
         exitButton.draw(game.batch);
-        if (this.actualGame == null) { // draws either the play or resume button depending on if game already exsists
+        if (this.actualGame == null) { // draws either the play or resume button depending on if game already exists
             playButton.draw(game.batch);
         } else {
             resumeButton.draw(game.batch);
+            saveButton.draw(game.batch);
         }
         game.batch.end();
 
@@ -61,6 +65,10 @@ public class MenuState implements Screen {
             game.setScreen(actualGame);
         } else if (resumeButton.isClicked()){ // resumes old game
             game.setScreen(actualGame);
+        } else if (saveButton.isClicked() && clicked == false) {
+            clicked = true;
+            actualGame.saveGame();
+
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
