@@ -1,6 +1,7 @@
 package io.github.eng12020team24.project1.characters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -153,6 +154,19 @@ public class Auber extends Character {
             if (tile.getId() == 7) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * a boolean method to check if Auber is on a power up
+     * @return returns a boolean whether or not Auber is on a power up.
+     */
+    public boolean isAuberOnPowerUp() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            Integer[] powerUpIds = {31, 32, 33, 34, 35};
+            return Arrays.asList(powerUpIds).contains(tile.getId());
         }
         return false;
     }
