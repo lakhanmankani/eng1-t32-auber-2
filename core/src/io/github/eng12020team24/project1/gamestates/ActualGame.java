@@ -168,7 +168,7 @@ public class ActualGame implements Screen {
         auber.render(game.batch);
 
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
-            beamgun.add(new Beam(auber, textureAtlas));
+            beamgun.add(new Beam(auber, difficulty, textureAtlas));
         }
 
         ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
