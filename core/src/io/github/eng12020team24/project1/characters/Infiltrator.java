@@ -17,15 +17,17 @@ public abstract class Infiltrator extends NPCCharacter {
     protected float abilityTime = character_utils.INFILTRATOR_ABILITY_DURATION;
     protected boolean usingAbility = false;
     protected int remainingAbilities = character_utils.INFILTRATOR_ABILITY_CHARGES;
+    int difficulty;
 
-    public Infiltrator(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
+    public Infiltrator(int difficulty, TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
         super(tileGraph, x, y);
+        this.difficulty = difficulty;
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("Z_INFILTRATOR_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("Z_INFILTRATOR_WALK"));
     }
 
-    public Infiltrator(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
-        this(tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
+    public Infiltrator(int difficulty, TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
+        this(difficulty, tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
     }
 
     public void runAI(Auber auber, ArrayList<StationSystem> systems) {
@@ -46,7 +48,7 @@ public abstract class Infiltrator extends NPCCharacter {
             usingAbility = false;
         }
         if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
-                + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_FLEE_DISTANCE * 32)
+                + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.infiltratorFleeDistance(difficulty) * 32)
                 && (!fleeingFromAuber || (currentPath == null && fleeingFromAuber))) {
             this.findPath(this.currentRegion.getRandomTile());
             fleeingFromAuber = true;
@@ -55,7 +57,7 @@ public abstract class Infiltrator extends NPCCharacter {
         }
         // If the distance to Auber is less than INFILTRATOR_FLEE_DISTANCE in tiles, flee from Auber
         if (Math.sqrt(Math.pow(auber.getXPos() - xPos, 2)
-        + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.INFILTRATOR_ABILITY_DISTANCE * 32)) {
+        + Math.pow(auber.getYPos() - yPos, 2)) <= (character_utils.infiltratorAbilityDistance(difficulty) * 32)) {
             this.useAbility();
         }
         // If the distance to Auber is less than INFILTRATOR_ABILITY_DISTANCE in tiles, attempt to use your ability

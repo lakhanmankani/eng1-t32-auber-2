@@ -91,21 +91,21 @@ public class ActualGame implements Screen {
 
         // Add hostile NPCs
         infiltratorsToAdd = new ArrayList<Infiltrator>();
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new InvisibleInfiltrator(graph,
+        infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(23 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
+        infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 38 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(graph,
+        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(34 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new InvisibleInfiltrator(graph,
+        infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
+        infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
 
         // Set game difficulty

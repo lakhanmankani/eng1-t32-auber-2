@@ -27,6 +27,13 @@ public class character_utils {
     public static final int INFILTRATOR_ABILITY_CHARGES = 1;
     public static final int INFILTRATOR_ABILITY_DURATION = 10;
 
+    public static int infiltratorFleeDistance(int difficulty) {
+        return INFILTRATOR_FLEE_DISTANCE + difficulty;
+    }
+    public static int infiltratorAbilityDistance(int difficulty) {
+        return INFILTRATOR_ABILITY_DISTANCE + difficulty;
+    }
+
     public static int beamSpeed(int difficulty) {
         if (difficulty == 0) {
             return BEAM_SPEED_EASY;
