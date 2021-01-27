@@ -54,7 +54,7 @@ public class ActualGame implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
-        auber = new Auber(textureAtlas, gameMap);
+        auber = new Auber(textureAtlas, difficulty, gameMap);
         minimap = new Minimap(uiAtlas);
         graph = new TileGraph(gameMap);
         healthbar = new HealthBar(uiAtlas);
