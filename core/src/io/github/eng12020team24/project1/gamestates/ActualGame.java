@@ -2,6 +2,7 @@ package io.github.eng12020team24.project1.gamestates;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -41,8 +42,9 @@ public class ActualGame implements Screen {
     ArrayList<Infiltrator> infiltrators;
     ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
+    int difficulty;
 
-    public ActualGame(AuberGame game, MenuState menu) {
+    public ActualGame(AuberGame game, int difficulty, MenuState menu) {
         this.game = game;
         game.batch = new SpriteBatch();
 
@@ -60,6 +62,7 @@ public class ActualGame implements Screen {
         enemyBar = new EnemyBar(textureAtlas, 2);
         beamgun = new ArrayList<Beam>();
 
+        // Add systems
         stationSystems = new ArrayList<StationSystem>();
         stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
         stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
@@ -78,6 +81,7 @@ public class ActualGame implements Screen {
         stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
         stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
 
+        // Add neutral NPCs
         neutralNpcs = new ArrayList<NeutralNPC>();
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
@@ -85,6 +89,7 @@ public class ActualGame implements Screen {
         neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
         infiltrators = new ArrayList<Infiltrator>();
 
+        // Add hostile NPCs
         infiltratorsToAdd = new ArrayList<Infiltrator>();
         infiltratorsToAdd.add(new SpeedInfiltrator(graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
@@ -102,6 +107,9 @@ public class ActualGame implements Screen {
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
         infiltratorsToAdd.add(new DisguiseInfiltrator(graph,
                 graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
+
+        // Set game difficulty
+        this.difficulty = difficulty;
     }
 
     @Override
@@ -116,9 +124,9 @@ public class ActualGame implements Screen {
         gameMap.render(camera);
 
         if (stationSystems.size() <= 1) {
-            game.setScreen(new LoseState(game));
+            game.setScreen(new GameOverState(game, false));
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
-            game.setScreen(new WinState(game));
+            game.setScreen(new GameOverState(game, true));
         }
 
         game.batch.begin();

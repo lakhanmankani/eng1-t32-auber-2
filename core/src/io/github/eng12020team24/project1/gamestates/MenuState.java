@@ -56,7 +56,7 @@ public class MenuState implements Screen {
         if (exitButton.isClicked()){ //exits
             Gdx.app.exit();
         } else if (playButton.isClicked()){ // starts new game
-            this.actualGame = new ActualGame(game, this);
+            this.actualGame = new ActualGame(game, 0, this);
             game.setScreen(actualGame);
         } else if (resumeButton.isClicked()){ // resumes old game
             game.setScreen(actualGame);
