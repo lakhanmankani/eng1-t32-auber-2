@@ -16,15 +16,15 @@ public class DisguiseInfiltrator extends Infiltrator {
     private TextureRegion disguisedIdle;
     private Animation<TextureRegion> disguisedWalking;
 
-    public DisguiseInfiltrator(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
-        super(tileGraph, x, y, textureAtlas);
+    public DisguiseInfiltrator(int diffulty, TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
+        super(diffulty, tileGraph, x, y, textureAtlas);
         disguisedWalking = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("Z_INFILTRATOR_DISGUISED"));
         disguisedIdle = new TextureRegion(textureAtlas.findRegion("Z_INFILTRATOR_DISGUISED"));
 
     }
 
-    public DisguiseInfiltrator(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
-        this(tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
+    public DisguiseInfiltrator(int difficulty, TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
+        this(difficulty, tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
     }
 
     @Override

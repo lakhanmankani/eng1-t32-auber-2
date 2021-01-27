@@ -1,6 +1,7 @@
 package io.github.eng12020team24.project1.characters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -30,8 +31,9 @@ public class Auber extends Character {
     private int health;
     private float damageTimer = 0;
     private float healTimer = 0;
+    int difficulty;
 
-    public Auber(TextureAtlas textureAtlas, TiledGameMap map) {
+    public Auber(TextureAtlas textureAtlas, int difficulty, TiledGameMap map) {
         walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions("AUBER_WALK"));
         idleTexture = new TextureRegion(textureAtlas.findRegion("AUBER_WALK"));
         xPos = 26 * TileType.TILE_SIZE;
@@ -42,6 +44,8 @@ public class Auber extends Character {
         // every frame.
         this.map = map;
         health = 10;
+
+        this.difficulty = difficulty;
     }
 
     public void render(SpriteBatch batch) {
@@ -104,11 +108,21 @@ public class Auber extends Character {
     public void auberHeal(){
         healTimer += Gdx.graphics.getDeltaTime();
         if (health < 10){
-            if (healTimer >= 1f) {
+            // Heal 1 heart every second (easy)
+            float secondsPerHeal = 1f;
+
+            if (difficulty == 1) {
+                // Heal 1 heart every 2 seconds (medium)
+                secondsPerHeal = 2f;
+            } else if (difficulty == 2) {
+                // Heal 1 heart every 3 seconds (hard)
+                secondsPerHeal = 3f; //
+            }
+            if (healTimer >= secondsPerHeal) {
                 healTimer = 0f;
                 health += 1;
-
             }
+
         } else if (health > 10) {
             health = 10;
         }
@@ -153,6 +167,19 @@ public class Auber extends Character {
             if (tile.getId() == 7) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * a boolean method to check if Auber is on a power up
+     * @return returns a boolean whether or not Auber is on a power up.
+     */
+    public boolean isAuberOnPowerUp() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            Integer[] powerUpIds = {31, 32, 33, 34, 35};
+            return Arrays.asList(powerUpIds).contains(tile.getId());
         }
         return false;
     }

@@ -15,7 +15,9 @@ public class character_utils {
     public static final int INFILTRATOR_FLEE_DISTANCE = 4;
     public static final int INFILTRATOR_ABILITY_DISTANCE = 4;
 
-    public static final int BEAM_SPEED = 8;
+    public static final int BEAM_SPEED_EASY = 8;
+    public static final int BEAM_SPEED_MEDIUM = 6;
+    public static final int BEAM_SPEED_HARD = 4;
 
     public static final int INFILTRATOR_SPEED = 4;
     public static final int SPEED_INFILTRATOR_SPEED = 8;
@@ -25,6 +27,22 @@ public class character_utils {
     public static final int INFILTRATOR_ABILITY_CHARGES = 1;
     public static final int INFILTRATOR_ABILITY_DURATION = 10;
 
+    public static int infiltratorFleeDistance(int difficulty) {
+        return INFILTRATOR_FLEE_DISTANCE + difficulty;
+    }
+    public static int infiltratorAbilityDistance(int difficulty) {
+        return INFILTRATOR_ABILITY_DISTANCE + difficulty;
+    }
+
+    public static int beamSpeed(int difficulty) {
+        if (difficulty == 0) {
+            return BEAM_SPEED_EASY;
+        } else if (difficulty == 1) {
+            return BEAM_SPEED_MEDIUM;
+        } else {
+            return BEAM_SPEED_HARD;
+        }
+    }
 
     /**
      * There are two kinds of position used-"world position" and "camera position" - world position is relative to the game map, e.g.

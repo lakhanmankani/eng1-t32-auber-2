@@ -13,12 +13,12 @@ import io.github.eng12020team24.project1.system.StationSystem;
 
 public class SpeedInfiltrator extends Infiltrator {
 
-    public SpeedInfiltrator(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
-        super(tileGraph, x, y, textureAtlas);
+    public SpeedInfiltrator(int difficulty, TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas) {
+        super(difficulty, tileGraph, x, y, textureAtlas);
     }
 
-    public SpeedInfiltrator(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
-        super(tileGraph, tilePos, textureAtlas);
+    public SpeedInfiltrator(int difficulty, TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
+        super(difficulty, tileGraph, tilePos, textureAtlas);
     }
 
     @Override
