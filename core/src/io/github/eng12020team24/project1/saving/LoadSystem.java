@@ -9,9 +9,7 @@ public class LoadSystem {
     private String json;
 
     public LoadSystem(String fileName) throws IOException {
-        file = new FileReader("save.txt");
-        file.read(CharBuffer.wrap(json));
-
+        file = new FileReader(fileName);
         System.out.println(json);
     }
 }
