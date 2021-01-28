@@ -133,7 +133,11 @@ public class ActualGame implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-        auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
+        if (isCurrentlyUsingPowerUp("SpeedUp")) {
+            auber.move(Gdx.graphics.getDeltaTime(), infiltrators, 2.5f);
+        } else {
+            auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
+        }
         camera.position.set(auber.getPositionForCamera());
         camera.update();
         gameMap.render(camera);
@@ -204,7 +208,11 @@ public class ActualGame implements Screen {
         }
 
         for (Infiltrator infiltrator : infiltrators) {
-            infiltrator.runAI(auber, stationSystems);
+            if (!isCurrentlyUsingPowerUp("InfiltratorFreeze")) {
+                infiltrator.runAI(auber, stationSystems);
+            }
+            infiltrator.runAI(auber, stationSystems, 0);
+
             infiltrator.render(game.batch, camera);
         }
         if (infiltrators.size() < 2 && infiltratorsToAdd.size() > 0) {

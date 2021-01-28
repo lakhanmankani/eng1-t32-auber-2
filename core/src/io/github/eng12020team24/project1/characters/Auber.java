@@ -53,7 +53,7 @@ public class Auber extends Character {
         super.render(batch, renderXPos, renderYPos);
     }
 
-    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
+    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators, float speedMultiplier) {
         if (Gdx.input.isKeyPressed(Keys.W)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
                 rotation = 225;
@@ -79,8 +79,8 @@ public class Auber extends Character {
         // 90 (sin 1, cos 0)
         if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S)
                 || Gdx.input.isKeyPressed(Keys.D)) {
-            float newX = xPos + Math.round(deltaTime * character_utils.AUBER_SPEED * 32 * Math.cos(Math.toRadians(rotation - 90)));
-            float newY = yPos + Math.round(deltaTime * character_utils.AUBER_SPEED * 32 * Math.sin(Math.toRadians(rotation - 90)));
+            float newX = xPos + Math.round(deltaTime * character_utils.AUBER_SPEED * speedMultiplier * 32 * Math.cos(Math.toRadians(rotation - 90)));
+            float newY = yPos + Math.round(deltaTime * character_utils.AUBER_SPEED * speedMultiplier * 32 * Math.sin(Math.toRadians(rotation - 90)));
             if (!map.doesRectCollideWithMap(newX - 16, newY - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
                 xPos = (int) (newX);
                 yPos = (int) (newY);
@@ -98,6 +98,9 @@ public class Auber extends Character {
                 }
             }
         }
+    }
+    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
+        move(deltaTime, infiltrators, 1);
     }
     public void auberTakeDamage(){
         health -= 1;
