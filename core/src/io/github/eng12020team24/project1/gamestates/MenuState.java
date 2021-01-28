@@ -68,7 +68,7 @@ public class MenuState implements Screen {
             //exits
             Gdx.app.exit();
         } else if (playButton.isClicked() && this.actualGame == null){ // starts new game
-            this.actualGame = new ActualGame(game, 0, this);
+            this.actualGame = new ActualGame(game, 0, this, null);
             game.setScreen(actualGame);
         } else if (resumeButton.isClicked() && this.actualGame != null){ // resumes old game
             game.setScreen(actualGame);
@@ -83,6 +83,8 @@ public class MenuState implements Screen {
         {
             try {
                 LoadSystem load = new LoadSystem("save.txt");
+                this.actualGame = new ActualGame(game, 0, this, load);
+                game.setScreen(actualGame);
             } catch (IOException e) {
                 e.printStackTrace();
             }

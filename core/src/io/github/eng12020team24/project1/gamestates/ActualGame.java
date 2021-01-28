@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import io.github.eng12020team24.project1.saving.LoadSystem;
 import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.mapclasses.TileType;
@@ -45,7 +46,7 @@ public class ActualGame implements Screen {
     ArrayList<Beam> beamgun;
     int difficulty;
 
-    public ActualGame(AuberGame game, int difficulty, MenuState menu) {
+    public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load) {
         this.game = game;
         game.batch = new SpriteBatch();
 
@@ -84,13 +85,25 @@ public class ActualGame implements Screen {
 
         // Add neutral NPCs
         neutralNpcs = new ArrayList<NeutralNPC>();
-        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
-        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
-        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
-        neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
-        infiltrators = new ArrayList<Infiltrator>();
+        if(load != null)
+        {
+            for (ArrayList npc : load.generateNpcList() ) {
+                neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates((Integer) npc.get(0), (Integer) npc.get(1)), textureAtlas));
+                System.out.println(npc.get(0));
+                System.out.println(npc.get(1));
+            }
+        }
+        else
+        {
+            neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
+            neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
+            neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
+            neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
+
+        }
 
         // Add hostile NPCs
+        infiltrators = new ArrayList<Infiltrator>();
         infiltratorsToAdd = new ArrayList<Infiltrator>();
         infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                 graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
