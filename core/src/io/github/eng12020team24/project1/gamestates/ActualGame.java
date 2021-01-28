@@ -20,6 +20,7 @@ import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.*;
 
@@ -110,6 +111,14 @@ public class ActualGame implements Screen {
 
         // Set game difficulty
         this.difficulty = difficulty;
+
+        // Power ups
+        powerUps = new ArrayList<>();
+        powerUps.add(new PowerUp("Shield", textureAtlas, 0, 0));
+        powerUps.add(new PowerUp("SpeedUp", textureAtlas, 0, 0));
+        powerUps.add(new PowerUp("MultiBeam", textureAtlas, 0, 0));
+        powerUps.add(new PowerUp("InflitratorFreeze", textureAtlas, 0, 0));
+        powerUps.add(new PowerUp("SpeedUp", textureAtlas, 0, 0));
     }
 
     @Override
@@ -123,6 +132,7 @@ public class ActualGame implements Screen {
         camera.update();
         gameMap.render(camera);
 
+        // Check if game is over
         if (stationSystems.size() <= 1) {
             game.setScreen(new GameOverState(game, false));
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
@@ -131,15 +141,18 @@ public class ActualGame implements Screen {
 
         game.batch.begin();
 
+        // Display teleport menu
         if (auber.isAuberOnTeleporter()) {
             minimap.render(game.batch, auber.getXPos(), auber.getYPos());
             minimap.teleportTo(auber);
         }
 
+        // Display status bars
         healthbar.render(game.batch, elapsedTime, auber);
         systemBar.render(game.batch, stationSystems.size());
         enemyBar.render(game.batch, infiltratorsToAdd.size() + infiltrators.size());
 
+        // Remove destroyed systems
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
         for (StationSystem sys : stationSystems) {
             sys.render(game.batch, camera);
@@ -152,6 +165,7 @@ public class ActualGame implements Screen {
             stationSystems.remove(sys);
         }
 
+        // Move neutral NPCs
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);
@@ -167,10 +181,14 @@ public class ActualGame implements Screen {
         }
         auber.render(game.batch);
 
+        // Display beams
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
-            beamgun.add(new Beam(auber, difficulty, textureAtlas));
+            beamgun.add(new Beam(auber, difficulty, textureAtlas, 0));
+            beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
+            beamgun.add(new Beam(auber, difficulty, textureAtlas, -1));
         }
 
+        // Remove beam when it collides
         ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
         ArrayList<Infiltrator> infiltratorsToRemove = new ArrayList<Infiltrator>();
         for (Beam beam : beamgun) {

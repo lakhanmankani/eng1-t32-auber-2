@@ -20,11 +20,10 @@ public class Beam {
      * @param auber insert auber to retrieve attributes from auber.
      * @param atlas insert atlas to get texture regions for the beam.
      */
-    public Beam(Auber auber, int difficulty, TextureAtlas atlas) {
+    public Beam(Auber auber, int difficulty, TextureAtlas atlas, int offset) {
         float rotation = auber.getRotation();
-        xPos = auber.getXPos() - 16;
-        yPos = auber.getYPos() - 16;
-
+        xPos = auber.getXPos() - 16 + 32 * offset;
+        yPos = auber.getYPos() - 16 + 32 * offset;
 
         xDir = (float) (character_utils.beamSpeed(difficulty) * 32 * Math.cos(Math.toRadians(rotation - 90)));
         yDir = (float) (character_utils.beamSpeed(difficulty) * 32 * Math.sin(Math.toRadians(rotation - 90)));
