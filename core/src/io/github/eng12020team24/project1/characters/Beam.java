@@ -22,11 +22,14 @@ public class Beam {
      */
     public Beam(Auber auber, int difficulty, TextureAtlas atlas, int offset) {
         float rotation = auber.getRotation();
-        xPos = auber.getXPos() - 16 + 32 * offset;
-        yPos = auber.getYPos() - 16 + 32 * offset;
+        double xAngle = Math.cos(Math.toRadians(rotation - 90));
+        double yAngle = Math.sin(Math.toRadians(rotation - 90));
 
-        xDir = (float) (character_utils.beamSpeed(difficulty) * 32 * Math.cos(Math.toRadians(rotation - 90)));
-        yDir = (float) (character_utils.beamSpeed(difficulty) * 32 * Math.sin(Math.toRadians(rotation - 90)));
+        xPos = auber.getXPos() - 16 + 32 * offset * (int) yAngle;
+        yPos = auber.getYPos() - 16 + 32 * offset * (int) xAngle;
+
+        xDir = (float) (character_utils.beamSpeed(difficulty) * 32 * xAngle);
+        yDir = (float) (character_utils.beamSpeed(difficulty) * 32 * yAngle);
         texture = new TextureRegion(atlas.findRegion("Z_BEAM_ORB"));
     }
 
