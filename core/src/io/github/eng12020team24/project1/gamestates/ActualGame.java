@@ -138,6 +138,12 @@ public class ActualGame implements Screen {
         } else {
             auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
         }
+        if (isCurrentlyUsingPowerUp("Shield")) {
+            if (auber.getHealth() != 10) {
+                System.out.println("Man down!");
+            }
+            auber.fullHeal();
+        }
         camera.position.set(auber.getPositionForCamera());
         camera.update();
         gameMap.render(camera);
@@ -184,6 +190,7 @@ public class ActualGame implements Screen {
                 powerUp.startUsing();
                 currentPowerUps.add(powerUp);
                 powerUpsToRemove.add(powerUp);
+                System.out.println("Pickup "+powerUp.name);
             }
         }
         for (PowerUp powerUp : powerUpsToRemove) {

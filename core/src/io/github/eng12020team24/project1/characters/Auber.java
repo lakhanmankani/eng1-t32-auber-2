@@ -132,6 +132,10 @@ public class Auber extends Character {
         }
     }
 
+    public void fullHeal() {
+        this.health = 10;
+    }
+
     /**
      * getter to get the direction of where the auber is facing.
      * @return returns integer of the angle of auber's facing
