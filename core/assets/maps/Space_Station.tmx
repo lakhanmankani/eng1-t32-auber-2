@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
- <tileset firstgid="1" source="ENG1_myspritesheet.tsx"/>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="myspritesheet" tilewidth="32" tileheight="32" spacing="2" margin="2" tilecount="30" columns="30">
+  <image source="../spritesheet/myspritesheet.png" width="1024" height="64"/>
+  <tile id="8">
+   <animation>
+    <frame tileid="8" duration="250"/>
+    <frame tileid="9" duration="250"/>
+    <frame tileid="10" duration="250"/>
+    <frame tileid="11" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="9">
+   <animation>
+    <frame tileid="9" duration="250"/>
+    <frame tileid="10" duration="250"/>
+    <frame tileid="11" duration="250"/>
+    <frame tileid="8" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="10">
+   <animation>
+    <frame tileid="10" duration="250"/>
+    <frame tileid="11" duration="250"/>
+    <frame tileid="8" duration="250"/>
+    <frame tileid="9" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="11">
+   <animation>
+    <frame tileid="11" duration="250"/>
+    <frame tileid="8" duration="250"/>
+    <frame tileid="9" duration="250"/>
+    <frame tileid="10" duration="250"/>
+   </animation>
+  </tile>
+ </tileset>
  <layer id="1" name="Tile Layer 1" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJzNWcuO5DAIzGVWO4nn/393NVIjlUo8Cpz09gF1K04wBQXG9vdxHN8DWfSbvVONRe+dA7uul77rJTu6OnKC4HyZDyqs6/WcfcU6qzm+BKnsWoIue1/hho1bnBbIefh4uziy+Tu+8PQocY38oOD4I8oEB/r0ct7j+KD9mFfvxOHlR2Z7NG45imM7+dHllVoPKrnIJ9cAxxX8j7BUteFX/gqCcbBYdHmFNnOtV3BYnWJemR4VR8a7nXioOCpRcOzkJscjwlD55JNw7OS55UPWb0x51alXu3X3Dm59Eg61Z3oKxx28imoV1rN34pj0V953VZ9uMcZnP454dnjfTsTTY3Z7Nj+Jw/yn5B77mm3A8ZP+856GdaDsxEPFsQI92AtxX2S1mHu+u3CgdHCsI/YHY8BnT/HqCRxck5hXO7ma8aHDK9bFehgD9o2GYVL/2X9Znqv+yPRkZyyTfnUdMYaqzmRzZXrQ78yfaTzQfi9nMsnmivoUnpNzfQdHlvtP4PDianxCTJ+AI6sTuD5EsXg3jqrmGQ5e02ycbZ/iQJngqM4Cq5q/Gw91jVfisRpzs+0ZrnfjUOqwxwPGMznXtJq3w6vJ3j6Kg1eDO/mBZ1D/G0c3tqzPsEx51TlT7eDo1A2M4x35Ee0ZVDsX6aj2Y96+a4LjcvRgrxetH94+ybNNiQffhXVxMAa26wrmxX052pv1j1V8ce4dXqm9HfsvsteLVbTfuevuoVMrOR6V7RWOFeiaYOjiqHKkcw8S2RHVCa+f8/gxqbvZ+VvnjJfPvTPeenN314/T+U7lUYYj0qtyQ8Ed5RPf6U1xRHtkBQfnazfXMD9s/UMdCo6LvvPwVDjU/lsZ92rnhFfe2d60R+JewVsf1bPpLlcn8ci4qfA2Ei82Vewzbt+Jo+N/j+9RL5Pt76v78K6vMkyVPdV6wGcv3R7hDk6j/AN+5lPD

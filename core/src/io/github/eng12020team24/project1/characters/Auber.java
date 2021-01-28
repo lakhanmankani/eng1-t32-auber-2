@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 
 public class Auber extends Character {
     /**
@@ -182,5 +183,16 @@ public class Auber extends Character {
             return Arrays.asList(powerUpIds).contains(tile.getId());
         }
         return false;
+    }
+
+    public PowerUp auberIsOnPowerUp() {
+        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
+        if (tile != null) {
+            Integer[] powerUpIds = {31, 32, 33, 34, 35};
+            if (tile.getId() == 31) {
+                return null;
+            }
+        }
+        return null;
     }
 }

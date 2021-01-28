@@ -44,6 +44,9 @@ public class ActualGame implements Screen {
     ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
     int difficulty;
+    TextureAtlas powerUpAtlas;
+    ArrayList<PowerUp> unusedPowerUps;
+    ArrayList<PowerUp> currentPowerUps;
 
     public ActualGame(AuberGame game, int difficulty, MenuState menu) {
         this.game = game;
@@ -52,6 +55,7 @@ public class ActualGame implements Screen {
         this.menu = menu;
         textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        powerUpAtlas = new TextureAtlas(Gdx.files.internal("powerUpsSpriteSheet/PowerUpsSprites.atlas"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
@@ -113,12 +117,12 @@ public class ActualGame implements Screen {
         this.difficulty = difficulty;
 
         // Power ups
-        powerUps = new ArrayList<>();
-        powerUps.add(new PowerUp("Shield", textureAtlas, 0, 0));
-        powerUps.add(new PowerUp("SpeedUp", textureAtlas, 0, 0));
-        powerUps.add(new PowerUp("MultiBeam", textureAtlas, 0, 0));
-        powerUps.add(new PowerUp("InflitratorFreeze", textureAtlas, 0, 0));
-        powerUps.add(new PowerUp("SpeedUp", textureAtlas, 0, 0));
+        unusedPowerUps = new ArrayList<>();
+        unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
     }
 
     @Override
@@ -165,6 +169,11 @@ public class ActualGame implements Screen {
             stationSystems.remove(sys);
         }
 
+        // Render power up tiles
+        for (PowerUp powerUp : unusedPowerUps) {
+            powerUp.render(game.batch, camera);
+        }
+
         // Move neutral NPCs
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
@@ -183,6 +192,7 @@ public class ActualGame implements Screen {
 
         // Display beams
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
+            // TODO: Change on power up
             beamgun.add(new Beam(auber, difficulty, textureAtlas, 0));
             beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
             beamgun.add(new Beam(auber, difficulty, textureAtlas, -1));
