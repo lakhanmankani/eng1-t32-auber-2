@@ -184,15 +184,4 @@ public class Auber extends Character {
         }
         return false;
     }
-
-    public PowerUp auberIsOnPowerUp() {
-        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
-        if (tile != null) {
-            Integer[] powerUpIds = {31, 32, 33, 34, 35};
-            if (tile.getId() == 31) {
-                return null;
-            }
-        }
-        return null;
-    }
 }
