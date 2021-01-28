@@ -93,8 +93,8 @@ public class LoadSystem {
         return npcs;
     }
 
-    public boolean getDifficulty()
+    public int getDifficulty()
     {
-        return (boolean) json.get("Difficulty");
+        return (int) json.get("Difficulty");
     }
 }

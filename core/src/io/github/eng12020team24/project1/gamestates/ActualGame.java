@@ -83,14 +83,22 @@ public class ActualGame implements Screen {
         stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
         stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
 
+        // Set game difficulty
+        if(load != null)
+        {
+            this.difficulty = load.getDifficulty();
+        }
+        else
+        {
+            this.difficulty = difficulty;
+        }
+
         // Add neutral NPCs
         neutralNpcs = new ArrayList<NeutralNPC>();
         if(load != null)
         {
             for (ArrayList npc : load.generateNpcList() ) {
                 neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates((Integer) npc.get(0), (Integer) npc.get(1)), textureAtlas));
-                System.out.println(npc.get(0));
-                System.out.println(npc.get(1));
             }
         }
         else
@@ -105,25 +113,55 @@ public class ActualGame implements Screen {
         // Add hostile NPCs
         infiltrators = new ArrayList<Infiltrator>();
         infiltratorsToAdd = new ArrayList<Infiltrator>();
-        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(23 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 38 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(34 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
-        infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
-                graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
 
-        // Set game difficulty
-        this.difficulty = difficulty;
+        if(load != null)
+        {
+            for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
+                switch((String) infiltrator.get(2)){
+                    case "SpeedInfiltrator":
+                        infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                    case "InvisibleInfiltrator":
+                        infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                    case "DisguiseInfiltrator":
+                        infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                }
+            }
+            for (ArrayList infiltrator : load.generateInfiltratorList() ) {
+                switch((String) infiltrator.get(2)){
+                    case "SpeedInfiltrator":
+                        infiltrators.add(new SpeedInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                    case "InvisibleInfiltrator":
+                        infiltrators.add(new InvisibleInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                    case "DisguiseInfiltrator":
+                        infiltrators.add(new DisguiseInfiltrator(difficulty, graph,
+                                graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                }
+            }
+        }
+        else
+        {
+            infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(23 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 38 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(34 * TileType.TILE_SIZE, 25 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
+            infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
+                    graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
+        }
     }
 
     @Override
