@@ -174,17 +174,4 @@ public class Auber extends Character {
         }
         return false;
     }
-
-    /**
-     * a boolean method to check if Auber is on a power up
-     * @return returns a boolean whether or not Auber is on a power up.
-     */
-    public boolean isAuberOnPowerUp() {
-        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
-        if (tile != null) {
-            Integer[] powerUpIds = {31, 32, 33, 34, 35};
-            return Arrays.asList(powerUpIds).contains(tile.getId());
-        }
-        return false;
-    }
 }
