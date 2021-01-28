@@ -123,6 +123,8 @@ public class ActualGame implements Screen {
         unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
         unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
         unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
+
+        currentPowerUps = new ArrayList<>();
     }
 
     @Override
@@ -170,8 +172,29 @@ public class ActualGame implements Screen {
         }
 
         // Render power up tiles
+        ArrayList<PowerUp> powerUpsToRemove = new ArrayList<>();
         for (PowerUp powerUp : unusedPowerUps) {
             powerUp.render(game.batch, camera);
+            if (powerUp.auberOnPowerUpTile(auber)) {
+                // Move power up from unused to current
+                powerUp.startUsing();
+                currentPowerUps.add(powerUp);
+                powerUpsToRemove.add(powerUp);
+            }
+        }
+        for (PowerUp powerUp : powerUpsToRemove) {
+            unusedPowerUps.remove(powerUp);
+        }
+        powerUpsToRemove = new ArrayList<>();
+        for (PowerUp powerUp : currentPowerUps) {
+            powerUp.render(game.batch, camera);
+            if (powerUp.finishedUsing()) {
+                System.out.println("Remove "+powerUp.name);
+                powerUpsToRemove.add(powerUp);
+            }
+        }
+        for (PowerUp powerUp : powerUpsToRemove) {
+            currentPowerUps.remove(powerUp);
         }
 
         // Move neutral NPCs
@@ -192,10 +215,11 @@ public class ActualGame implements Screen {
 
         // Display beams
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
-            // TODO: Change on power up
             beamgun.add(new Beam(auber, difficulty, textureAtlas, 0));
-            beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
-            beamgun.add(new Beam(auber, difficulty, textureAtlas, -1));
+            if (isCurrentlyUsingPowerUp("MultiBeam")) {
+                beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
+                beamgun.add(new Beam(auber, difficulty, textureAtlas, -1));
+            }
         }
 
         // Remove beam when it collides
@@ -265,5 +289,14 @@ public class ActualGame implements Screen {
     }
 
     public static void main() {
+    }
+
+    private boolean isCurrentlyUsingPowerUp(String name) {
+        for (PowerUp powerUp : currentPowerUps) {
+            if (powerUp.name.equals(name) || powerUp.name.equals("All")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
