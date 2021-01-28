@@ -97,4 +97,9 @@ public class LoadSystem {
     {
         return (int) json.get("Difficulty");
     }
+
+    public JSONObject getAuberDetails()
+    {
+        return (JSONObject) json.get("Auber");
+    }
 }

@@ -64,6 +64,14 @@ public class ActualGame implements Screen {
         enemyBar = new EnemyBar(textureAtlas, 2);
         beamgun = new ArrayList<Beam>();
 
+        //Set Auber position and health if loading a save
+        if(load != null)
+        {
+            auber.setX(load.getAuberDetails().getInt("x"));
+            auber.setY(load.getAuberDetails().getInt("y"));
+            auber.setAuberHealth(load.getAuberDetails().getInt("health"));
+        }
+
         // Add systems
         stationSystems = new ArrayList<StationSystem>();
         stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
