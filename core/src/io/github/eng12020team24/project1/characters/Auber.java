@@ -20,6 +20,7 @@ public class Auber extends Character {
     public static final int AUBER_HEIGHT = 30; // Auber size set to 30, auber is visually smaller than 32, and helps
                                                // collision to not look odd as Auber collides with gaps between the
                                                // walls.
+
     /**
      * Public CONSTANT for auber's width.
      * 30 pixels instead of 32 due to auber's sprite being less than that.
@@ -98,6 +99,7 @@ public class Auber extends Character {
             }
         }
     }
+
     public void auberTakeDamage(){
         health -= 1;
     }
@@ -143,6 +145,7 @@ public class Auber extends Character {
     public int getHealth() {
         return health;
     }
+
     /**
      * a boolean method that checks the tile the auber is on, with the parameters of auber's coordinates when calling getTileTypeByLocation.
      * @return if the tile the auber is on is equal to that of a teleporter's tiletype ID then return true, else false.
@@ -182,5 +185,10 @@ public class Auber extends Character {
             return Arrays.asList(powerUpIds).contains(tile.getId());
         }
         return false;
+    }
+
+    public void setAuberHealth(int health)
+    {
+        this.health = health;
     }
 }

@@ -42,6 +42,7 @@ public class SaveSystem {
         save.put("NPCS", extractNpcInfo(npcs));
         save.put("Systems", extractSystemsInfo(systems));
         save.put("Difficulty", difficulty);
+        save.put("Auber", extractAuberInfo(auber));
 
         try{
             file.write(save.toString());
@@ -61,6 +62,8 @@ public class SaveSystem {
 
         infiltratorObject.put("alreadyAdded", extractInfiltratorInfo(infiltrators));
         infiltratorObject.put("toAdd", extractInfiltratorInfo(infiltratorsToAdd));
+
+        System.out.println(infiltratorObject);
 
         return infiltratorObject;
     }
@@ -102,14 +105,25 @@ public class SaveSystem {
         for(StationSystem system: systems) {
             JSONObject object = new JSONObject();
 
-            object.put("status", system.getStatus());
             object.put("x", system.getX());
             object.put("y", system.getY());
+            object.put("status", system.getStatus());
 
             systemsInfo.put(object);
         }
 
         return systemsInfo;
+    }
+
+    private JSONObject extractAuberInfo(Auber auber)
+    {
+        JSONObject auberObject = new JSONObject();
+
+        auberObject.put("x", auber.getXPos());
+        auberObject.put("y", auber.getYPos());
+        auberObject.put("health", auber.getHealth());
+
+        return auberObject;
     }
 
 }
