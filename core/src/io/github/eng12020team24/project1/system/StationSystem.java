@@ -34,6 +34,15 @@ public class StationSystem {
         health = 10;
     }
 
+    public StationSystem(TextureAtlas atlas, int x, int y, boolean isNotDamaged) {
+        systemOn = new TextureRegion(atlas.findRegion("Z_SYSTEM_OK"));
+        systemOff = new TextureRegion(atlas.findRegion("Z_SYSTEM_OFF"));
+        this.isNotDamaged = isNotDamaged;
+        xPos = x * TileType.TILE_SIZE;
+        yPos = y * TileType.TILE_SIZE;
+        health = 10;
+    }
+
     /**
      * Gets the health of this StationSystem.
      * 
@@ -127,5 +136,7 @@ public class StationSystem {
     public int getY() {
         return yPos;
     }
+
+    public boolean getStatus(){return isNotDamaged;}
 
 }

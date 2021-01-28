@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import java.io.IOException;
+
 public class MenuState implements Screen {
     private AuberGame game;
     private ActualGame actualGame = null;
@@ -14,7 +16,7 @@ public class MenuState implements Screen {
     private Button playButton;
     private Button exitButton;
     private Button resumeButton;
-    private Boolean clicked = false;
+    private Boolean clicked;
 
     /**
      * Initialises the Menu state
@@ -31,6 +33,7 @@ public class MenuState implements Screen {
 
     @Override
 	public void show() {
+        clicked = false;
     }
 
     @Override
@@ -67,7 +70,11 @@ public class MenuState implements Screen {
             game.setScreen(actualGame);
         } else if (saveButton.isClicked() && clicked == false) {
             clicked = true;
-            actualGame.saveGame();
+            try {
+                actualGame.saveGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
