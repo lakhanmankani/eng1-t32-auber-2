@@ -88,8 +88,6 @@ public class MenuState implements Screen {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Load");
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {

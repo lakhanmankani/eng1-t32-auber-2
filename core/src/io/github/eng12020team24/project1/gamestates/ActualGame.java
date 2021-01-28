@@ -74,22 +74,35 @@ public class ActualGame implements Screen {
 
         // Add systems
         stationSystems = new ArrayList<StationSystem>();
-        stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
-        stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
-        stationSystems.add(new StationSystem(textureAtlas, 20, 24));// 3
-        stationSystems.add(new StationSystem(textureAtlas, 7, 8));// 4
-        stationSystems.add(new StationSystem(textureAtlas, 8, 37));// 5
-        stationSystems.add(new StationSystem(textureAtlas, 16, 33));// 6
-        stationSystems.add(new StationSystem(textureAtlas, 29, 25));// 7
-        stationSystems.add(new StationSystem(textureAtlas, 20, 14));// 8
-        stationSystems.add(new StationSystem(textureAtlas, 42, 10));// 9
-        stationSystems.add(new StationSystem(textureAtlas, 37, 19));// 10
-        stationSystems.add(new StationSystem(textureAtlas, 42, 19));// 11
-        stationSystems.add(new StationSystem(textureAtlas, 33, 25));// 12
-        stationSystems.add(new StationSystem(textureAtlas, 41, 38));// 13
-        stationSystems.add(new StationSystem(textureAtlas, 44, 35));// 14
-        stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
-        stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
+        if(load != null)
+        {
+            for(ArrayList system : load.generateSystemsList())
+            {
+                if(((boolean) system.get(2)))
+                {
+                    stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE));
+                }
+            }
+        }
+        else
+        {
+            stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
+            stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
+            stationSystems.add(new StationSystem(textureAtlas, 20, 24));// 3
+            stationSystems.add(new StationSystem(textureAtlas, 7, 8));// 4
+            stationSystems.add(new StationSystem(textureAtlas, 8, 37));// 5
+            stationSystems.add(new StationSystem(textureAtlas, 16, 33));// 6
+            stationSystems.add(new StationSystem(textureAtlas, 29, 25));// 7
+            stationSystems.add(new StationSystem(textureAtlas, 20, 14));// 8
+            stationSystems.add(new StationSystem(textureAtlas, 42, 10));// 9
+            stationSystems.add(new StationSystem(textureAtlas, 37, 19));// 10
+            stationSystems.add(new StationSystem(textureAtlas, 42, 19));// 11
+            stationSystems.add(new StationSystem(textureAtlas, 33, 25));// 12
+            stationSystems.add(new StationSystem(textureAtlas, 41, 38));// 13
+            stationSystems.add(new StationSystem(textureAtlas, 44, 35));// 14
+            stationSystems.add(new StationSystem(textureAtlas, 45, 46));// 15
+            stationSystems.add(new StationSystem(textureAtlas, 40, 46));// 16
+        }
 
         // Set game difficulty
         if(load != null)
@@ -122,37 +135,44 @@ public class ActualGame implements Screen {
         infiltrators = new ArrayList<Infiltrator>();
         infiltratorsToAdd = new ArrayList<Infiltrator>();
 
-        if(load != null)
-        {
+        if(load != null) {
             for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
+                System.out.println("Adding to infiltratorToAdd list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                     case "InvisibleInfiltrator":
                         infiltratorsToAdd.add(new InvisibleInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                     case "DisguiseInfiltrator":
                         infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                 }
             }
+
             for (ArrayList infiltrator : load.generateInfiltratorList() ) {
+                System.out.println("Adding to infiltrator list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltrators.add(new SpeedInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                     case "InvisibleInfiltrator":
                         infiltrators.add(new InvisibleInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                     case "DisguiseInfiltrator":
                         infiltrators.add(new DisguiseInfiltrator(difficulty, graph,
                                 graph.getTileFromCoordinates((int) infiltrator.get(0), (int) infiltrator.get(1)), textureAtlas));
+                        break;
                 }
             }
-        }
-        else
-        {
+        } else {
+            System.out.println("Default infiltrators");
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                     graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,

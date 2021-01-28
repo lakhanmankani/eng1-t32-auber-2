@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoadSystem {
     private JSONObject json;
@@ -91,6 +90,26 @@ public class LoadSystem {
         }
 
         return npcs;
+    }
+
+    public ArrayList<ArrayList> generateSystemsList()
+    {
+        JSONArray object = (JSONArray) json.get("Systems");
+
+        ArrayList<ArrayList> systems = new ArrayList<>();
+
+        for (int i = 0; i < object.length(); i++) {
+            JSONObject system = object.getJSONObject(i);
+            ArrayList list = new ArrayList();
+
+            list.add(system.get("x"));
+            list.add(system.get("y"));
+            list.add(system.get("status"));
+
+            systems.add(list);
+        }
+
+        return systems;
     }
 
     public int getDifficulty()

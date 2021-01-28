@@ -63,6 +63,8 @@ public class SaveSystem {
         infiltratorObject.put("alreadyAdded", extractInfiltratorInfo(infiltrators));
         infiltratorObject.put("toAdd", extractInfiltratorInfo(infiltratorsToAdd));
 
+        System.out.println(infiltratorObject);
+
         return infiltratorObject;
     }
 
@@ -103,9 +105,9 @@ public class SaveSystem {
         for(StationSystem system: systems) {
             JSONObject object = new JSONObject();
 
-            object.put("status", system.getStatus());
             object.put("x", system.getX());
             object.put("y", system.getY());
+            object.put("status", system.getStatus());
 
             systemsInfo.put(object);
         }
