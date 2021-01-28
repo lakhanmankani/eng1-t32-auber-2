@@ -1,5 +1,6 @@
 package io.github.eng12020team24.project1.gamestates;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -208,8 +209,8 @@ public class ActualGame implements Screen {
 
     }
 
-    public void saveGame() {
-        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, 1, auber);
+    public void saveGame() throws IOException {
+        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd);
         return;
     }
 
