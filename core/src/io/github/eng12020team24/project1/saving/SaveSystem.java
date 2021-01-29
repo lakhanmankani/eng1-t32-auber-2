@@ -33,6 +33,10 @@ public class SaveSystem {
         file = new FileWriter("save.txt");
     }
 
+    /**
+     * Writes a JSONObject to the file save.txt
+     * @throws IOException if failed to save object
+     */
     public void writeSaveToFile() throws IOException {
         JSONObject save = new JSONObject();
 
@@ -55,6 +59,10 @@ public class SaveSystem {
         }
     }
 
+    /**
+     * Merges the 2 different lists of infiltrators into 1 JSONObject
+     * @return JSONObject containing the two lists
+     */
     private JSONObject generateInfiltratorSave() {
         JSONObject infiltratorObject = new JSONObject();
 
@@ -64,6 +72,11 @@ public class SaveSystem {
         return infiltratorObject;
     }
 
+    /**
+     * Converts a list of infiltrators into a JSONArray
+     * @param  infiltrators ArrayList of infiltrators to parse
+     * @return JSONArray containing infiltrator info
+     */
     private JSONArray extractInfiltratorInfo(ArrayList<Infiltrator> infiltrators) {
         JSONArray infiltratorInfo = new JSONArray();
 
@@ -80,6 +93,11 @@ public class SaveSystem {
         return infiltratorInfo;
     }
 
+    /**
+     * Converts a list of NPCs to an JSONArray
+     * @param npcs ArrayList of NPCs to parse
+     * @return JSONArray of NPCs info
+     */
     private JSONArray extractNpcInfo(ArrayList<NeutralNPC> npcs) {
         JSONArray npcInfo = new JSONArray();
 
@@ -95,6 +113,11 @@ public class SaveSystem {
         return npcInfo;
     }
 
+    /**
+     * Converts a list of StaionSystems into a JSONArray
+     * @param systems List of systems to parse
+     * @return JSONArray of systems information
+     */
     private JSONArray extractSystemsInfo(ArrayList<StationSystem> systems) {
         JSONArray systemsInfo = new JSONArray();
 
@@ -112,6 +135,11 @@ public class SaveSystem {
         return systemsInfo;
     }
 
+    /**
+     * Creates a JSONObject containing info of Auber
+     * @param auber Current Auber being used
+     * @return JSONObject containing Auber data
+     */
     private JSONObject extractAuberInfo(Auber auber)
     {
         JSONObject auberObject = new JSONObject();

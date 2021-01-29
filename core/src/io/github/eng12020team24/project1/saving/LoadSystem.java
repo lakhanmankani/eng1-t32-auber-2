@@ -15,6 +15,11 @@ public class LoadSystem {
         json = new JSONObject(readAllBytesJava7(fileName));
     }
 
+    /**
+     * Helper function to convert file to string
+     * @param filePath String of file path to load
+     * @return String containing file contents
+     */
     private static String readAllBytesJava7(String filePath)
     {
         String content = "";
@@ -31,6 +36,10 @@ public class LoadSystem {
         return content;
     }
 
+    /**
+     * Generates a list containing the infiltrator info from save of infiltrators not already spawned
+     * @return ArrayList of infiltrator info
+     */
     public ArrayList<ArrayList> generateInfiltratorToAddList()
     {
         JSONObject object = (JSONObject) json.get("Infiltrators");
@@ -52,6 +61,10 @@ public class LoadSystem {
         return toAdd;
     }
 
+    /**
+     * Generates a list containing the infiltrator info from save of infiltrators already spawned
+     * @return ArrayList of infiltrator info
+     */
     public ArrayList<ArrayList> generateInfiltratorList()
     {
         JSONObject object = (JSONObject) json.get("Infiltrators");
@@ -73,6 +86,10 @@ public class LoadSystem {
         return added;
     }
 
+    /**
+     * Generates a list containing NPC info from save file
+     * @return ArrayList with NPC info
+     */
     public ArrayList<ArrayList> generateNpcList()
     {
         JSONArray object = (JSONArray) json.get("NPCS");
@@ -92,6 +109,10 @@ public class LoadSystem {
         return npcs;
     }
 
+    /**
+     * Generates a list containing systems info
+     * @return ArrayList with systems info
+     */
     public ArrayList<ArrayList> generateSystemsList()
     {
         JSONArray object = (JSONArray) json.get("Systems");
@@ -113,11 +134,19 @@ public class LoadSystem {
         return systems;
     }
 
+    /**
+     * Returns saved difficulty level
+     * @return int containing difficulty level
+     */
     public int getDifficulty()
     {
         return (int) json.get("Difficulty");
     }
 
+    /**
+     * Returns JSONObject containing saved Auber details
+     * @return JSONObject containing saved Auber details
+     */
     public JSONObject getAuberDetails()
     {
         return (JSONObject) json.get("Auber");
