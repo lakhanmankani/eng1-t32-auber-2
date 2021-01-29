@@ -34,13 +34,13 @@ public class StationSystem {
         health = 10;
     }
 
-    public StationSystem(TextureAtlas atlas, int x, int y, boolean isNotDamaged) {
+    public StationSystem(TextureAtlas atlas, int x, int y, boolean isNotDamaged, int health) {
         systemOn = new TextureRegion(atlas.findRegion("Z_SYSTEM_OK"));
         systemOff = new TextureRegion(atlas.findRegion("Z_SYSTEM_OFF"));
         this.isNotDamaged = isNotDamaged;
         xPos = x * TileType.TILE_SIZE;
         yPos = y * TileType.TILE_SIZE;
-        health = 10;
+        this.health = health;
     }
 
     /**

@@ -105,6 +105,7 @@ public class LoadSystem {
             list.add(system.get("x"));
             list.add(system.get("y"));
             list.add(system.get("status"));
+            list.add(system.get("health"));
 
             systems.add(list);
         }
