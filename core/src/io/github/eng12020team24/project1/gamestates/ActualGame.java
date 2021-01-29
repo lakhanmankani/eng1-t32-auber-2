@@ -22,6 +22,7 @@ import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.*;
 
@@ -45,6 +46,9 @@ public class ActualGame implements Screen {
     ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
     int difficulty;
+    TextureAtlas powerUpAtlas;
+    ArrayList<PowerUp> unusedPowerUps;
+    ArrayList<PowerUp> currentPowerUps;
 
     public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load) {
         this.game = game;
@@ -53,6 +57,7 @@ public class ActualGame implements Screen {
         this.menu = menu;
         textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        powerUpAtlas = new TextureAtlas(Gdx.files.internal("powerUpsSpriteSheet/PowerUpsSprites.atlas"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
@@ -135,6 +140,17 @@ public class ActualGame implements Screen {
         infiltrators = new ArrayList<Infiltrator>();
         infiltratorsToAdd = new ArrayList<Infiltrator>();
 
+        // TODO: Load power ups from save
+        // Power ups
+        unusedPowerUps = new ArrayList<>();
+        unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
+        unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
+
+        currentPowerUps = new ArrayList<>();
+
         if(load != null) {
             for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
                 System.out.println("Adding to infiltratorToAdd list");
@@ -198,11 +214,22 @@ public class ActualGame implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-        auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
+        if (isCurrentlyUsingPowerUp("SpeedUp")) {
+            auber.move(Gdx.graphics.getDeltaTime(), infiltrators, 2.5f);
+        } else {
+            auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
+        }
+        if (isCurrentlyUsingPowerUp("Shield")) {
+            if (auber.getHealth() != 10) {
+                System.out.println("Man down!");
+            }
+            auber.fullHeal();
+        }
         camera.position.set(auber.getPositionForCamera());
         camera.update();
         gameMap.render(camera);
 
+        // Check if game is over
         if (stationSystems.size() <= 1) {
             game.setScreen(new GameOverState(game, false));
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
@@ -211,15 +238,18 @@ public class ActualGame implements Screen {
 
         game.batch.begin();
 
+        // Display teleport menu
         if (auber.isAuberOnTeleporter()) {
             minimap.render(game.batch, auber.getXPos(), auber.getYPos());
             minimap.teleportTo(auber);
         }
 
+        // Display status bars
         healthbar.render(game.batch, elapsedTime, auber);
         systemBar.render(game.batch, stationSystems.size());
         enemyBar.render(game.batch, infiltratorsToAdd.size() + infiltrators.size());
 
+        // Remove destroyed systems
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
         for (StationSystem sys : stationSystems) {
             sys.render(game.batch, camera);
@@ -232,13 +262,45 @@ public class ActualGame implements Screen {
             stationSystems.remove(sys);
         }
 
+        // Render power up tiles
+        ArrayList<PowerUp> powerUpsToRemove = new ArrayList<>();
+        for (PowerUp powerUp : unusedPowerUps) {
+            powerUp.render(game.batch, camera);
+            if (powerUp.auberOnPowerUpTile(auber)) {
+                // Move power up from unused to current
+                powerUp.startUsing();
+                currentPowerUps.add(powerUp);
+                powerUpsToRemove.add(powerUp);
+                System.out.println("Pickup "+powerUp.name);
+            }
+        }
+        for (PowerUp powerUp : powerUpsToRemove) {
+            unusedPowerUps.remove(powerUp);
+        }
+        powerUpsToRemove = new ArrayList<>();
+        for (PowerUp powerUp : currentPowerUps) {
+            powerUp.render(game.batch, camera);
+            if (powerUp.finishedUsing()) {
+                System.out.println("Remove "+powerUp.name);
+                powerUpsToRemove.add(powerUp);
+            }
+        }
+        for (PowerUp powerUp : powerUpsToRemove) {
+            currentPowerUps.remove(powerUp);
+        }
+
+        // Move neutral NPCs
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
             npc.render(game.batch, camera);
         }
 
         for (Infiltrator infiltrator : infiltrators) {
-            infiltrator.runAI(auber, stationSystems);
+            if (!isCurrentlyUsingPowerUp("InfiltratorFreeze")) {
+                infiltrator.runAI(auber, stationSystems);
+            }
+            infiltrator.runAI(auber, stationSystems, 0);
+
             infiltrator.render(game.batch, camera);
         }
         if (infiltrators.size() < 2 && infiltratorsToAdd.size() > 0) {
@@ -247,10 +309,16 @@ public class ActualGame implements Screen {
         }
         auber.render(game.batch);
 
+        // Display beams
         if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
-            beamgun.add(new Beam(auber, difficulty, textureAtlas));
+            beamgun.add(new Beam(auber, difficulty, textureAtlas, 0));
+            if (isCurrentlyUsingPowerUp("MultiBeam")) {
+                beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
+                beamgun.add(new Beam(auber, difficulty, textureAtlas, -1));
+            }
         }
 
+        // Remove beam when it collides
         ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
         ArrayList<Infiltrator> infiltratorsToRemove = new ArrayList<Infiltrator>();
         for (Beam beam : beamgun) {
@@ -322,5 +390,14 @@ public class ActualGame implements Screen {
     }
 
     public static void main() {
+    }
+
+    private boolean isCurrentlyUsingPowerUp(String name) {
+        for (PowerUp powerUp : currentPowerUps) {
+            if (powerUp.name.equals(name) || powerUp.name.equals("All")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

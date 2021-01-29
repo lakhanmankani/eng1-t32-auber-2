@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.Input.Keys;
 import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 
 public class Auber extends Character {
     /**
@@ -53,7 +54,7 @@ public class Auber extends Character {
         super.render(batch, renderXPos, renderYPos);
     }
 
-    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
+    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators, float speedMultiplier) {
         if (Gdx.input.isKeyPressed(Keys.W)) {
             if (Gdx.input.isKeyPressed(Keys.A)) {
                 rotation = 225;
@@ -79,8 +80,8 @@ public class Auber extends Character {
         // 90 (sin 1, cos 0)
         if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.S)
                 || Gdx.input.isKeyPressed(Keys.D)) {
-            float newX = xPos + Math.round(deltaTime * character_utils.AUBER_SPEED * 32 * Math.cos(Math.toRadians(rotation - 90)));
-            float newY = yPos + Math.round(deltaTime * character_utils.AUBER_SPEED * 32 * Math.sin(Math.toRadians(rotation - 90)));
+            float newX = xPos + Math.round(deltaTime * character_utils.AUBER_SPEED * speedMultiplier * 32 * Math.cos(Math.toRadians(rotation - 90)));
+            float newY = yPos + Math.round(deltaTime * character_utils.AUBER_SPEED * speedMultiplier * 32 * Math.sin(Math.toRadians(rotation - 90)));
             if (!map.doesRectCollideWithMap(newX - 16, newY - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
                 xPos = (int) (newX);
                 yPos = (int) (newY);
@@ -98,6 +99,9 @@ public class Auber extends Character {
                 }
             }
         }
+    }
+    public void move(float deltaTime, ArrayList<Infiltrator> infiltrators) {
+        move(deltaTime, infiltrators, 1);
     }
 
     public void auberTakeDamage(){
@@ -128,6 +132,10 @@ public class Auber extends Character {
         } else if (health > 10) {
             health = 10;
         }
+    }
+
+    public void fullHeal() {
+        this.health = 10;
     }
 
     /**
@@ -170,19 +178,6 @@ public class Auber extends Character {
             if (tile.getId() == 7) {
                 return true;
             }
-        }
-        return false;
-    }
-
-    /**
-     * a boolean method to check if Auber is on a power up
-     * @return returns a boolean whether or not Auber is on a power up.
-     */
-    public boolean isAuberOnPowerUp() {
-        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
-        if (tile != null) {
-            Integer[] powerUpIds = {31, 32, 33, 34, 35};
-            return Arrays.asList(powerUpIds).contains(tile.getId());
         }
         return false;
     }
