@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -26,15 +27,17 @@ public class GameOverState implements Screen {
     public GameOverState(AuberGame game, boolean win) {
         this.game = game;
         uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        TextureAtlas winAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet2.atlas"));
+        TextureAtlas loseAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet3.atlas"));
         // playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON"));
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
 
         this.win = win;
         // 490 is half of the game over image width
         if (win) {
-            outcome = new TextureRegion(uiAtlas.findRegion("YOU_WIN_IMAGE"));
+            outcome = new TextureRegion(winAtlas.findRegion("YOU_WIN_IMAGE"));
         } else {
-            outcome = new TextureRegion(uiAtlas.findRegion("GAME_OVER_IMAGE"));
+            outcome = new TextureRegion(loseAtlas.findRegion("GAME_OVER_IMAGE"));
         }
         outcomeX = Gdx.graphics.getWidth() / 2 - 490;
     }

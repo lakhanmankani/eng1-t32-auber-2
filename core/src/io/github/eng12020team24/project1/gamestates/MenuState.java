@@ -83,7 +83,7 @@ public class MenuState implements Screen {
         {
             try {
                 LoadSystem load = new LoadSystem("save.txt");
-                this.actualGame = new ActualGame(game, 0, this, load);
+                this.actualGame = new ActualGame(game, load.getDifficulty(), this, load);
                 game.setScreen(actualGame);
             } catch (IOException e) {
                 e.printStackTrace();

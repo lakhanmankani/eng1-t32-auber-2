@@ -31,11 +31,9 @@ public class SaveSystem {
 
         json = new Json();
         file = new FileWriter("save.txt");
-
-        writeSaveToFile();
     }
 
-    private void writeSaveToFile() throws IOException {
+    public void writeSaveToFile() throws IOException {
         JSONObject save = new JSONObject();
 
         save.put("Infiltrators", generateInfiltratorSave());
@@ -62,8 +60,6 @@ public class SaveSystem {
 
         infiltratorObject.put("alreadyAdded", extractInfiltratorInfo(infiltrators));
         infiltratorObject.put("toAdd", extractInfiltratorInfo(infiltratorsToAdd));
-
-        System.out.println(infiltratorObject);
 
         return infiltratorObject;
     }
@@ -108,6 +104,7 @@ public class SaveSystem {
             object.put("x", system.getX());
             object.put("y", system.getY());
             object.put("status", system.getStatus());
+            object.put("health", system.getHealth());
 
             systemsInfo.put(object);
         }

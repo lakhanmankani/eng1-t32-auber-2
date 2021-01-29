@@ -78,10 +78,7 @@ public class ActualGame implements Screen {
         {
             for(ArrayList system : load.generateSystemsList())
             {
-                if(((boolean) system.get(2)))
-                {
-                    stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE));
-                }
+                stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE, (boolean) system.get(2), (int) system.get(3)));
             }
         }
         else
@@ -137,7 +134,6 @@ public class ActualGame implements Screen {
 
         if(load != null) {
             for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
-                System.out.println("Adding to infiltratorToAdd list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
@@ -155,7 +151,6 @@ public class ActualGame implements Screen {
             }
 
             for (ArrayList infiltrator : load.generateInfiltratorList() ) {
-                System.out.println("Adding to infiltrator list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltrators.add(new SpeedInfiltrator(difficulty, graph,
@@ -172,7 +167,6 @@ public class ActualGame implements Screen {
                 }
             }
         } else {
-            System.out.println("Default infiltrators");
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                     graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
@@ -286,6 +280,7 @@ public class ActualGame implements Screen {
 
     public void saveGame() throws IOException {
         SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd);
+        save.writeSaveToFile();
         return;
     }
 
