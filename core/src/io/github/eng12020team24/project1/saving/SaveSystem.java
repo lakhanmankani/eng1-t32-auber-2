@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Json;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,22 +21,28 @@ public class SaveSystem {
     private int difficulty;
     private Auber auber;
     private FileWriter file;
+    private ArrayList<PowerUp> unusedPowerups;
+    private ArrayList<PowerUp> currentPowerups;
 
-    public SaveSystem(ArrayList<Infiltrator> infiltrators, ArrayList<NeutralNPC> npcs, ArrayList<StationSystem> systems, int difficulty, Auber auber, ArrayList<Infiltrator> infiltratorsToAdd) throws IOException {
+    public SaveSystem(ArrayList<Infiltrator> infiltrators, ArrayList<NeutralNPC> npcs, ArrayList<StationSystem> systems, int difficulty, Auber auber, ArrayList<Infiltrator> infiltratorsToAdd, ArrayList currentPowerups, ArrayList unusedPowerups) throws IOException {
         this.infiltrators = infiltrators;
         this.npcs = npcs;
         this.systems = systems;
         this.difficulty = difficulty;
         this.auber = auber;
         this.infiltratorsToAdd = infiltratorsToAdd;
+        this.unusedPowerups = unusedPowerups;
+        this.currentPowerups = currentPowerups;
 
         json = new Json();
         file = new FileWriter("save.txt");
-
-        writeSaveToFile();
     }
 
-    private void writeSaveToFile() throws IOException {
+    /**
+     * Writes a JSONObject to the file save.txt
+     * @throws IOException if failed to save object
+     */
+    public void writeSaveToFile() throws IOException {
         JSONObject save = new JSONObject();
 
         save.put("Infiltrators", generateInfiltratorSave());
@@ -43,6 +50,7 @@ public class SaveSystem {
         save.put("Systems", extractSystemsInfo(systems));
         save.put("Difficulty", difficulty);
         save.put("Auber", extractAuberInfo(auber));
+        save.put("Powerups", generatePowerupsSave());
 
         try{
             file.write(save.toString());
@@ -57,17 +65,37 @@ public class SaveSystem {
         }
     }
 
+    /**
+     * Merges the 2 different lists of infiltrators into 1 JSONObject
+     * @return JSONObject containing the two lists
+     */
     private JSONObject generateInfiltratorSave() {
         JSONObject infiltratorObject = new JSONObject();
 
         infiltratorObject.put("alreadyAdded", extractInfiltratorInfo(infiltrators));
         infiltratorObject.put("toAdd", extractInfiltratorInfo(infiltratorsToAdd));
 
-        System.out.println(infiltratorObject);
-
         return infiltratorObject;
     }
 
+    /**
+     * Merges the 2 different lists of PowerUps into 1 JSONObject
+     * @return JSONObject containing PowerUp information
+     */
+    private JSONObject generatePowerupsSave() {
+        JSONObject object = new JSONObject();
+
+        object.put("unused", extractPowerupsInfo(unusedPowerups));
+        object.put("current", extractPowerupsInfo(currentPowerups));
+
+        return object;
+    }
+
+    /**
+     * Converts a list of infiltrators into a JSONArray
+     * @param  infiltrators ArrayList of infiltrators to parse
+     * @return JSONArray containing infiltrator info
+     */
     private JSONArray extractInfiltratorInfo(ArrayList<Infiltrator> infiltrators) {
         JSONArray infiltratorInfo = new JSONArray();
 
@@ -84,6 +112,11 @@ public class SaveSystem {
         return infiltratorInfo;
     }
 
+    /**
+     * Converts a list of NPCs to an JSONArray
+     * @param npcs ArrayList of NPCs to parse
+     * @return JSONArray of NPCs info
+     */
     private JSONArray extractNpcInfo(ArrayList<NeutralNPC> npcs) {
         JSONArray npcInfo = new JSONArray();
 
@@ -99,6 +132,11 @@ public class SaveSystem {
         return npcInfo;
     }
 
+    /**
+     * Converts a list of StaionSystems into a JSONArray
+     * @param systems List of systems to parse
+     * @return JSONArray of systems information
+     */
     private JSONArray extractSystemsInfo(ArrayList<StationSystem> systems) {
         JSONArray systemsInfo = new JSONArray();
 
@@ -108,6 +146,7 @@ public class SaveSystem {
             object.put("x", system.getX());
             object.put("y", system.getY());
             object.put("status", system.getStatus());
+            object.put("health", system.getHealth());
 
             systemsInfo.put(object);
         }
@@ -115,8 +154,12 @@ public class SaveSystem {
         return systemsInfo;
     }
 
-    private JSONObject extractAuberInfo(Auber auber)
-    {
+    /**
+     * Creates a JSONObject containing info of Auber
+     * @param auber Current Auber being used
+     * @return JSONObject containing Auber data
+     */
+    private JSONObject extractAuberInfo(Auber auber) {
         JSONObject auberObject = new JSONObject();
 
         auberObject.put("x", auber.getXPos());
@@ -124,6 +167,29 @@ public class SaveSystem {
         auberObject.put("health", auber.getHealth());
 
         return auberObject;
+    }
+
+    /**
+     * Converts a list of PowerUps into a JSONArray
+     * @param powerups ArrayList of PowerUps to convert
+     * @return JSONArray containing PowerUp data
+     */
+    private JSONArray extractPowerupsInfo(ArrayList<PowerUp> powerups) {
+        JSONArray powerupsInfo = new JSONArray();
+
+        for(PowerUp powerup : powerups)
+        {
+            JSONObject object = new JSONObject();
+
+            object.put("name", powerup.name);
+            object.put("xPos", powerup.getxPos());
+            object.put("yPos", powerup.getyPos());
+            object.put("timer", powerup.getTimer());
+
+            powerupsInfo.put(object);
+        }
+
+        return powerupsInfo;
     }
 
 }

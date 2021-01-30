@@ -1,6 +1,7 @@
 package io.github.eng12020team24.project1.gamestates;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -70,8 +71,7 @@ public class ActualGame implements Screen {
         beamgun = new ArrayList<Beam>();
 
         //Set Auber position and health if loading a save
-        if(load != null)
-        {
+        if(load != null) {
             auber.setX(load.getAuberDetails().getInt("x"));
             auber.setY(load.getAuberDetails().getInt("y"));
             auber.setAuberHealth(load.getAuberDetails().getInt("health"));
@@ -79,18 +79,12 @@ public class ActualGame implements Screen {
 
         // Add systems
         stationSystems = new ArrayList<StationSystem>();
-        if(load != null)
-        {
+        if(load != null) {
             for(ArrayList system : load.generateSystemsList())
             {
-                if(((boolean) system.get(2)))
-                {
-                    stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE));
-                }
+                stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE, (boolean) system.get(2), (int) system.get(3)));
             }
-        }
-        else
-        {
+        } else {
             stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
             stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
             stationSystems.add(new StationSystem(textureAtlas, 20, 24));// 3
@@ -110,25 +104,19 @@ public class ActualGame implements Screen {
         }
 
         // Set game difficulty
-        if(load != null)
-        {
+        if(load != null) {
             this.difficulty = load.getDifficulty();
-        }
-        else
-        {
+        } else {
             this.difficulty = difficulty;
         }
 
         // Add neutral NPCs
         neutralNpcs = new ArrayList<NeutralNPC>();
-        if(load != null)
-        {
+        if(load != null) {
             for (ArrayList npc : load.generateNpcList() ) {
                 neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates((Integer) npc.get(0), (Integer) npc.get(1)), textureAtlas));
             }
-        }
-        else
-        {
+        } else {
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
@@ -136,24 +124,34 @@ public class ActualGame implements Screen {
 
         }
 
+        // Power ups
+        currentPowerUps = new ArrayList<>();
+        unusedPowerUps = new ArrayList<>();
+        if(load != null){
+            for(ArrayList powerup : load.generateCurrentPowerupsList()){
+                BigDecimal decimal = (BigDecimal) powerup.get(3);
+                float timer = decimal.floatValue();
+                currentPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas, timer));
+            }
+
+            for(ArrayList powerup : load.generateUnusedPowerupsList()){
+                unusedPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas));
+            }
+
+        }else {
+            unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
+        }
+
         // Add hostile NPCs
         infiltrators = new ArrayList<Infiltrator>();
         infiltratorsToAdd = new ArrayList<Infiltrator>();
 
-        // TODO: Load power ups from save
-        // Power ups
-        unusedPowerUps = new ArrayList<>();
-        unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
-
-        currentPowerUps = new ArrayList<>();
-
         if(load != null) {
             for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
-                System.out.println("Adding to infiltratorToAdd list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
@@ -171,7 +169,6 @@ public class ActualGame implements Screen {
             }
 
             for (ArrayList infiltrator : load.generateInfiltratorList() ) {
-                System.out.println("Adding to infiltrator list");
                 switch((String) infiltrator.get(2)){
                     case "SpeedInfiltrator":
                         infiltrators.add(new SpeedInfiltrator(difficulty, graph,
@@ -188,7 +185,6 @@ public class ActualGame implements Screen {
                 }
             }
         } else {
-            System.out.println("Default infiltrators");
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
                     graph.getTileFromCoordinates(43 * TileType.TILE_SIZE, 47 * TileType.TILE_SIZE), textureAtlas));
             infiltratorsToAdd.add(new SpeedInfiltrator(difficulty, graph,
@@ -353,7 +349,8 @@ public class ActualGame implements Screen {
     }
 
     public void saveGame() throws IOException {
-        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd);
+        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd, currentPowerUps, unusedPowerUps);
+        save.writeSaveToFile();
         return;
     }
 
