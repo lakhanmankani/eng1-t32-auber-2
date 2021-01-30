@@ -1,6 +1,7 @@
 package io.github.eng12020team24.project1.gamestates;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -25,6 +26,7 @@ import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrato
 import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.*;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 
 public class ActualGame implements Screen {
     final AuberGame game;
@@ -123,16 +125,27 @@ public class ActualGame implements Screen {
 
         }
 
-        // TODO: Load power ups from save
         // Power ups
-        unusedPowerUps = new ArrayList<>();
-        unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
-        unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
-
         currentPowerUps = new ArrayList<>();
+        unusedPowerUps = new ArrayList<>();
+        if(load != null){
+            for(ArrayList powerup : load.generateCurrentPowerupsList()){
+                BigDecimal decimal = (BigDecimal) powerup.get(3);
+                float timer = decimal.floatValue();
+                currentPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas, timer));
+            }
+
+            for(ArrayList powerup : load.generateUnusedPowerupsList()){
+                unusedPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas));
+            }
+
+        }else {
+            unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
+        }
 
         // Add hostile NPCs
         infiltrators = new ArrayList<Infiltrator>();

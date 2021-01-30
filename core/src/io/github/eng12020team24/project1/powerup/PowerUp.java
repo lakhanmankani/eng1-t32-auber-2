@@ -23,6 +23,16 @@ public class PowerUp {
         this.yPos = y * TileType.TILE_SIZE;
 
         powerUpSprite = new TextureRegion(atlas.findRegion(name));
+        System.out.println(powerUpSprite);
+        this.name = name;
+    }
+
+    public PowerUp(String name, int x, int y, TextureAtlas atlas, float timer) {
+        this.xPos = x * TileType.TILE_SIZE;
+        this.yPos = y * TileType.TILE_SIZE;
+        this.timer = timer;
+
+        powerUpSprite = new TextureRegion(atlas.findRegion(name));
         this.name = name;
     }
 
@@ -55,8 +65,6 @@ public class PowerUp {
     }
 
     public float getTimer() {return timer;}
-
-    public TextureRegion getPowerUpSprite() { return powerUpSprite;}
 
     public String getName() { return name;}
 
