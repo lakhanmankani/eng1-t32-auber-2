@@ -19,6 +19,10 @@ public class MenuState implements Screen {
     private Button resumeButton;
     private Button loadButton;
     private Boolean clicked;
+    private Boolean isShowingDifficulty = false;
+    private Button easyButton;
+    private Button mediumButton;
+    private Button hardButton;
 
     /**
      * Initialises the Menu state
@@ -32,6 +36,11 @@ public class MenuState implements Screen {
         loadButton = new Button(0, 256, uiAtlas.findRegion("LOAD_BUTTON"));
         resumeButton = new Button(0, 128, uiAtlas.findRegion("RESUME_BUTTON"));
         exitButton = new Button(0, 0, uiAtlas.findRegion("EXIT_BUTTON"));
+
+        // TODO: Replace with correct images
+        hardButton = new Button(450, 0, uiAtlas.findRegion("PLAY_BUTTON"));
+        mediumButton = new Button(450, 128, uiAtlas.findRegion("PLAY_BUTTON"));
+        easyButton = new Button(450, 256, uiAtlas.findRegion("PLAY_BUTTON"));
     }
 
     @Override
@@ -55,9 +64,16 @@ public class MenuState implements Screen {
 
         game.batch.begin();
         exitButton.draw(game.batch);
-        if (this.actualGame == null) { // draws either the play or resume button depending on if game already exists
-            playButton.draw(game.batch);
-            loadButton.draw(game.batch);
+        if (this.actualGame == null) {
+            // Draw either the play or resume button depending on if game already exists
+            if (isShowingDifficulty) {
+                easyButton.draw(game.batch);
+                mediumButton.draw(game.batch);
+                hardButton.draw(game.batch);
+            } else {
+                playButton.draw(game.batch);
+                loadButton.draw(game.batch);
+            }
         } else {
             resumeButton.draw(game.batch);
             saveButton.draw(game.batch);
@@ -65,25 +81,46 @@ public class MenuState implements Screen {
         game.batch.end();
 
         if (exitButton.isClicked()) {
-            //exits
+            // Exit
             Gdx.app.exit();
-        } else if (playButton.isClicked() && this.actualGame == null){ // starts new game
+        } else if (playButton.isClicked() && this.actualGame == null) {
+            // Start new game
+            isShowingDifficulty = true;
+        } else if (easyButton.isClicked() && this.actualGame == null) {
+            // Start easy game
+            System.out.println("Easy");
+            isShowingDifficulty = false;
             this.actualGame = new ActualGame(game, 0, this, null);
             game.setScreen(actualGame);
-        } else if (resumeButton.isClicked() && this.actualGame != null){ // resumes old game
+        } else if (mediumButton.isClicked() && this.actualGame == null) {
+            // Start medium game
+            System.out.println("Medium");
+            isShowingDifficulty = false;
+            this.actualGame = new ActualGame(game, 1, this, null);
             game.setScreen(actualGame);
-        } else if (saveButton.isClicked() && clicked == false && this.actualGame != null) {
+        } else if (hardButton.isClicked() && this.actualGame == null) {
+            // Start hard game
+            System.out.println("Hard");
+            isShowingDifficulty = false;
+            this.actualGame = new ActualGame(game, 2, this, null);
+            game.setScreen(actualGame);
+        }
+        else if (resumeButton.isClicked() && this.actualGame != null){
+            // Resume old game
+            game.setScreen(actualGame);
+        } else if (saveButton.isClicked() && !clicked && this.actualGame != null) {
+            // Save game
             clicked = true;
             try {
                 actualGame.saveGame();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if(loadButton.isClicked()  && this.actualGame == null)
-        {
+        } else if(loadButton.isClicked()  && this.actualGame == null) {
+            // Load game save and start
             try {
                 LoadSystem load = new LoadSystem("save.txt");
-                this.actualGame = new ActualGame(game, 0, this, load);
+                this.actualGame = new ActualGame(game, load.getDifficulty(), this, load);
                 game.setScreen(actualGame);
             } catch (IOException e) {
                 e.printStackTrace();
