@@ -134,6 +134,10 @@ public class LoadSystem {
         return systems;
     }
 
+    /**
+     * Generates a list containing the current PowerUps info
+     * @return ArrayList containing PowerUp info
+     */
     public ArrayList<ArrayList> generateCurrentPowerupsList()
     {
         JSONObject object = (JSONObject) json.get("Powerups");
@@ -157,6 +161,10 @@ public class LoadSystem {
         return current;
     }
 
+    /**
+     * Generates a list containing the unused PowerUps info
+     * @return ArrayList containing PowerUp info
+     */
     public ArrayList<ArrayList> generateUnusedPowerupsList()
     {
         JSONObject object = (JSONObject) json.get("Powerups");

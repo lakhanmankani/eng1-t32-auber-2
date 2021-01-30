@@ -78,6 +78,10 @@ public class SaveSystem {
         return infiltratorObject;
     }
 
+    /**
+     * Merges the 2 different lists of PowerUps into 1 JSONObject
+     * @return JSONObject containing PowerUp information
+     */
     private JSONObject generatePowerupsSave() {
         JSONObject object = new JSONObject();
 
@@ -165,6 +169,11 @@ public class SaveSystem {
         return auberObject;
     }
 
+    /**
+     * Converts a list of PowerUps into a JSONArray
+     * @param powerups ArrayList of PowerUps to convert
+     * @return JSONArray containing PowerUp data
+     */
     private JSONArray extractPowerupsInfo(ArrayList<PowerUp> powerups) {
         JSONArray powerupsInfo = new JSONArray();
 
