@@ -70,8 +70,7 @@ public class ActualGame implements Screen {
         beamgun = new ArrayList<Beam>();
 
         //Set Auber position and health if loading a save
-        if(load != null)
-        {
+        if(load != null) {
             auber.setX(load.getAuberDetails().getInt("x"));
             auber.setY(load.getAuberDetails().getInt("y"));
             auber.setAuberHealth(load.getAuberDetails().getInt("health"));
@@ -79,15 +78,12 @@ public class ActualGame implements Screen {
 
         // Add systems
         stationSystems = new ArrayList<StationSystem>();
-        if(load != null)
-        {
+        if(load != null) {
             for(ArrayList system : load.generateSystemsList())
             {
                 stationSystems.add(new StationSystem(textureAtlas, (int) system.get(0) / TileType.TILE_SIZE, (int) system.get(1) / TileType.TILE_SIZE, (boolean) system.get(2), (int) system.get(3)));
             }
-        }
-        else
-        {
+        } else {
             stationSystems.add(new StationSystem(textureAtlas, 6, 26));// 1
             stationSystems.add(new StationSystem(textureAtlas, 6, 17));// 2
             stationSystems.add(new StationSystem(textureAtlas, 20, 24));// 3
@@ -107,35 +103,25 @@ public class ActualGame implements Screen {
         }
 
         // Set game difficulty
-        if(load != null)
-        {
+        if(load != null) {
             this.difficulty = load.getDifficulty();
-        }
-        else
-        {
+        } else {
             this.difficulty = difficulty;
         }
 
         // Add neutral NPCs
         neutralNpcs = new ArrayList<NeutralNPC>();
-        if(load != null)
-        {
+        if(load != null) {
             for (ArrayList npc : load.generateNpcList() ) {
                 neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates((Integer) npc.get(0), (Integer) npc.get(1)), textureAtlas));
             }
-        }
-        else
-        {
+        } else {
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(208, 144), textureAtlas));
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1360, 1360), textureAtlas));
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(720, 1296), textureAtlas));
             neutralNpcs.add(new NeutralNPC(graph, graph.getTileFromCoordinates(1264, 272), textureAtlas));
 
         }
-
-        // Add hostile NPCs
-        infiltrators = new ArrayList<Infiltrator>();
-        infiltratorsToAdd = new ArrayList<Infiltrator>();
 
         // TODO: Load power ups from save
         // Power ups
@@ -147,6 +133,10 @@ public class ActualGame implements Screen {
         unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
 
         currentPowerUps = new ArrayList<>();
+
+        // Add hostile NPCs
+        infiltrators = new ArrayList<Infiltrator>();
+        infiltratorsToAdd = new ArrayList<Infiltrator>();
 
         if(load != null) {
             for (ArrayList infiltrator : load.generateInfiltratorToAddList() ) {
@@ -347,7 +337,7 @@ public class ActualGame implements Screen {
     }
 
     public void saveGame() throws IOException {
-        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd);
+        SaveSystem save = new SaveSystem(infiltrators, neutralNpcs, stationSystems, difficulty, auber, infiltratorsToAdd, currentPowerUps, unusedPowerUps);
         save.writeSaveToFile();
         return;
     }

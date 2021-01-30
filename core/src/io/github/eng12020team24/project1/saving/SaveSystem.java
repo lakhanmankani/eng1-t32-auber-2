@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Json;
 import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
+import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,14 +21,18 @@ public class SaveSystem {
     private int difficulty;
     private Auber auber;
     private FileWriter file;
+    private ArrayList<PowerUp> unusedPowerups;
+    private ArrayList<PowerUp> currentPowerups;
 
-    public SaveSystem(ArrayList<Infiltrator> infiltrators, ArrayList<NeutralNPC> npcs, ArrayList<StationSystem> systems, int difficulty, Auber auber, ArrayList<Infiltrator> infiltratorsToAdd) throws IOException {
+    public SaveSystem(ArrayList<Infiltrator> infiltrators, ArrayList<NeutralNPC> npcs, ArrayList<StationSystem> systems, int difficulty, Auber auber, ArrayList<Infiltrator> infiltratorsToAdd, ArrayList currentPowerups, ArrayList unusedPowerups) throws IOException {
         this.infiltrators = infiltrators;
         this.npcs = npcs;
         this.systems = systems;
         this.difficulty = difficulty;
         this.auber = auber;
         this.infiltratorsToAdd = infiltratorsToAdd;
+        this.unusedPowerups = unusedPowerups;
+        this.currentPowerups = currentPowerups;
 
         json = new Json();
         file = new FileWriter("save.txt");
@@ -45,6 +50,7 @@ public class SaveSystem {
         save.put("Systems", extractSystemsInfo(systems));
         save.put("Difficulty", difficulty);
         save.put("Auber", extractAuberInfo(auber));
+        save.put("Powerups", generatePowerupsSave());
 
         try{
             file.write(save.toString());
@@ -70,6 +76,15 @@ public class SaveSystem {
         infiltratorObject.put("toAdd", extractInfiltratorInfo(infiltratorsToAdd));
 
         return infiltratorObject;
+    }
+
+    private JSONObject generatePowerupsSave() {
+        JSONObject object = new JSONObject();
+
+        object.put("unused", extractPowerupsInfo(unusedPowerups));
+        object.put("current", extractPowerupsInfo(currentPowerups));
+
+        return object;
     }
 
     /**
@@ -140,8 +155,7 @@ public class SaveSystem {
      * @param auber Current Auber being used
      * @return JSONObject containing Auber data
      */
-    private JSONObject extractAuberInfo(Auber auber)
-    {
+    private JSONObject extractAuberInfo(Auber auber) {
         JSONObject auberObject = new JSONObject();
 
         auberObject.put("x", auber.getXPos());
@@ -149,6 +163,24 @@ public class SaveSystem {
         auberObject.put("health", auber.getHealth());
 
         return auberObject;
+    }
+
+    private JSONArray extractPowerupsInfo(ArrayList<PowerUp> powerups) {
+        JSONArray powerupsInfo = new JSONArray();
+
+        for(PowerUp powerup : powerups)
+        {
+            JSONObject object = new JSONObject();
+
+            object.put("name", powerup.name);
+            object.put("xPos", powerup.getxPos());
+            object.put("yPos", powerup.getyPos());
+            object.put("timer", powerup.getTimer());
+
+            powerupsInfo.put(object);
+        }
+
+        return powerupsInfo;
     }
 
 }

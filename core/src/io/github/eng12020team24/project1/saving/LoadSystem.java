@@ -134,6 +134,52 @@ public class LoadSystem {
         return systems;
     }
 
+    public ArrayList<ArrayList> generateCurrentPowerupsList()
+    {
+        JSONObject object = (JSONObject) json.get("Powerups");
+        JSONArray powerups = (JSONArray) object.get("current");
+
+        ArrayList<ArrayList> current = new ArrayList<>();
+
+        for(int i = 0; i < powerups.length(); i++)
+        {
+            JSONObject powerup = powerups.getJSONObject(i);
+            ArrayList list = new ArrayList();
+
+            list.add(powerup.get("name"));
+            list.add(powerup.get("xPos"));
+            list.add(powerup.get("yPos"));
+            list.add(powerup.get("timer"));
+
+            current.add(list);
+        }
+
+        return current;
+    }
+
+    public ArrayList<ArrayList> generateUnusedPowerupsList()
+    {
+        JSONObject object = (JSONObject) json.get("Powerups");
+        JSONArray powerups = (JSONArray) object.get("unused");
+
+        ArrayList<ArrayList> unused = new ArrayList<>();
+
+        for(int i = 0; i < powerups.length(); i++)
+        {
+            JSONObject powerup = powerups.getJSONObject(i);
+            ArrayList list = new ArrayList();
+
+            list.add(powerup.get("name"));
+            list.add(powerup.get("xPos"));
+            list.add(powerup.get("yPos"));
+            list.add(powerup.get("timer"));
+
+            unused.add(list);
+        }
+
+        return unused;
+    }
+
     /**
      * Returns saved difficulty level
      * @return int containing difficulty level

@@ -38,6 +38,7 @@ public class PowerUp {
     public void startUsing() {
         this.timer = 30f;
     }
+
     public boolean finishedUsing() {
         return timer <= 0;
     }
@@ -52,4 +53,14 @@ public class PowerUp {
         }
         return y < (yPos + TileType.TILE_SIZE) && y + height > yPos;
     }
+
+    public float getTimer() {return timer;}
+
+    public TextureRegion getPowerUpSprite() { return powerUpSprite;}
+
+    public String getName() { return name;}
+
+    public int getxPos() {return xPos;}
+
+    public int getyPos() {return yPos;}
 }
