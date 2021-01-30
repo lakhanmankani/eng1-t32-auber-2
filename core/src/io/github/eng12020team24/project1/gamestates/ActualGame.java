@@ -26,7 +26,6 @@ import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrato
 import io.github.eng12020team24.project1.powerup.PowerUp;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.*;
-import net.dermetfan.gdx.physics.box2d.PositionController;
 
 public class ActualGame implements Screen {
     final AuberGame game;
