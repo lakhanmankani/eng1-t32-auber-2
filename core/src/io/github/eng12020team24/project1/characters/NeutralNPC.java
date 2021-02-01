@@ -20,6 +20,12 @@ public class NeutralNPC extends NPCCharacter {
         idleTexture = new TextureRegion(textureAtlas.findRegion("Z_NPC_WALK"));
     }
 
+    public NeutralNPC(TileGraph tileGraph, int x, int y, TextureAtlas textureAtlas, String textureName) {
+        super(tileGraph, x, y);
+        walkingAnimation = new Animation<TextureRegion>(1f / 4f, textureAtlas.findRegions(textureName));
+        idleTexture = new TextureRegion(textureAtlas.findRegion(textureName));
+    }
+
     public NeutralNPC(TileGraph tileGraph, Tile tilePos, TextureAtlas textureAtlas) {
         this(tileGraph, (int) tilePos.getCenterPosition().x, (int) tilePos.getCenterPosition().y, textureAtlas);
     }

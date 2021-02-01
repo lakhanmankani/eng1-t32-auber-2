@@ -50,10 +50,12 @@ public class ActualGame implements Screen {
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
     ArrayList<PowerUp> currentPowerUps;
+    boolean demo;
 
-    public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load) {
+    public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load, boolean demo) {
         this.game = game;
         game.batch = new SpriteBatch();
+        this.demo = demo;
 
         this.menu = menu;
         textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
@@ -202,6 +204,10 @@ public class ActualGame implements Screen {
             infiltratorsToAdd.add(new DisguiseInfiltrator(difficulty, graph,
                     graph.getTileFromCoordinates(9 * TileType.TILE_SIZE, 39 * TileType.TILE_SIZE), textureAtlas));
         }
+
+        if(demo) {
+            neutralNpcs.add(0, new NeutralNPC(graph, 200, 150, textureAtlas, "AUBER_WALK"));
+        }
     }
 
     @Override
@@ -221,7 +227,13 @@ public class ActualGame implements Screen {
             }
             auber.fullHeal();
         }
-        camera.position.set(auber.getPositionForCamera());
+
+        //Update camera position
+        if(demo) {
+            camera.position.set(neutralNpcs.get(0).getPositionForCamera());
+        } else {
+            camera.position.set(auber.getPositionForCamera());
+        }
         camera.update();
         gameMap.render(camera);
 
@@ -235,7 +247,7 @@ public class ActualGame implements Screen {
         game.batch.begin();
 
         // Display teleport menu
-        if (auber.isAuberOnTeleporter()) {
+        if (auber.isAuberOnTeleporter() && !demo) {
             minimap.render(game.batch, auber.getXPos(), auber.getYPos());
             minimap.teleportTo(auber);
         }
@@ -303,10 +315,14 @@ public class ActualGame implements Screen {
             infiltrators.add(infiltratorsToAdd.get(0));
             infiltratorsToAdd.remove(0);
         }
-        auber.render(game.batch);
+
+        if(!demo) {
+            auber.render(game.batch);
+
+        }
 
         // Display beams
-        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1) {
+        if (Gdx.input.isKeyPressed(Keys.SPACE) && beamgun.size() < 1 && !demo) {
             beamgun.add(new Beam(auber, difficulty, textureAtlas, 0));
             if (isCurrentlyUsingPowerUp("MultiBeam")) {
                 beamgun.add(new Beam(auber, difficulty, textureAtlas, 1));
