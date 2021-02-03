@@ -46,7 +46,7 @@ public class ActualGame implements Screen {
     ArrayList<Infiltrator> infiltrators;
     ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
-    int difficulty;
+    public int difficulty;
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
     ArrayList<PowerUp> currentPowerUps;
