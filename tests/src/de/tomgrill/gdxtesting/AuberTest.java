@@ -1,47 +1,64 @@
 package de.tomgrill.gdxtesting;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import io.github.eng12020team24.project1.characters.Auber;
-import io.github.eng12020team24.project1.gamestates.ActualGame;
-import io.github.eng12020team24.project1.gamestates.AuberGame;
-import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.assertEquals;;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
 public class AuberTest {
 
-    AuberGame game;
-    ActualGame actualGame;
-
-    void setup() {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.foregroundFPS = 60;
-        config.fullscreen = false;
-        config.width = 1920;
-        config.height = 1080;
-
-        this.game = new AuberGame();
-
-        actualGame = new ActualGame(this.game, 0, null, null);
+    private Auber setupAuber() {
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.local("../core/assets/spritesheet/myspritesheet.atlas"));
+        return new Auber(textureAtlas, 0, null);
     }
 
     @Test
-    public void testAuberHeal() {
-        setup();
-        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.local("../core/assets/spritesheet/myspritesheet.atlas"));
-
-        Auber auber = new Auber(textureAtlas, actualGame.difficulty, new TiledGameMap());
-
+    public void testAuberInitialHealth() {
         // Test initial health is 10
+        Auber auber = setupAuber();
         assertEquals(auber.getHealth(), 10);
+    }
+
+    @Test
+    public void testAuberFullHeal() {
+        Auber auber = setupAuber();
+        auber.setAuberHealth(5);
+        auber.fullHeal();
+        assertEquals(auber.getHealth(), 10);
+    }
+
+    @Test
+    public void testAuberIncrementalHeal() {
+        Auber auber = setupAuber();
+
+        auber.setAuberHealth(5);
+        auber.heal(1);
+        assertEquals(auber.getHealth(), 6);
+
+        // Test healing upper bound
+        auber.heal(100);
+        assertEquals(auber.getHealth(), 10);
+    }
+
+    @Test
+    public void testAuberTakesDamage() {
+        Auber auber = setupAuber();
+
+        // Test 1 damage
+        auber.takeDamage(1);
+        assertEquals(auber.getHealth(), 9);
+
+        // Test multiple damage
+        auber.takeDamage(3);
+        assertEquals(auber.getHealth(), 6);
+
+        // Test damage lower bound
+        auber.takeDamage(100);
+        assertEquals(auber.getHealth(), 0);
 
     }
 }
