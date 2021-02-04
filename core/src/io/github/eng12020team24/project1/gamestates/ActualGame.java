@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.github.eng12020team24.project1.saving.LoadSystem;
 import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.characters.Beam;
@@ -63,7 +64,9 @@ public class ActualGame implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, difficulty, gameMap);
-        minimap = new Minimap(uiAtlas);
+        minimap = new Minimap();
+        minimap.minimapTextureOn = new TextureRegion(uiAtlas.findRegion("MINIMAP_ON"));
+
         graph = new TileGraph(gameMap);
         healthbar = new HealthBar(uiAtlas);
         systemBar = new SystemBar(textureAtlas, 1);

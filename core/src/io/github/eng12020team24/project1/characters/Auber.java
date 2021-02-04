@@ -30,7 +30,7 @@ public class Auber extends Character {
     private int renderXPos;
     private int renderYPos;
     private TiledGameMap map;
-    private int health;
+    private int health = 10;
     private float damageTimer = 0;
     private float healTimer = 0;
     int difficulty;
@@ -45,9 +45,15 @@ public class Auber extends Character {
         // These are precomputed to save on CPU as it does not need to be recalculated
         // every frame.
         this.map = map;
-        health = 10;
 
         this.difficulty = difficulty;
+    }
+    public Auber() {
+        xPos = 26 * TileType.TILE_SIZE;
+        yPos = 6 * TileType.TILE_SIZE;
+
+        renderXPos = (Gdx.graphics.getWidth() / 2) - 16;
+        renderYPos = (Gdx.graphics.getHeight() / 2) - 16;
     }
 
     public void render(SpriteBatch batch) {
