@@ -216,9 +216,6 @@ public class ActualGame implements Screen {
             auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
         }
         if (isCurrentlyUsingPowerUp("Shield")) {
-            if (auber.getHealth() != 10) {
-                System.out.println("Man down!");
-            }
             auber.fullHeal();
         }
         camera.position.set(auber.getPositionForCamera());
