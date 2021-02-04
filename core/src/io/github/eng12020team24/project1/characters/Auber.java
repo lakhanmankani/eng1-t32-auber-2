@@ -94,7 +94,7 @@ public class Auber extends Character {
         for (Infiltrator infiltrator : infiltrators) {
             if (infiltrator.doesRectCollideWithInfiltrator(xPos - 16, yPos - 16, AUBER_WIDTH, AUBER_HEIGHT)) {
                 if (health > 0 && damageTimer < 0){
-                    health -= 1;
+                    takeDamage(1);
                     damageTimer = 1;
                 }
             }
@@ -104,8 +104,11 @@ public class Auber extends Character {
         move(deltaTime, infiltrators, 1);
     }
 
-    public void auberTakeDamage(){
-        health -= 1;
+    public void takeDamage(int amount){
+        health -= amount;
+        if (health < 0) {
+            health = 0;
+        }
     }
 
     /**
@@ -126,7 +129,7 @@ public class Auber extends Character {
             }
             if (healTimer >= secondsPerHeal) {
                 healTimer = 0f;
-                health += 1;
+                heal(1);
             }
 
         } else if (health > 10) {
@@ -136,6 +139,13 @@ public class Auber extends Character {
 
     public void fullHeal() {
         this.health = 10;
+    }
+
+    public void heal(int amount) {
+        this.health += amount;
+        if (health > 10) {
+            health = 10;
+        }
     }
 
     /**
