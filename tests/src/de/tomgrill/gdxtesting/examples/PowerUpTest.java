@@ -35,6 +35,9 @@ public class PowerUpTest {
 
         PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
         assertFalse(powerUp.auberOnPowerUpTile(auber));
+
+        auber.setY(4*TileType.TILE_SIZE);
+        assertTrue(powerUp.auberOnPowerUpTile(auber));
     }
 
     @Test
