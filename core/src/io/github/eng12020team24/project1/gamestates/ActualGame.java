@@ -1,31 +1,34 @@
 package io.github.eng12020team24.project1.gamestates;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import io.github.eng12020team24.project1.saving.LoadSystem;
-import io.github.eng12020team24.project1.saving.SaveSystem;
-import io.github.eng12020team24.project1.characters.Beam;
-import io.github.eng12020team24.project1.mapclasses.TileType;
-import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
-import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
+import io.github.eng12020team24.project1.mapclasses.TileType;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.powerup.PowerUp;
+import io.github.eng12020team24.project1.saving.LoadSystem;
+import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.system.StationSystem;
-import io.github.eng12020team24.project1.ui.*;
+import io.github.eng12020team24.project1.ui.EnemyBar;
+import io.github.eng12020team24.project1.ui.HealthBar;
+import io.github.eng12020team24.project1.ui.Minimap;
+import io.github.eng12020team24.project1.ui.SystemBar;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class ActualGame implements Screen {
     final AuberGame game;
@@ -49,7 +52,7 @@ public class ActualGame implements Screen {
     int difficulty;
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
-    ArrayList<PowerUp> currentPowerUps;
+    public ArrayList<PowerUp> currentPowerUps;
 
     public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load) {
         this.game = game;
@@ -131,19 +134,19 @@ public class ActualGame implements Screen {
             for(ArrayList powerup : load.generateCurrentPowerupsList()){
                 BigDecimal decimal = (BigDecimal) powerup.get(3);
                 float timer = decimal.floatValue();
-                currentPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas, timer));
+                currentPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, timer));
             }
 
             for(ArrayList powerup : load.generateUnusedPowerupsList()){
-                unusedPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE, powerUpAtlas));
+                unusedPowerUps.add(new PowerUp((String) powerup.get(0), (int) powerup.get(1) / TileType.TILE_SIZE, (int) powerup.get(2) / TileType.TILE_SIZE));
             }
 
         }else {
-            unusedPowerUps.add(new PowerUp("Shield", 44, 39, powerUpAtlas));
-            unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21, powerUpAtlas));
-            unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35, powerUpAtlas));
-            unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7, powerUpAtlas));
-            unusedPowerUps.add(new PowerUp("All", 34, 25, powerUpAtlas));
+            unusedPowerUps.add(new PowerUp("Shield", 44, 39));
+            unusedPowerUps.add(new PowerUp("SpeedUp", 29, 21));
+            unusedPowerUps.add(new PowerUp("MultiBeam", 22, 35));
+            unusedPowerUps.add(new PowerUp("InfiltratorFreeze", 12, 7));
+            unusedPowerUps.add(new PowerUp("All", 34, 25));
         }
 
         // Add hostile NPCs
@@ -261,7 +264,7 @@ public class ActualGame implements Screen {
         // Render power up tiles
         ArrayList<PowerUp> powerUpsToRemove = new ArrayList<>();
         for (PowerUp powerUp : unusedPowerUps) {
-            powerUp.render(game.batch, camera);
+            powerUp.render(game.batch, camera, powerUpAtlas);
             if (powerUp.auberOnPowerUpTile(auber)) {
                 // Move power up from unused to current
                 powerUp.startUsing();
@@ -275,7 +278,7 @@ public class ActualGame implements Screen {
         }
         powerUpsToRemove = new ArrayList<>();
         for (PowerUp powerUp : currentPowerUps) {
-            powerUp.render(game.batch, camera);
+            powerUp.render(game.batch, camera, powerUpAtlas);
             if (powerUp.finishedUsing()) {
                 System.out.println("Remove "+powerUp.name);
                 powerUpsToRemove.add(powerUp);
