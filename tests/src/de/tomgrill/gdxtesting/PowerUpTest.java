@@ -1,5 +1,5 @@
 
-package de.tomgrill.gdxtesting.examples;
+package de.tomgrill.gdxtesting;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
