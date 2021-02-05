@@ -45,6 +45,25 @@ public class Minimap {
         batch.draw(minimapTextureOn, xRenderPos, yRenderPos);
     }
 
+    public boolean isAuberOnTeleporter(Auber auber) {
+        for (int[] location : tpLocations) {
+            int auberXPos = auber.getXPos();
+            int auberYPos = auber.getYPos();
+
+            int teleporterXPos = location[0] * TileType.TILE_SIZE;
+            int teleporterYPos = location[1] * TileType.TILE_SIZE;
+
+            // Check if auber is in bounds
+            if (auberXPos >= (teleporterXPos + TileType.TILE_SIZE) && auberXPos + TileType.TILE_SIZE <= teleporterXPos) {
+                return true;
+            }
+            if (auberYPos <= (teleporterYPos + TileType.TILE_SIZE) && auberYPos + TileType.TILE_SIZE >= teleporterYPos) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * The teleport method calls gets the auber object and calls auber's move method
      * to "teleport" auber to a seperate location of the map. It calls using the 2D

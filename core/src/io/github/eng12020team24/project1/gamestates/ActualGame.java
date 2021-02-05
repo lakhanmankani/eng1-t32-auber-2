@@ -250,7 +250,7 @@ public class ActualGame implements Screen {
         game.batch.begin();
 
         // Display teleport menu
-        if (auber.isAuberOnTeleporter() && !demo) {
+        if (minimap.isAuberOnTeleporter(auber) && !demo) {
             minimap.render(game.batch, auber.getXPos(), auber.getYPos());
             minimap.teleportTo(auber);
         }

@@ -110,7 +110,7 @@ public class Auber extends Character {
         move(deltaTime, infiltrators, 1);
     }
 
-    public void takeDamage(int amount){
+    public void takeDamage(int amount) {
         health -= amount;
         if (health < 0) {
             health = 0;
@@ -120,7 +120,7 @@ public class Auber extends Character {
     /**
      * method to heal auber 1 heart per second
      */
-    public void auberHeal(){
+    public void auberHeal() {
         healTimer += Gdx.graphics.getDeltaTime();
         if (health < 10){
             // Heal 1 heart every second (easy)
@@ -171,20 +171,6 @@ public class Auber extends Character {
     }
 
     /**
-     * a boolean method that checks the tile the auber is on, with the parameters of auber's coordinates when calling getTileTypeByLocation.
-     * @return if the tile the auber is on is equal to that of a teleporter's tiletype ID then return true, else false.
-     */
-    public boolean isAuberOnTeleporter() {
-        TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
-        if (tile != null) {
-            if (tile.getId() == 14) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * a boolean method to check if auber is on the healing pad.
      * @return returns a boolean whether or not auber is on the healing pad.
      */
@@ -198,8 +184,7 @@ public class Auber extends Character {
         return false;
     }
 
-    public void setAuberHealth(int health)
-    {
+    public void setAuberHealth(int health) {
         this.health = health;
     }
 }
