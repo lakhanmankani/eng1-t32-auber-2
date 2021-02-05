@@ -1,5 +1,5 @@
 
-package de.tomgrill.gdxtesting.examples;
+package de.tomgrill.gdxtesting;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,7 +8,7 @@ import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.powerup.PowerUp;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
+//import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertFalse;
@@ -27,7 +27,7 @@ public class PowerUpTest {
 //    ActualGame testActualGame = new ActualGame(game, 0, menu, load);
 
     @Test
-    @DisplayName("Auber should be able to pick up power ups")
+    //@DisplayName("Auber should be able to pick up power ups")
     public void testValidPickUp() {
 
         auber.setX(4*TileType.TILE_SIZE);
@@ -35,10 +35,13 @@ public class PowerUpTest {
 
         PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
         assertFalse(powerUp.auberOnPowerUpTile(auber));
+
+        auber.setY(4*TileType.TILE_SIZE);
+        assertTrue(powerUp.auberOnPowerUpTile(auber));
     }
 
     @Test
-    @DisplayName("Auber should be able to use power ups")
+    //@DisplayName("Auber should be able to use power ups")
     public void testUsePowerUp() {
     }
 

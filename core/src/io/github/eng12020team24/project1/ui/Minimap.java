@@ -12,7 +12,7 @@ public class Minimap {
     /** Constant: Mapsize as 256, image sprite is 256x256px **/
     public static final int MINIMAP_SIZE = 256;
     private final int[][] tpLocations = { { 28, 6 }, { 26, 47 }, { 17, 32 }, { 35, 30 }, { 30, 15 }, { 38, 11 } };
-    private TextureRegion minimapTextureOn;
+    public TextureRegion minimapTextureOn;
     private int xRenderPos;
     private int yRenderPos;
 
@@ -23,8 +23,7 @@ public class Minimap {
      * 
      * @param atlas UI atlas that stores the location of the minimap sprite.
      */
-    public Minimap(TextureAtlas atlas) {
-        minimapTextureOn = new TextureRegion(atlas.findRegion("MINIMAP_ON"));
+    public Minimap() {
         xRenderPos = (Gdx.graphics.getWidth() - MINIMAP_SIZE) / 2;
         yRenderPos = (Gdx.graphics.getHeight() - MINIMAP_SIZE) / 2;
     }
@@ -57,17 +56,23 @@ public class Minimap {
      */
     public void teleportTo(Auber auber) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-            auber.move(tpLocations[0][0] * TileType.TILE_SIZE - 16, tpLocations[0][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 0);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-            auber.move(tpLocations[1][0] * TileType.TILE_SIZE - 16, tpLocations[1][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 1);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-            auber.move(tpLocations[2][0] * TileType.TILE_SIZE - 16, tpLocations[2][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 2);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
-            auber.move(tpLocations[3][0] * TileType.TILE_SIZE - 16, tpLocations[3][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 3);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-            auber.move(tpLocations[4][0] * TileType.TILE_SIZE - 16, tpLocations[4][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 4);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
-            auber.move(tpLocations[5][0] * TileType.TILE_SIZE - 16, tpLocations[5][1] * TileType.TILE_SIZE - 16);
+            teleport(auber, 5);
         }
+    }
+
+    public void teleport(Auber auber, int teleporter) {
+        int newXPos = (tpLocations[teleporter][0] * TileType.TILE_SIZE) - 16;
+        int newYPos = (tpLocations[teleporter][1] * TileType.TILE_SIZE) - 16;
+        auber.move(newXPos, newYPos);
     }
 }

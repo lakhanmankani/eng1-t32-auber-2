@@ -7,19 +7,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import io.github.eng12020team24.project1.characters.Auber;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import io.github.eng12020team24.project1.saving.LoadSystem;
+import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.characters.Beam;
+import io.github.eng12020team24.project1.mapclasses.TileType;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.pathfinding.TileGraph;
+import io.github.eng12020team24.project1.characters.Auber;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
-import io.github.eng12020team24.project1.mapclasses.TileType;
-import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
-import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.powerup.PowerUp;
-import io.github.eng12020team24.project1.saving.LoadSystem;
-import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.EnemyBar;
 import io.github.eng12020team24.project1.ui.HealthBar;
@@ -49,7 +50,7 @@ public class ActualGame implements Screen {
     ArrayList<Infiltrator> infiltrators;
     ArrayList<Infiltrator> infiltratorsToAdd;
     ArrayList<Beam> beamgun;
-    int difficulty;
+    public int difficulty;
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
     public ArrayList<PowerUp> currentPowerUps;
@@ -68,7 +69,9 @@ public class ActualGame implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameMap = new TiledGameMap();
         auber = new Auber(textureAtlas, difficulty, gameMap);
-        minimap = new Minimap(uiAtlas);
+        minimap = new Minimap();
+        minimap.minimapTextureOn = new TextureRegion(uiAtlas.findRegion("MINIMAP_ON"));
+
         graph = new TileGraph(gameMap);
         healthbar = new HealthBar(uiAtlas);
         systemBar = new SystemBar(textureAtlas, 1);
@@ -225,9 +228,6 @@ public class ActualGame implements Screen {
             auber.move(Gdx.graphics.getDeltaTime(), infiltrators);
         }
         if (isCurrentlyUsingPowerUp("Shield")) {
-            if (auber.getHealth() != 10) {
-                System.out.println("Man down!");
-            }
             auber.fullHeal();
         }
 
