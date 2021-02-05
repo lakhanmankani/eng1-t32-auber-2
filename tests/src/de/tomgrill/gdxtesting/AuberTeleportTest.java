@@ -20,10 +20,18 @@ public class AuberTeleportTest {
 
     @Test
     public void testAuberOnTeleporter() {
-        //TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.local("../core/assets/spritesheet/myspritesheet.atlas"));
         Auber auber = new Auber();
+        Minimap minimap = new Minimap();
 
-        //Assert.assertFalse(auber.isAuberOnTeleporter());
+        // Test Auber not on teleporter
+        auber.setX(100 * TileType.TILE_SIZE);
+        auber.setY(100 * TileType.TILE_SIZE);
+        Assert.assertFalse(minimap.isAuberOnTeleporter(auber));
+
+        // Test Auber on teleporter
+        auber.setX(26 * TileType.TILE_SIZE);
+        auber.setY(47 * TileType.TILE_SIZE);
+        Assert.assertTrue(minimap.isAuberOnTeleporter(auber));
     }
 
     @Test
