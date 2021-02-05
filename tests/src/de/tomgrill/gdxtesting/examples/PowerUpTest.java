@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
@@ -32,9 +33,8 @@ public class PowerUpTest {
         auber.setX(4*TileType.TILE_SIZE);
         auber.setY(3*TileType.TILE_SIZE);
 
-        PowerUp powerUp = new PowerUp("Invisibility", 4, 4);
-
-        assertTrue(powerUp.auberOnPowerUpTile(auber));
+        PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
+        assertFalse(powerUp.auberOnPowerUpTile(auber));
     }
 
     @Test
