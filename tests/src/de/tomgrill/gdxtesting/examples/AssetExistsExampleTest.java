@@ -16,14 +16,10 @@
 
 package de.tomgrill.gdxtesting.examples;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.badlogic.gdx.Gdx;
-
 import de.tomgrill.gdxtesting.GdxTestRunner;
+
 
 @RunWith(GdxTestRunner.class)
 public class AssetExistsExampleTest {

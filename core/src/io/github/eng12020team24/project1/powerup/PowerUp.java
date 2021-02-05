@@ -15,28 +15,25 @@ public class PowerUp {
     private final int xPos;
     private final int yPos;
     public String name;
-    private final TextureRegion powerUpSprite;
     private float timer;
 
-    public PowerUp(String name, int x, int y, TextureAtlas atlas) {
+    public PowerUp(String name, int x, int y) {
         this.xPos = x * TileType.TILE_SIZE;
         this.yPos = y * TileType.TILE_SIZE;
 
-        powerUpSprite = new TextureRegion(atlas.findRegion(name));
-        System.out.println(powerUpSprite);
         this.name = name;
     }
 
-    public PowerUp(String name, int x, int y, TextureAtlas atlas, float timer) {
+    public PowerUp(String name, int x, int y, float timer) {
         this.xPos = x * TileType.TILE_SIZE;
         this.yPos = y * TileType.TILE_SIZE;
         this.timer = timer;
 
-        powerUpSprite = new TextureRegion(atlas.findRegion(name));
         this.name = name;
     }
 
-    public void render(SpriteBatch batch, OrthographicCamera camera) {
+    public void render(SpriteBatch batch, OrthographicCamera camera, TextureAtlas atlas) {
+        TextureRegion powerUpSprite = new TextureRegion(atlas.findRegion(name));
         if (timer != 0) {
             timer -= Gdx.graphics.getDeltaTime();
         } else {
@@ -58,6 +55,7 @@ public class PowerUp {
         int y = auber.getYPos();
         int width = 32;
         int height = 32;
+
         if (x >= (xPos + TileType.TILE_SIZE) || x + width <= xPos) {
             return false;
         }
