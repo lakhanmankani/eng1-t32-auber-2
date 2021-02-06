@@ -10,20 +10,19 @@ import io.github.eng12020team24.project1.saving.LoadSystem;
 import java.io.IOException;
 
 public class MenuState implements Screen {
-    private AuberGame game;
+    private final AuberGame game;
     private ActualGame actualGame = null;
-    private TextureAtlas uiAtlas;
-    private Button saveButton;
-    private Button playButton;
-    private Button exitButton;
-    private Button resumeButton;
-    private Button loadButton;
+    private final Button saveButton;
+    private final Button playButton;
+    private final Button exitButton;
+    private final Button resumeButton;
+    private final Button loadButton;
     private Boolean clicked;
     private Boolean isShowingDifficulty = false;
-    private Button easyButton;
-    private Button mediumButton;
-    private Button hardButton;
-    private Button demoButton;
+    private final Button easyButton;
+    private final Button mediumButton;
+    private final Button hardButton;
+    private final Button demoButton;
 
     /**
      * Initialises the Menu state
@@ -31,7 +30,7 @@ public class MenuState implements Screen {
      */
     public MenuState(AuberGame game){
         this.game=game;
-        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        TextureAtlas uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
         playButton = new Button(0, 128, uiAtlas.findRegion("PLAY_BUTTON"));
         saveButton = new Button(0, 256, uiAtlas.findRegion("SAVE_BUTTON"));
         loadButton = new Button(0, 256, uiAtlas.findRegion("LOAD_BUTTON"));

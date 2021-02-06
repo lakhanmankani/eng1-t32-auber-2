@@ -4,19 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameOverState implements Screen {
-    private AuberGame game;
-    private TextureAtlas uiAtlas;
-    // private Button playAgainButton;
-    private TextureRegion outcome;
-    private int outcomeX;
-    private Button exitButton;
-    private ActualGame newGame;
-    private MenuState menu;
+    private final AuberGame game;
+    private final TextureRegion outcome;
+    private final int outcomeX;
+    private final Button exitButton;
     boolean win;
 
     /**
@@ -26,10 +21,9 @@ public class GameOverState implements Screen {
      */
     public GameOverState(AuberGame game, boolean win) {
         this.game = game;
-        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+        TextureAtlas uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
         TextureAtlas winAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet2.atlas"));
         TextureAtlas loseAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet3.atlas"));
-        // playAgainButton = new Button(Gdx.graphics.getWidth()/2 - 440, 128, uiAtlas.findRegion("PLAY_AGAIN_BUTTON"));
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
 
         this.win = win;
@@ -59,13 +53,6 @@ public class GameOverState implements Screen {
         if (exitButton.isClicked() || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){ //exits
             Gdx.app.exit();
         }
-        /*
-        else if (playAgainButton.isClicked()){ // starts new game
-            menu = new MenuState(game);
-            this.newGame = new ActualGame(game, menu);
-            game.setScreen(newGame);
-        }
-        */
     }
 
     @Override

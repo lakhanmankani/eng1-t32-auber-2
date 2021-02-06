@@ -29,12 +29,6 @@ public abstract class NPCCharacter extends Character {
         this.pathIndex = 0;
     }
 
-    public void findPath(int goalX, int goalY) {
-        Tile goalTile = tileGraph.getTileFromCoordinates(goalX, goalY);
-        findPath(goalTile);
-        
-    }
-
     public void findPath(Tile goalTile) {
         Tile currentTile = tileGraph.getTileFromCoordinates(xPos, yPos);
         currentPath = tileGraph.findPath(currentTile, goalTile);
@@ -42,11 +36,6 @@ public abstract class NPCCharacter extends Character {
         if (currentPath.getCount() == 0) {
             currentPath = null;
         }
-    }
-
-    public void findPathByCameraPosition(OrthographicCamera camera, int goalX, int goalY) {
-        Vector2 worldPos = character_utils.cameraPositionToWorldPosition(camera, new Vector2(goalX, goalY));
-        this.findPath((int) worldPos.x, (int) worldPos.y);
     }
 
     /**

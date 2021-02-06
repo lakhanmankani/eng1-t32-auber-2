@@ -405,9 +405,11 @@ public class ActualGame implements Screen {
     public void dispose() {
     }
 
-    public static void main() {
-    }
-
+    /**
+     * Check if given power up is in use.
+     * @param name Name of power up
+     * @return Whether the power up is being used. If 'All' is being used, it will return true for all other powerups.
+     */
     private boolean isCurrentlyUsingPowerUp(String name) {
         for (PowerUp powerUp : currentPowerUps) {
             if (powerUp.name.equals(name) || powerUp.name.equals("All")) {

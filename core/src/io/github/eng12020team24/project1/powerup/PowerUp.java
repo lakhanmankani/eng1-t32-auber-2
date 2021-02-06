@@ -51,20 +51,20 @@ public class PowerUp {
     }
 
     public boolean auberOnPowerUpTile(Auber auber) {
-        int x = auber.getXPos();
-        int y = auber.getYPos();
-        int width = 32;
-        int height = 32;
+        int auberXPos = auber.getXPos();
+        int auberYPos = auber.getYPos();
 
-        if (x >= (xPos + TileType.TILE_SIZE) || x + width <= xPos) {
-            return false;
-        }
-        return y < (yPos + TileType.TILE_SIZE) && y + height > yPos;
+        return auberXPos <= xPos &&
+               auberXPos + TileType.TILE_SIZE >= xPos &&
+               auberYPos <= yPos &&
+               auberYPos + TileType.TILE_SIZE >= yPos;
     }
 
     public float getTimer() {return timer;}
 
-    public String getName() { return name;}
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
 
     public int getxPos() {return xPos;}
 

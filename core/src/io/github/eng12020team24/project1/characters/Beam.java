@@ -18,7 +18,9 @@ public class Beam {
      * The initialisation method for Beam. Creates a Beam object on auber's position and move's in
      * auber's direction of which it's facing.
      * @param auber insert auber to retrieve attributes from auber.
+     * @param difficulty The difficulty of the game, sets the shooting speed
      * @param atlas insert atlas to get texture regions for the beam.
+     * @param offset Offset beams to shoot multiple. 0 for no offset, positive value for right, negative for left
      */
     public Beam(Auber auber, int difficulty, TextureAtlas atlas, int offset) {
         float rotation = auber.getRotation();

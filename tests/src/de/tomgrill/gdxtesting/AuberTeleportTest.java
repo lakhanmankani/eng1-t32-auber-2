@@ -32,6 +32,19 @@ public class AuberTeleportTest {
         auber.setX(26 * TileType.TILE_SIZE);
         auber.setY(47 * TileType.TILE_SIZE);
         Assert.assertTrue(minimap.isAuberOnTeleporter(auber));
+
+        // Test off by one x
+        auber.setX(24 * TileType.TILE_SIZE);
+        Assert.assertFalse(minimap.isAuberOnTeleporter(auber));
+        auber.setX(28 * TileType.TILE_SIZE);
+        Assert.assertFalse(minimap.isAuberOnTeleporter(auber));
+
+        // Test off by one y
+        auber.setX(26 * TileType.TILE_SIZE);
+        auber.setY(45 * TileType.TILE_SIZE);
+        Assert.assertFalse(minimap.isAuberOnTeleporter(auber));
+        auber.setY(49 * TileType.TILE_SIZE);
+        Assert.assertFalse(minimap.isAuberOnTeleporter(auber));
     }
 
     @Test
