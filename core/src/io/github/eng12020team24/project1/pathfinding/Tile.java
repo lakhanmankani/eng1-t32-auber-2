@@ -83,16 +83,6 @@ public class Tile {
     }
 
     /**
-     * Gets the position of the tile in the map
-     * 
-     * @return A Vector2 containing the x and y position of the tile in the map, not
-     *         the game world
-     */
-    public Vector2 getPosition() {
-        return new Vector2(xPos, yPos);
-    }
-
-    /**
      * Gets the center of the tile in the game world
      * 
      * @return a Vector2 containing the center of the tile in the game world

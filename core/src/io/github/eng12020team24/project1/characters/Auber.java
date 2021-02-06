@@ -110,6 +110,11 @@ public class Auber extends Character {
         move(deltaTime, infiltrators, 1);
     }
 
+    /**
+     * Auber takes damage.
+     * Note: If health after damage < 0, health is set to 0.
+     * @param amount The amount of damage to take.
+     */
     public void takeDamage(int amount) {
         health -= amount;
         if (health < 0) {
@@ -118,7 +123,7 @@ public class Auber extends Character {
     }
 
     /**
-     * method to heal auber 1 heart per second
+     * Heal Auber with time delay. Used when Auber is standing on healing pad
      */
     public void auberHeal() {
         healTimer += Gdx.graphics.getDeltaTime();
@@ -143,10 +148,18 @@ public class Auber extends Character {
         }
     }
 
+    /**
+     * Set Auber's health to maximum.
+     */
     public void fullHeal() {
         this.health = 10;
     }
 
+    /**
+     * Auber heals.
+     * Note: If health after healing > 10, health is set to 10.
+     * @param amount The amount of health to increase.
+     */
     public void heal(int amount) {
         this.health += amount;
         if (health > 10) {
@@ -184,6 +197,10 @@ public class Auber extends Character {
         return false;
     }
 
+    /**
+     * Set Auber's health to a specified amount
+     * @param health Auber's new health value
+     */
     public void setAuberHealth(int health) {
         this.health = health;
     }

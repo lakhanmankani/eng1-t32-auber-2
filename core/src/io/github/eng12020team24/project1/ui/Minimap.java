@@ -20,8 +20,6 @@ public class Minimap {
      * Initialise Minimap Class, passing Texture Atlas for UI. With default minimap
      * being the center of the screen. Atlas is used to retrieve the minimap image
      * from uispritesheet.
-     * 
-     * @param atlas UI atlas that stores the location of the minimap sprite.
      */
     public Minimap() {
         xRenderPos = (Gdx.graphics.getWidth() - MINIMAP_SIZE) / 2;
@@ -45,6 +43,11 @@ public class Minimap {
         batch.draw(minimapTextureOn, xRenderPos, yRenderPos);
     }
 
+    /**
+     * Checks if Auber is standing on any teleporter
+     * @param auber Auber character
+     * @return true if Auber is on a teleporter, false otherwise
+     */
     public boolean isAuberOnTeleporter(Auber auber) {
         for (int[] location : tpLocations) {
             int auberXPos = auber.getXPos();
@@ -89,6 +92,12 @@ public class Minimap {
         }
     }
 
+    /**
+     * Teleport auber to numbered teleporter 0 - 5.
+     * Note: Teleporter index is off by one from the assigned activation key.
+     * @param auber Auber character
+     * @param teleporter teleporter index to which Auber is teleported to
+     */
     public void teleport(Auber auber, int teleporter) {
         int newXPos = (tpLocations[teleporter][0] * TileType.TILE_SIZE) - 16;
         int newYPos = (tpLocations[teleporter][1] * TileType.TILE_SIZE) - 16;

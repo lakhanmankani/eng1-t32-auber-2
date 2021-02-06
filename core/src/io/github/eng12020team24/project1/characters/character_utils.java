@@ -27,13 +27,29 @@ public class character_utils {
     public static final int INFILTRATOR_ABILITY_CHARGES = 1;
     public static final int INFILTRATOR_ABILITY_DURATION = 10;
 
+    /**
+     * Get the infiltrator flee distance
+     * @param difficulty The game's difficulty
+     * @return int value of infiltrator flee distance
+     */
     public static int infiltratorFleeDistance(int difficulty) {
         return INFILTRATOR_FLEE_DISTANCE + difficulty;
     }
+
+    /**
+     * Get the infiltrator ability distance
+     * @param difficulty The game's difficulty
+     * @return int value of infiltrator ability distance
+     */
     public static int infiltratorAbilityDistance(int difficulty) {
         return INFILTRATOR_ABILITY_DISTANCE + difficulty;
     }
 
+    /**
+     * Get the beam speed
+     * @param difficulty The game's difficulty
+     * @return int value of beam speed
+     */
     public static int beamSpeed(int difficulty) {
         if (difficulty == 0) {
             return BEAM_SPEED_EASY;
@@ -50,14 +66,9 @@ public class character_utils {
      * As the camera follows Auber, these methods are required to convert between the two for rendering purposes.
      * @param cameraPosition the camera-relative position to convert
      */
-
     public static Vector2 cameraPositionToWorldPosition(OrthographicCamera camera, Vector2 cameraPosition) {
         Vector2 cameraPos = new Vector2(camera.position.x, camera.position.y);
         return new Vector2(cameraPosition).add(new Vector2(cameraPos).sub(new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2)));
-    }
-
-    public static Vector2 cameraPositionToWorldPosition(OrthographicCamera camera, float x, float y) {
-        return cameraPositionToWorldPosition(camera, new Vector2(x, y));
     }
 
     public static Vector2 worldPositionToCameraPosition(OrthographicCamera camera, Vector2 worldPosition) {
@@ -68,6 +79,4 @@ public class character_utils {
     public static Vector2 worldPositionToCameraPosition(OrthographicCamera camera, float x, float y) {
         return worldPositionToCameraPosition(camera, new Vector2(x, y));
     }
-
-
 }

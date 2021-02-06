@@ -63,21 +63,12 @@ public enum TileType {
     }
 
     /**
-     * getter for name attribute of tile
-     * 
-     * @return returns a string of the tile's name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Hashmap of integers and tiletype called tilemap the method below creates a
      * hashmap to link the tile types to their IDs
      **/
-    private static HashMap<Integer, TileType> tileMap;
+    private static final HashMap<Integer, TileType> tileMap;
     static {
-        tileMap = new HashMap<Integer, TileType>();
+        tileMap = new HashMap<>();
         for (TileType tileType : TileType.values()) {
             tileMap.put(tileType.getId(), tileType);
         }
