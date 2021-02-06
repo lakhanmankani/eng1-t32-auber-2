@@ -54,10 +54,10 @@ public class Minimap {
             int teleporterYPos = location[1] * TileType.TILE_SIZE;
 
             // Check if auber is in bounds
-            if (auberXPos >= (teleporterXPos + TileType.TILE_SIZE) && auberXPos + TileType.TILE_SIZE <= teleporterXPos) {
-                return true;
-            }
-            if (auberYPos <= (teleporterYPos + TileType.TILE_SIZE) && auberYPos + TileType.TILE_SIZE >= teleporterYPos) {
+            if (auberXPos <= teleporterXPos &&
+                auberXPos + TileType.TILE_SIZE >= teleporterXPos &&
+                auberYPos <= teleporterYPos &&
+                auberYPos + TileType.TILE_SIZE >= teleporterYPos) {
                 return true;
             }
         }
