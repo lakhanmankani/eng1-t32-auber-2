@@ -54,10 +54,10 @@ public class PowerUp {
         int auberXPos = auber.getXPos();
         int auberYPos = auber.getYPos();
 
-        return auberXPos <= xPos &&
-               auberXPos + TileType.TILE_SIZE >= xPos &&
-               auberYPos <= yPos &&
-               auberYPos + TileType.TILE_SIZE >= yPos;
+        return auberXPos <= xPos + TileType.TILE_SIZE &&
+               auberXPos >= xPos &&
+               auberYPos <= yPos + TileType.TILE_SIZE&&
+               auberYPos >= yPos;
     }
 
     public float getTimer() {return timer;}
