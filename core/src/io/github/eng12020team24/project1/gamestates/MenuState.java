@@ -36,12 +36,12 @@ public class MenuState implements Screen {
         loadButton = new Button(0, 256, uiAtlas.findRegion("LOAD_BUTTON"));
         resumeButton = new Button(0, 128, uiAtlas.findRegion("RESUME_BUTTON"));
         exitButton = new Button(0, 0, uiAtlas.findRegion("EXIT_BUTTON"));
-        demoButton = new Button(0, 384, uiAtlas.findRegion("RESUME_BUTTON"));
+        demoButton = new Button(0, 384, uiAtlas.findRegion("DEMO_BUTTON"));
 
         // TODO: Replace with correct images
-        hardButton = new Button(450, 0, uiAtlas.findRegion("PLAY_BUTTON"));
-        mediumButton = new Button(450, 128, uiAtlas.findRegion("PLAY_BUTTON"));
-        easyButton = new Button(450, 256, uiAtlas.findRegion("PLAY_BUTTON"));
+        hardButton = new Button(450, 0, uiAtlas.findRegion("HARD_BUTTON"));
+        mediumButton = new Button(450, 128, uiAtlas.findRegion("MEDIUM_BUTTON"));
+        easyButton = new Button(450, 256, uiAtlas.findRegion("EASY_BUTTON"));
     }
 
     @Override
