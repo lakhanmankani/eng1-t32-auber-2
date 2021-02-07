@@ -12,6 +12,11 @@ public class LoadSystem {
     private JSONObject json;
 
     public LoadSystem(String fileName) throws IOException {
+        if(readAllBytesJava7(fileName).isEmpty())
+        {
+            json = new JSONObject();
+            return;
+        }
         json = new JSONObject(readAllBytesJava7(fileName));
     }
 
@@ -205,4 +210,6 @@ public class LoadSystem {
     {
         return (JSONObject) json.get("Auber");
     }
+
+    public JSONObject getJson(){ return json;}
 }

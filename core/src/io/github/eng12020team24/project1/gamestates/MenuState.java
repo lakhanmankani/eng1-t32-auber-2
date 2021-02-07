@@ -122,6 +122,11 @@ public class MenuState implements Screen {
             // Load game save and start
             try {
                 LoadSystem load = new LoadSystem("save.txt");
+                if (load.getJson().isEmpty())
+                {
+                    System.out.println("Invalid save file!");
+                    return;
+                }
                 this.actualGame = new ActualGame(game, load.getDifficulty(), this, load, false);
                 game.setScreen(actualGame);
             } catch (IOException e) {
