@@ -1,0 +1,118 @@
+
+uispritesheet.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+EXIT_BUTTON
+  rotate: false
+  xy: 2, 458
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+LOAD_BUTTON
+  rotate: false
+  xy: 2, 146
+  size: 455, 180
+  orig: 455, 180
+  offset: 0, 0
+  index: -1
+MAIN_MENU_BUTTON
+  rotate: false
+  xy: 2, 848
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+MINIMAP_OFF
+  rotate: false
+  xy: 464, 70
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+MINIMAP_ON
+  rotate: false
+  xy: 722, 70
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+PLAY_AGAIN_BUTTON
+  rotate: false
+  xy: 2, 328
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+PLAY_BUTTON
+  rotate: false
+  xy: 2, 718
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+RESUME_BUTTON
+  rotate: false
+  xy: 2, 588
+  size: 980, 128
+  orig: 980, 128
+  offset: 0, 0
+  index: -1
+SAVE_BUTTON
+  rotate: false
+  xy: 2, 2
+  size: 460, 142
+  orig: 460, 142
+  offset: 0, 0
+  index: -1
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 944
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 876
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 842
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 774
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+Z_HEALING PARTICLE
+  rotate: false
+  xy: 984, 740
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+Z_LIFE_HEART
+  rotate: false
+  xy: 984, 910
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Z_LIFE_HEART
+  rotate: false
+  xy: 984, 808
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2

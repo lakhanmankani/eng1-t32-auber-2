@@ -1,0 +1,13 @@
+
+uispritesheet3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+GAME_OVER_IMAGE
+  rotate: false
+  xy: 2, 2
+  size: 980, 980
+  orig: 980, 980
+  offset: 0, 0
+  index: -1
