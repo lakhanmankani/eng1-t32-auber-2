@@ -1,117 +1,145 @@
 
 uispritesheet.png
-size: 1024,1024
+size: 2048,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+DEMO_BUTTON
+  rotate: false
+  xy: 2, 36
+  size: 486, 176
+  orig: 486, 176
+  offset: 0, 0
+  index: -1
+EASY_BUTTON
+  rotate: false
+  xy: 2, 214
+  size: 486, 178
+  orig: 486, 178
+  offset: 0, 0
+  index: -1
 EXIT_BUTTON
   rotate: false
-  xy: 2, 458
+  xy: 2, 590
   size: 980, 128
   orig: 980, 128
   offset: 0, 0
   index: -1
+HARD_BUTTON
+  rotate: false
+  xy: 984, 561
+  size: 490, 157
+  orig: 490, 157
+  offset: 0, 0
+  index: -1
 LOAD_BUTTON
   rotate: false
-  xy: 2, 146
+  xy: 1476, 538
   size: 455, 180
   orig: 455, 180
   offset: 0, 0
   index: -1
 MAIN_MENU_BUTTON
   rotate: false
-  xy: 2, 848
+  xy: 2, 850
   size: 980, 128
   orig: 980, 128
   offset: 0, 0
   index: -1
+MEDIUM_BUTTON
+  rotate: false
+  xy: 2, 394
+  size: 737, 194
+  orig: 737, 194
+  offset: 0, 0
+  index: -1
 MINIMAP_OFF
   rotate: false
-  xy: 464, 70
+  xy: 490, 136
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 MINIMAP_ON
   rotate: false
-  xy: 722, 70
+  xy: 748, 159
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 PLAY_AGAIN_BUTTON
   rotate: false
-  xy: 2, 328
+  xy: 984, 720
   size: 980, 128
   orig: 980, 128
   offset: 0, 0
   index: -1
 PLAY_BUTTON
   rotate: false
-  xy: 2, 718
+  xy: 2, 720
   size: 980, 128
   orig: 980, 128
   offset: 0, 0
   index: -1
 RESUME_BUTTON
   rotate: false
-  xy: 2, 588
+  xy: 984, 850
   size: 980, 128
   orig: 980, 128
   offset: 0, 0
   index: -1
 SAVE_BUTTON
   rotate: false
-  xy: 2, 2
+  xy: 741, 417
   size: 460, 142
   orig: 460, 142
   offset: 0, 0
   index: -1
 Z_HEALING PARTICLE
   rotate: false
-  xy: 984, 944
+  xy: 1966, 946
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 Z_HEALING PARTICLE
   rotate: false
-  xy: 984, 876
+  xy: 490, 102
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 Z_HEALING PARTICLE
   rotate: false
-  xy: 984, 842
+  xy: 1203, 527
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 Z_HEALING PARTICLE
   rotate: false
-  xy: 984, 774
+  xy: 1966, 912
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 Z_HEALING PARTICLE
   rotate: false
-  xy: 984, 740
+  xy: 2000, 946
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 Z_LIFE_HEART
   rotate: false
-  xy: 984, 910
+  xy: 2, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 Z_LIFE_HEART
   rotate: false
-  xy: 984, 808
+  xy: 1006, 383
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
