@@ -77,7 +77,9 @@ public class MenuState implements Screen {
             }
         } else {
             resumeButton.draw(game.batch);
-            saveButton.draw(game.batch);
+            if (!this.actualGame.demo) {
+                saveButton.draw(game.batch);
+            }
         }
         game.batch.end();
 
