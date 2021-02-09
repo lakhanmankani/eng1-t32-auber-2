@@ -4,6 +4,8 @@ package de.tomgrill.gdxtesting;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.gamestates.ActualGame;
+import io.github.eng12020team24.project1.gamestates.AuberGame;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.powerup.PowerUp;
 import org.junit.Test;
@@ -51,6 +53,11 @@ public class PowerUpTest {
 
     @Test
     public void testUsePowerUp() {
+        AuberGame testGame = new AuberGame();
+        ActualGame actualGame = new ActualGame(testGame, 0, testGame.menuState, null, false, true);
+        PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
+        actualGame.currentPowerUps.add(powerUp);
+        assertEquals(actualGame.isCurrentlyUsingPowerUp("MultiBeam"), true);
     }
 
     @Test
