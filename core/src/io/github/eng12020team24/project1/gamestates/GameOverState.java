@@ -50,6 +50,10 @@ public class GameOverState implements Screen {
         exitButton.draw(game.batch);
         game.batch.end();
 
+
+    }
+
+    public void checkExitButton(){
         if (exitButton.isClicked() || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){ //exits
             Gdx.app.exit();
         }
