@@ -77,7 +77,9 @@ public class MenuState implements Screen {
             }
         } else {
             resumeButton.draw(game.batch);
-            saveButton.draw(game.batch);
+            if (!this.actualGame.demo) {
+                saveButton.draw(game.batch);
+            }
         }
         game.batch.end();
 
@@ -137,10 +139,6 @@ public class MenuState implements Screen {
         } else if(demoButton.isClicked() && this.actualGame == null) {
             this.actualGame = new ActualGame(game, 0, this, null, true, false);
             game.setScreen(actualGame);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit(); // so you dont have to ALT+F4 the program
         }
     }
 
