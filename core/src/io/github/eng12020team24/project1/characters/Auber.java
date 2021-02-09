@@ -190,9 +190,7 @@ public class Auber extends Character {
      * @return returns a boolean whether or not auber is on the healing pad.
      */
     public boolean isAuberOnHealer() {
-        if(map == null){
-            return true;
-        }
+
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {
             if (tile.getId() == 7) {
