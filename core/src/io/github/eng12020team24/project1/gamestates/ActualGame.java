@@ -259,10 +259,10 @@ public class ActualGame implements Screen {
 
         // Check if game is over
         if (stationSystems.size() <= 1) {
-            game.setScreen(new GameOverState(game, false));
+            game.setScreen(new GameOverState(game, false, this.test));
             this.end = "Lose";
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
-            game.setScreen(new GameOverState(game, true));
+            game.setScreen(new GameOverState(game, true, this.test));
             this.end = "Win";
         }
 
