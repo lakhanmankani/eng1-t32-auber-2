@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 
 public class AuberGame extends Game {
 	SpriteBatch batch;
+	public MenuState menuState;
 
 	/**
 	 * Creates game and drawing batch and then calls {@link MenuState}
@@ -12,12 +13,14 @@ public class AuberGame extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		this.setScreen(new MenuState(this));
+		this.menuState = new MenuState(this);
+		this.setScreen(this.menuState);
 	}
 
 	@Override
 	public void render() {
 		super.render();
+		this.menuState.CheckButtons();
 	}
 
 	@Override

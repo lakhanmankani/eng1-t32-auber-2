@@ -1,8 +1,8 @@
 package io.github.eng12020team24.project1.gamestates;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import io.github.eng12020team24.project1.saving.LoadSystem;
@@ -82,6 +82,9 @@ public class MenuState implements Screen {
         }
         game.batch.end();
 
+    }
+
+    public void CheckButtons(){
         if (exitButton.isClicked()) {
             // Exit
             Gdx.app.exit();
@@ -92,19 +95,19 @@ public class MenuState implements Screen {
             // Start easy game
             System.out.println("Easy");
             isShowingDifficulty = false;
-            this.actualGame = new ActualGame(game, 0, this, null, false);
+            this.actualGame = new ActualGame(game, 0, this, null, false, false);
             game.setScreen(actualGame);
         } else if (mediumButton.isClicked() && this.actualGame == null) {
             // Start medium game
             System.out.println("Medium");
             isShowingDifficulty = false;
-            this.actualGame = new ActualGame(game, 1, this, null, false);
+            this.actualGame = new ActualGame(game, 1, this, null, false, false);
             game.setScreen(actualGame);
         } else if (hardButton.isClicked() && this.actualGame == null) {
             // Start hard game
             System.out.println("Hard");
             isShowingDifficulty = false;
-            this.actualGame = new ActualGame(game, 2, this, null, false);
+            this.actualGame = new ActualGame(game, 2, this, null, false, false);
             game.setScreen(actualGame);
         }
         else if (resumeButton.isClicked() && this.actualGame != null){
@@ -127,19 +130,19 @@ public class MenuState implements Screen {
                     System.out.println("Invalid save file!");
                     return;
                 }
-                this.actualGame = new ActualGame(game, load.getDifficulty(), this, load, false);
+                this.actualGame = new ActualGame(game, load.getDifficulty(), this, load, false, false);
                 game.setScreen(actualGame);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if(demoButton.isClicked() && this.actualGame == null) {
-            this.actualGame = new ActualGame(game, 0, this, null, true);
+            this.actualGame = new ActualGame(game, 0, this, null, true, false);
             game.setScreen(actualGame);
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Gdx.app.exit(); // so you dont have to ALT+F4 the program
-		}
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit(); // so you dont have to ALT+F4 the program
+        }
     }
 
     @Override

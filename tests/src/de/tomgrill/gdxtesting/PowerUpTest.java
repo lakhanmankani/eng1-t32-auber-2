@@ -3,30 +3,25 @@ package de.tomgrill.gdxtesting;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import de.tomgrill.gdxtesting.GdxTestRunner;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.gamestates.ActualGame;
+import io.github.eng12020team24.project1.gamestates.AuberGame;
 import io.github.eng12020team24.project1.mapclasses.TileType;
 import io.github.eng12020team24.project1.powerup.PowerUp;
 import org.junit.Test;
-//import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+//import org.junit.jupiter.api.DisplayName;
 
 @RunWith(GdxTestRunner.class)
 public class PowerUpTest {
 
     TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/spritesheet/myspritesheet.atlas"));
-    //TiledGameMap gameMap = new TiledGameMap();
-    //TextureAtlas powerUpAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/powerUpsSpriteSheet/PowerUpsSprites.atlas"));
     Auber auber = new Auber(textureAtlas, 0, null);
-//    AuberGame game;
-//    MenuState menu;
-//    LoadSystem load;
-//    ActualGame testActualGame = new ActualGame(game, 0, menu, load);
 
     @Test
-    //@DisplayName("Auber should be able to pick up power ups")
     public void testValidPickUp() {
         PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
         assertEquals(powerUp.getxPos(), 4*TileType.TILE_SIZE);
@@ -57,8 +52,12 @@ public class PowerUpTest {
     }
 
     @Test
-    //@DisplayName("Auber should be able to use power ups")
     public void testUsePowerUp() {
+        AuberGame testGame = new AuberGame();
+        ActualGame actualGame = new ActualGame(testGame, 0, testGame.menuState, null, false, true);
+        PowerUp powerUp = new PowerUp("MultiBeam", 4, 4);
+        actualGame.currentPowerUps.add(powerUp);
+        assertEquals(actualGame.isCurrentlyUsingPowerUp("MultiBeam"), true);
     }
 
     @Test

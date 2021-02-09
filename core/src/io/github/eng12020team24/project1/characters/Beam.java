@@ -69,4 +69,20 @@ public class Beam {
         return yPos;
     }
 
+    /**
+     * Set X
+     * @param x
+     */
+    public final void setX(int x) {
+        this.xPos = x;
+    }
+
+    /**
+     * Set X
+     * @param x
+     */
+    public final void setY(int y) {
+        this.yPos = y;
+    }
+
 }

@@ -8,19 +8,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import io.github.eng12020team24.project1.saving.LoadSystem;
-import io.github.eng12020team24.project1.saving.SaveSystem;
-import io.github.eng12020team24.project1.characters.Beam;
-import io.github.eng12020team24.project1.mapclasses.TileType;
-import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
-import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.characters.Auber;
+import io.github.eng12020team24.project1.characters.Beam;
 import io.github.eng12020team24.project1.characters.Infiltrator;
 import io.github.eng12020team24.project1.characters.NeutralNPC;
 import io.github.eng12020team24.project1.characters.infiltrators.DisguiseInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.InvisibleInfiltrator;
 import io.github.eng12020team24.project1.characters.infiltrators.SpeedInfiltrator;
+import io.github.eng12020team24.project1.mapclasses.TileType;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.powerup.PowerUp;
+import io.github.eng12020team24.project1.saving.LoadSystem;
+import io.github.eng12020team24.project1.saving.SaveSystem;
 import io.github.eng12020team24.project1.system.StationSystem;
 import io.github.eng12020team24.project1.ui.EnemyBar;
 import io.github.eng12020team24.project1.ui.HealthBar;
@@ -32,7 +32,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ActualGame implements Screen {
-    final AuberGame game;
+    public final AuberGame game;
     private TextureAtlas textureAtlas;
     private float elapsedTime = 0f;
     OrthographicCamera camera;
@@ -46,28 +46,45 @@ public class ActualGame implements Screen {
     HealthBar healthbar;
     SystemBar systemBar;
     EnemyBar enemyBar;
-    ArrayList<StationSystem> stationSystems;
-    ArrayList<Infiltrator> infiltrators;
-    ArrayList<Infiltrator> infiltratorsToAdd;
-    ArrayList<Beam> beamgun;
+    public ArrayList<StationSystem> stationSystems;
+    public ArrayList<Infiltrator> infiltrators;
+    public ArrayList<Infiltrator> infiltratorsToAdd;
+    public ArrayList<Beam> beamgun;
     public int difficulty;
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
     public ArrayList<PowerUp> currentPowerUps;
     boolean demo;
+    boolean test;
+    public String end;
+    public ArrayList<Infiltrator> infiltratorsToRemove;
 
-    public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load, boolean demo) {
+    public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load, boolean demo, boolean test) {
         this.game = game;
-        game.batch = new SpriteBatch();
+        this.test = test;
+
+        if(test){
+            game.batch = null;
+        } else {
+            game.batch = new SpriteBatch();
+        }
+
         this.demo = demo;
 
         this.menu = menu;
-        textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
-        uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        powerUpAtlas = new TextureAtlas(Gdx.files.internal("powerUpsSpriteSheet/PowerUpsSprites.atlas"));
+        if(test){
+            textureAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/spritesheet/myspritesheet.atlas"));
+            uiAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet.atlas"));
+            powerUpAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/powerUpsSpriteSheet/PowerUpsSprites.atlas"));
+        } else {
+            textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet/myspritesheet.atlas"));
+            uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+            powerUpAtlas = new TextureAtlas(Gdx.files.internal("powerUpsSpriteSheet/PowerUpsSprites.atlas"));
+        }
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        gameMap = new TiledGameMap();
+        gameMap = new TiledGameMap(test);
         auber = new Auber(textureAtlas, difficulty, gameMap);
         minimap = new Minimap();
         minimap.minimapTextureOn = new TextureRegion(uiAtlas.findRegion("MINIMAP_ON"));
@@ -242,28 +259,39 @@ public class ActualGame implements Screen {
 
         // Check if game is over
         if (stationSystems.size() <= 1) {
-            game.setScreen(new GameOverState(game, false));
+            game.setScreen(new GameOverState(game, false, this.test));
+            this.end = "Lose";
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
-            game.setScreen(new GameOverState(game, true));
+            game.setScreen(new GameOverState(game, true, this.test));
+            this.end = "Win";
         }
 
-        game.batch.begin();
+        if(!this.test){
+            game.batch.begin();
+        }
 
         // Display teleport menu
         if (minimap.isAuberOnTeleporter(auber) && !demo) {
-            minimap.render(game.batch, auber.getXPos(), auber.getYPos());
+            if(!test) {
+                minimap.render(game.batch, auber.getXPos(), auber.getYPos());
+            }
             minimap.teleportTo(auber);
         }
 
-        // Display status bars
-        healthbar.render(game.batch, elapsedTime, auber);
-        systemBar.render(game.batch, stationSystems.size());
-        enemyBar.render(game.batch, infiltratorsToAdd.size() + infiltrators.size());
+        if(!test){
+            // Display status bars
+            healthbar.render(game.batch, elapsedTime, auber);
+            systemBar.render(game.batch, stationSystems.size());
+            enemyBar.render(game.batch, infiltratorsToAdd.size() + infiltrators.size());
+        }
 
         // Remove destroyed systems
         ArrayList<StationSystem> systemsToRemove = new ArrayList<StationSystem>();
         for (StationSystem sys : stationSystems) {
-            sys.render(game.batch, camera);
+            if(!test){
+                sys.render(game.batch, camera);
+            }
+
             if (sys.getHealth() <= 0) {
                 systemsToRemove.add(sys);
             }
@@ -276,7 +304,9 @@ public class ActualGame implements Screen {
         // Render power up tiles
         ArrayList<PowerUp> powerUpsToRemove = new ArrayList<>();
         for (PowerUp powerUp : unusedPowerUps) {
-            powerUp.render(game.batch, camera, powerUpAtlas);
+            if(!test){
+                powerUp.render(game.batch, camera, powerUpAtlas);
+            }
             if (powerUp.auberOnPowerUpTile(auber)) {
                 // Move power up from unused to current
                 powerUp.startUsing();
@@ -290,7 +320,9 @@ public class ActualGame implements Screen {
         }
         powerUpsToRemove = new ArrayList<>();
         for (PowerUp powerUp : currentPowerUps) {
-            powerUp.render(game.batch, camera, powerUpAtlas);
+            if(!test){
+                powerUp.render(game.batch, camera, powerUpAtlas);
+            }
             if (powerUp.finishedUsing()) {
                 System.out.println("Remove "+powerUp.name);
                 powerUpsToRemove.add(powerUp);
@@ -303,7 +335,9 @@ public class ActualGame implements Screen {
         // Move neutral NPCs
         for (NeutralNPC npc : neutralNpcs) {
             npc.move();
-            npc.render(game.batch, camera);
+            if(!test){
+                npc.render(game.batch, camera);
+            }
         }
 
         for (Infiltrator infiltrator : infiltrators) {
@@ -312,7 +346,9 @@ public class ActualGame implements Screen {
             }
             infiltrator.runAI(auber, stationSystems, 0);
 
-            infiltrator.render(game.batch, camera);
+            if(!test){
+                infiltrator.render(game.batch, camera);
+            }
         }
         if (infiltrators.size() < 2 && infiltratorsToAdd.size() > 0) {
             infiltrators.add(infiltratorsToAdd.get(0));
@@ -320,8 +356,9 @@ public class ActualGame implements Screen {
         }
 
         if(!demo) {
-            auber.render(game.batch);
-
+            if(!test){
+                auber.render(game.batch);
+            }
         }
 
         // Display beams
@@ -337,7 +374,9 @@ public class ActualGame implements Screen {
         ArrayList<Beam> beamsToRemove = new ArrayList<Beam>();
         ArrayList<Infiltrator> infiltratorsToRemove = new ArrayList<Infiltrator>();
         for (Beam beam : beamgun) {
-            beam.render(game.batch, camera);
+            if(!test){
+                beam.render(game.batch, camera);
+            }
             beam.move();
 
             if (gameMap.doesRectCollideWithMap(beam.getX() + 8, beam.getY() + 8, 16, 16)) {
@@ -352,6 +391,8 @@ public class ActualGame implements Screen {
             }
         }
 
+        this.infiltratorsToRemove = infiltratorsToRemove;
+
         for (Beam b : beamsToRemove) {
             beamgun.remove(b);
         }
@@ -360,7 +401,10 @@ public class ActualGame implements Screen {
             infiltrators.remove(i);
         }
 
-        game.batch.end();
+        if(!test){
+            game.batch.end();
+        }
+
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             game.setScreen(menu);
         }
@@ -410,7 +454,7 @@ public class ActualGame implements Screen {
      * @param name Name of power up
      * @return Whether the power up is being used. If 'All' is being used, it will return true for all other powerups.
      */
-    private boolean isCurrentlyUsingPowerUp(String name) {
+    public boolean isCurrentlyUsingPowerUp(String name) {
         for (PowerUp powerUp : currentPowerUps) {
             if (powerUp.name.equals(name) || powerUp.name.equals("All")) {
                 return true;
