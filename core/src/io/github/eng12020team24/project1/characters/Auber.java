@@ -1,17 +1,15 @@
 package io.github.eng12020team24.project1.characters;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.Input.Keys;
-import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
 import io.github.eng12020team24.project1.mapclasses.TileType;
-import io.github.eng12020team24.project1.powerup.PowerUp;
+import io.github.eng12020team24.project1.mapclasses.TiledGameMap;
+
+import java.util.ArrayList;
 
 public class Auber extends Character {
     /**
@@ -125,8 +123,8 @@ public class Auber extends Character {
     /**
      * Heal Auber with time delay. Used when Auber is standing on healing pad
      */
-    public void auberHeal() {
-        healTimer += Gdx.graphics.getDeltaTime();
+    public void auberHeal(float deltaTime) {
+        healTimer += deltaTime;
         if (health < 10){
             // Heal 1 heart every second (easy)
             float secondsPerHeal = 1f;
@@ -146,6 +144,10 @@ public class Auber extends Character {
         } else if (health > 10) {
             health = 10;
         }
+    }
+
+    public void auberHeal() {
+        auberHeal(Gdx.graphics.getDeltaTime());
     }
 
     /**
@@ -188,6 +190,7 @@ public class Auber extends Character {
      * @return returns a boolean whether or not auber is on the healing pad.
      */
     public boolean isAuberOnHealer() {
+
         TileType tile = map.getTileTypeByLocation(1, xPos, yPos);
         if (tile != null) {
             if (tile.getId() == 7) {

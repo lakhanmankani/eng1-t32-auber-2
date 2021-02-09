@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import io.github.eng12020team24.project1.characters.Auber;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.assertEquals;;
+import static org.junit.Assert.assertEquals;
 
 
 @RunWith(GdxTestRunner.class)

@@ -19,11 +19,23 @@ public class GameOverState implements Screen {
      * @param game the overall {@link AuberGame} that the game over is a part of
      * @param win true if the user has won. False otherwise
      */
-    public GameOverState(AuberGame game, boolean win) {
+    public GameOverState(AuberGame game, boolean win, boolean test) {
+
+        TextureAtlas uiAtlas;
+        TextureAtlas winAtlas;
+        TextureAtlas loseAtlas;
+
         this.game = game;
-        TextureAtlas uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        TextureAtlas winAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet2.atlas"));
-        TextureAtlas loseAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet3.atlas"));
+        if(!test){
+            uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
+            winAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet2.atlas"));
+            loseAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet3.atlas"));
+        } else {
+            uiAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet.atlas"));
+            winAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet2.atlas"));
+            loseAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet3.atlas"));
+        }
+
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
 
         this.win = win;
@@ -50,6 +62,10 @@ public class GameOverState implements Screen {
         exitButton.draw(game.batch);
         game.batch.end();
 
+
+    }
+
+    public void checkExitButton(){
         if (exitButton.isClicked() || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){ //exits
             Gdx.app.exit();
         }
