@@ -61,7 +61,7 @@ public class PowerUpTest {
     }
 
     @Test
-    public void voidTestPowerUpTimer() {
+    public void TestPowerUpTimer() {
         PowerUp powerUp = new PowerUp("MultiBeam", 4, 4, 30);
 
         // Test timer constructor
