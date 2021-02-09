@@ -13,14 +13,21 @@ public class TiledGameMap extends GameMap {
     /**A libgdx class to render orthogonal tile maps- 2D topdown tiled maps.**/
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
+    boolean test = false;
+
     /**
      * Initialisation method: uses Superclass's paramaters. See GameMap.
      * A tmx loader class method load is used to turn a tmx filetype into a tiledmap object.
      * Creates a camera renderer for the tiledmap provided in tiled libraries
      */
-    public TiledGameMap() {
-        tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+    public TiledGameMap(boolean test) {
+        this.test = test;
+        if(!this.test) {
+            tiledMap = new TmxMapLoader().load("maps/Space_Station.tmx");
+            tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        } else {
+            tiledMap = new TmxMapLoader().load("../core/assets/maps/Space_Station.tmx");
+        }
     }
 
     /**
@@ -29,9 +36,10 @@ public class TiledGameMap extends GameMap {
      */
     @Override
     public void render(OrthographicCamera camera) {
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
-
+        if(!this.test){
+            tiledMapRenderer.setView(camera);
+            tiledMapRenderer.render();
+        }
     }
 
     @Override
