@@ -1,16 +1,15 @@
 package io.github.eng12020team24.project1.characters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.github.eng12020team24.project1.pathfinding.Tile;
 import io.github.eng12020team24.project1.pathfinding.TileGraph;
 import io.github.eng12020team24.project1.system.StationSystem;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class Infiltrator extends NPCCharacter {
     protected boolean fleeingFromAuber = false;
@@ -86,12 +85,14 @@ public abstract class Infiltrator extends NPCCharacter {
     }
 
     public boolean doesRectCollideWithInfiltrator(int inputX, int inputY, int width, int height) {
+
         if (inputX >= (xPos + 30) || inputX + width <= xPos) {
             return false;
         }
         if (inputY >= (yPos + 30) || inputY + height <= yPos) {
             return false;
         }
+
         return true;
     }
 
