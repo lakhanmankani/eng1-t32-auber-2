@@ -1,22 +1,20 @@
 package de.tomgrill.gdxtesting;
 
+import io.github.eng12020team24.project1.gamestates.ActualGame;
+import io.github.eng12020team24.project1.gamestates.AuberGame;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GdxTestRunner.class)
 public class GameEndTest {
 
-//    AuberGame game;
-//    MenuState menu;
-//    LoadSystem load;
-
     @Test
     public void testCriticalSystemsDestroyedEnd() {
-//        ActualGame actualGame = new ActualGame(game, 0, menu, load, false);
-//        actualGame.render(0);
-//        game.getScreen();
+        AuberGame testGame = new AuberGame();
+        ActualGame actualGame = new ActualGame(testGame, 0, testGame.menuState, null, false, true);
+//        int numOfInfiltrators = actualGame.infiltratorsToAdd.size();
+//        assertEquals(numOfInfiltrators, 8);
 
-        // Test for GameOverState
     }
 
     @Test
