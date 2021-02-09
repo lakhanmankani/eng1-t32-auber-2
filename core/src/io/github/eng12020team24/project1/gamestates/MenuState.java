@@ -138,10 +138,6 @@ public class MenuState implements Screen {
             this.actualGame = new ActualGame(game, 0, this, null, true, false);
             game.setScreen(actualGame);
         }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit(); // so you dont have to ALT+F4 the program
-        }
     }
 
     @Override
