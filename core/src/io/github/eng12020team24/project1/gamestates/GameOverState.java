@@ -21,9 +21,9 @@ public class GameOverState implements Screen {
      */
     public GameOverState(AuberGame game, boolean win) {
         this.game = game;
-        TextureAtlas uiAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet.atlas"));
-        TextureAtlas winAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet2.atlas"));
-        TextureAtlas loseAtlas = new TextureAtlas(Gdx.files.internal("UISpritesheet/uispritesheet3.atlas"));
+        TextureAtlas uiAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet.atlas"));
+        TextureAtlas winAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet2.atlas"));
+        TextureAtlas loseAtlas = new TextureAtlas(Gdx.files.internal("../core/assets/UISpritesheet/uispritesheet3.atlas"));
         exitButton = new Button(Gdx.graphics.getWidth()/2 - 200, 0, uiAtlas.findRegion("EXIT_BUTTON"));
 
         this.win = win;
