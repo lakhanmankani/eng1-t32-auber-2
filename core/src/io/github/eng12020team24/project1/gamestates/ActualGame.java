@@ -46,16 +46,18 @@ public class ActualGame implements Screen {
     HealthBar healthbar;
     SystemBar systemBar;
     EnemyBar enemyBar;
-    ArrayList<StationSystem> stationSystems;
-    ArrayList<Infiltrator> infiltrators;
+    public ArrayList<StationSystem> stationSystems;
+    public ArrayList<Infiltrator> infiltrators;
     public ArrayList<Infiltrator> infiltratorsToAdd;
-    ArrayList<Beam> beamgun;
+    public ArrayList<Beam> beamgun;
     public int difficulty;
     TextureAtlas powerUpAtlas;
     ArrayList<PowerUp> unusedPowerUps;
     public ArrayList<PowerUp> currentPowerUps;
     boolean demo;
     boolean test;
+    public String end;
+    public ArrayList<Infiltrator> infiltratorsToRemove;
 
     public ActualGame(AuberGame game, int difficulty, MenuState menu, LoadSystem load, boolean demo, boolean test) {
         this.game = game;
@@ -258,8 +260,10 @@ public class ActualGame implements Screen {
         // Check if game is over
         if (stationSystems.size() <= 1) {
             game.setScreen(new GameOverState(game, false));
+            this.end = "Lose";
         } else if (infiltratorsToAdd.size() == 0 && infiltrators.size() == 0) {
             game.setScreen(new GameOverState(game, true));
+            this.end = "Win";
         }
 
         if(!this.test){
@@ -387,6 +391,8 @@ public class ActualGame implements Screen {
             }
         }
 
+        this.infiltratorsToRemove = infiltratorsToRemove;
+
         for (Beam b : beamsToRemove) {
             beamgun.remove(b);
         }
@@ -448,7 +454,7 @@ public class ActualGame implements Screen {
      * @param name Name of power up
      * @return Whether the power up is being used. If 'All' is being used, it will return true for all other powerups.
      */
-    private boolean isCurrentlyUsingPowerUp(String name) {
+    public boolean isCurrentlyUsingPowerUp(String name) {
         for (PowerUp powerUp : currentPowerUps) {
             if (powerUp.name.equals(name) || powerUp.name.equals("All")) {
                 return true;
