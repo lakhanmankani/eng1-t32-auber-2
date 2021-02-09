@@ -62,7 +62,7 @@ public class GameOverState implements Screen {
         exitButton.draw(game.batch);
         game.batch.end();
 
-
+        checkExitButton();
     }
 
     public void checkExitButton(){
