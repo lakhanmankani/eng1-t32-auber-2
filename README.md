@@ -1,8 +1,8 @@
 # ENG1 Team 32 Auber Assessment 2
 
-[Website](http://technologygarage.com/eng1team32assessment2.github.io/)
+[Website](https://ehigggins.github.io/eng1team32assessment2/)
 
-[Website Source](https://github.com/lakhanmankani/eng1team32assessment2.github.io)
+[Website Source](https://github.com/lakhanmankani/eng1team32assessment2)
 
 ## Team 32 Assessment 1
 [Source](https://github.com/lakhanmankani/eng1-t32-auber)
